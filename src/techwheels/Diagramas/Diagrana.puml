@@ -1,0 +1,73 @@
+@startuml
+
+class Usuario {
+  - int idUsuario;
+  - String nombre;
+  - String correo;
+  - String contraseña;
+  - String tipoUsuario;         // Cliente o Administrador
+  - String tipoDeDocumento;
+  - String numeroDeDocumento;
+
+  + void registrarse();
+  + boolean iniciarSesion();
+}
+
+class Articulo {
+  - int idArticulo;
+  - String nombre;
+  - String descripcion;
+  - double precio;
+  - int cantidadDisponible;
+  - String estado;  // Disponible, Agotado, Pendiente de Aprobación
+
+  + void publicarArticulo();
+  + void actualizarCantidad();
+  + void cambiarEstado();
+}
+
+class Pedido {
+  - int idPedido;
+  - Date fecha;
+  - double total;
+  - String estado;  // En Proceso, Enviado, Entregado, Cancelado
+
+  + void crearPedido();
+  + void actualizarEstado();
+}
+
+class Inventario {
+  - int idInventario;
+  - int cantidadTotal;
+
+  + void actualizarStock();
+  + boolean verificarDisponibilidad();
+}
+
+class Notificacion {
+  - int idNotificacion;
+  - String mensaje;
+  - Date fecha;
+
+  + void enviarNotificacion();
+}
+
+class Carrito {
+  - int idCarrito;
+  - List articulos;
+  - double total;
+
+  + void agregarArticulo();
+  + void eliminarArticulo();
+  + double calcularTotal();
+}
+
+' Relaciones
+Usuario "1" -- "*" Articulo : publica
+Usuario "1" -- "*" Pedido : realiza
+Articulo "*" -- "*" Pedido : se incluye en
+Articulo "1" -- "1" Inventario : pertenece a
+Usuario "1" -- "*" Notificacion : recibe
+Usuario "1" -- "1" Carrito : tiene
+
+@enduml
