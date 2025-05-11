@@ -2,7 +2,9 @@
 
 class Usuario {
   - int idUsuario;
-  - String nombre;
+  - String nombres;
+  - String apellidos;
+  - String telefono;
   - String correo;
   - String contraseña;
   - String tipoUsuario;         // Cliente o Administrador

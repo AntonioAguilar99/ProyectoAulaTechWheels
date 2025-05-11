@@ -8,13 +8,14 @@ package techwheels.Interfaces;
  *
  * @author anton
  */
-public class AgregarEliminarAlCarrito extends javax.swing.JFrame {
+public class CancelarCompra extends javax.swing.JFrame {
 
     /**
      * Creates new form AgregarEliminarAlCarrito
      */
-    public AgregarEliminarAlCarrito() {
+    public CancelarCompra() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -59,20 +60,21 @@ public class AgregarEliminarAlCarrito extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AgregarEliminarAlCarrito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancelarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AgregarEliminarAlCarrito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancelarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AgregarEliminarAlCarrito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancelarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AgregarEliminarAlCarrito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CancelarCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarEliminarAlCarrito().setVisible(true);
+                new CancelarCompra().setVisible(true);
             }
         });
     }

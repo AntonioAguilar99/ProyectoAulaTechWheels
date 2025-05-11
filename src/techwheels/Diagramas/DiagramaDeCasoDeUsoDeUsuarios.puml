@@ -1,0 +1,19 @@
+@startuml
+actor Cliente
+actor Administrador
+actor "Sistema de Pago" as Pago
+
+Cliente --> (Registrarse/Iniciar sesión)
+Cliente --> (Buscar repuestos)
+Cliente --> (Ver detalles del producto)
+Cliente --> (Agregar al carrito)
+Cliente --> (Comprar productos)
+Cliente --> (Ver historial de compras)
+
+Administrador --> (Gestionar usuarios)
+Administrador --> (Gestionar productos)
+Administrador --> (Ver reportes de ventas)
+
+(Comprar productos) --> Pago : <<include>> Procesar pago
+
+@enduml

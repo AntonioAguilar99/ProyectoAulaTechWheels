@@ -1,0 +1,6 @@
+@startuml
+@startuml
+:Administrador: as Admin
+:Cliente: as Clien
+@enduml
+@enduml

@@ -8,13 +8,14 @@ package techwheels.Interfaces;
  *
  * @author anton
  */
-public class VerArticulosDisponibles extends javax.swing.JFrame {
+public class HistorialCompra extends javax.swing.JFrame {
 
     /**
-     * Creates new form VerArticulos
+     * Creates new form VenderProducto
      */
-    public VerArticulosDisponibles() {
+    public HistorialCompra() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -59,13 +60,13 @@ public class VerArticulosDisponibles extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerArticulosDisponibles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerArticulosDisponibles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerArticulosDisponibles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerArticulosDisponibles.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HistorialCompra.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -73,7 +74,7 @@ public class VerArticulosDisponibles extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerArticulosDisponibles().setVisible(true);
+                new HistorialCompra().setVisible(true);
             }
         });
     }
