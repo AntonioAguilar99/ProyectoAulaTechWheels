@@ -72,4 +72,10 @@ Articulo "1" -- "1" Inventario : pertenece a
 Usuario "1" -- "*" Notificacion : recibe
 Usuario "1" -- "1" Carrito : tiene
 
+class RolUsuarioEnum{
+Administrador
+Cliente
+ 
+}
+
 @enduml

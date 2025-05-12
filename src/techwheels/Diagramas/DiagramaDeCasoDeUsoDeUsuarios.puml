@@ -16,4 +16,7 @@ Administrador --> (Ver reportes de ventas)
 
 (Comprar productos) --> Pago : <<include>> Procesar pago
 
+
+
 @enduml
+

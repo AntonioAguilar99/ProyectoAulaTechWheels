@@ -4,6 +4,8 @@
  */
 package techwheels;
 
+import techwheels.Infraestructura.Config.Bd.ConexionBd;
+
 /**
  *
  * @author anton
@@ -15,6 +17,11 @@ public class TechWheels {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+     System.out.println("Inicio de prueba");
+        
+        ConexionBd.conectar();
+            ConexionBd.desconectar();
+        }
     }
     
-}
+
