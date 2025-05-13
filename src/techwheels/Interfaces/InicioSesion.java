@@ -4,6 +4,8 @@
  */
 package techwheels.Interfaces;
 
+import java.awt.Color;
+
 /**
  *
  * @author anton
@@ -27,21 +29,155 @@ public class InicioSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Background = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jTextField2 = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        LlavesmecanicoImg = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        EntrarBtn = new javax.swing.JPanel();
+        EntrarBtnTxt = new javax.swing.JLabel();
+        RegistroBtn = new javax.swing.JPanel();
+        RegistroBtnTxt = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(800, 500));
+        setSize(new java.awt.Dimension(800, 500));
+
+        Background.setBackground(new java.awt.Color(255, 255, 255));
+        Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("BIENVENIDO USUARIO");
+        Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, -1, -1));
+
+        jTextField1.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1.setBorder(null);
+        Background.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 260, 25));
+        Background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 270, 15));
+
+        jTextField2.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField2.setBorder(null);
+        Background.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 260, 25));
+        Background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 270, 15));
+
+        jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("CONTRASEÑA");
+        Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("NOMBRE DE USUARIO");
+        Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+
+        LlavesmecanicoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
+        LlavesmecanicoImg.setText(" ");
+        Background.add(LlavesmecanicoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cooltext482257288908357.png"))); // NOI18N
+        jLabel4.setText("  ");
+        Background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, -1, -1));
+
+        EntrarBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        EntrarBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        EntrarBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        EntrarBtnTxt.setText("        ENTRAR");
+        EntrarBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                EntrarBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                EntrarBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout EntrarBtnLayout = new javax.swing.GroupLayout(EntrarBtn);
+        EntrarBtn.setLayout(EntrarBtnLayout);
+        EntrarBtnLayout.setHorizontalGroup(
+            EntrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(EntrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        EntrarBtnLayout.setVerticalGroup(
+            EntrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(EntrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        Background.add(EntrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, 40));
+
+        RegistroBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        RegistroBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        RegistroBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        RegistroBtnTxt.setText("     REGISTRO");
+        RegistroBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistroBtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RegistroBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                RegistroBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout RegistroBtnLayout = new javax.swing.GroupLayout(RegistroBtn);
+        RegistroBtn.setLayout(RegistroBtnLayout);
+        RegistroBtnLayout.setHorizontalGroup(
+            RegistroBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RegistroBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        RegistroBtnLayout.setVerticalGroup(
+            RegistroBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RegistroBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        Background.add(RegistroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, -1, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void EntrarBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarBtnTxtMouseEntered
+        EntrarBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_EntrarBtnTxtMouseEntered
+
+    private void EntrarBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarBtnTxtMouseExited
+        EntrarBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_EntrarBtnTxtMouseExited
+
+    private void RegistroBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroBtnTxtMouseEntered
+        RegistroBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_RegistroBtnTxtMouseEntered
+
+    private void RegistroBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroBtnTxtMouseExited
+        RegistroBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_RegistroBtnTxtMouseExited
+
+    private void RegistroBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroBtnTxtMouseClicked
+        new Registro(). setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_RegistroBtnTxtMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +215,19 @@ public class InicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Background;
+    private javax.swing.JPanel EntrarBtn;
+    private javax.swing.JLabel EntrarBtnTxt;
+    private javax.swing.JLabel LlavesmecanicoImg;
+    private javax.swing.JPanel RegistroBtn;
+    private javax.swing.JLabel RegistroBtnTxt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

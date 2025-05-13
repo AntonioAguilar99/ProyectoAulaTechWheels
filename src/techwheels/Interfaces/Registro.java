@@ -4,6 +4,8 @@
  */
 package techwheels.Interfaces;
 
+import java.awt.Color;
+
 /**
  *
  * @author anton
@@ -27,21 +29,207 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Background = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        NombreTxt = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        ApellidoTxt = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
+        CorreoTxt = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        ComboDocumento = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        NumeroDocumentoTxt = new javax.swing.JTextField();
+        jSeparator4 = new javax.swing.JSeparator();
+        ContraseñaTxt = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        VolverBtn = new javax.swing.JPanel();
+        VolverBtnTxt = new javax.swing.JLabel();
+        RegistrarBtn = new javax.swing.JPanel();
+        RegistrarBtnTxt = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(800, 500));
+        setSize(new java.awt.Dimension(800, 500));
+
+        Background.setBackground(new java.awt.Color(255, 255, 255));
+        Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/agregar-usuario.png"))); // NOI18N
+        Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 30, 50));
+
+        jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("REGISTRO");
+        Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Nombre");
+        Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+
+        NombreTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        NombreTxt.setForeground(new java.awt.Color(0, 0, 0));
+        NombreTxt.setBorder(null);
+        Background.add(NombreTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 200, 20));
+        Background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 220, 15));
+
+        jLabel4.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Apellidos");
+        Background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+
+        ApellidoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        ApellidoTxt.setForeground(new java.awt.Color(0, 0, 0));
+        ApellidoTxt.setBorder(null);
+        Background.add(ApellidoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 200, 20));
+        Background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 220, 15));
+
+        jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Correo Electronico");
+        Background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+
+        CorreoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        CorreoTxt.setForeground(new java.awt.Color(0, 0, 0));
+        CorreoTxt.setBorder(null);
+        Background.add(CorreoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 200, 20));
+        Background.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 220, 15));
+
+        jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel6.setText("Tipo de Documento");
+        Background.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, -1, -1));
+
+        ComboDocumento.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        ComboDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Tarjeta de identidad", "Cedula de Ciudadania", " " }));
+        ComboDocumento.setBorder(null);
+        Background.add(ComboDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 170, 20));
+
+        jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setText("Numero de Documento");
+        Background.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, -1, -1));
+
+        NumeroDocumentoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        NumeroDocumentoTxt.setForeground(new java.awt.Color(0, 0, 0));
+        NumeroDocumentoTxt.setBorder(null);
+        Background.add(NumeroDocumentoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 200, 20));
+        Background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 220, 15));
+
+        ContraseñaTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        ContraseñaTxt.setForeground(new java.awt.Color(0, 0, 0));
+        ContraseñaTxt.setBorder(null);
+        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 200, 20));
+
+        jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Contraseña");
+        Background.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, -1, -1));
+        Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 220, 15));
+
+        VolverBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        VolverBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        VolverBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        VolverBtnTxt.setText("     VOLVER");
+        VolverBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VolverBtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                VolverBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                VolverBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout VolverBtnLayout = new javax.swing.GroupLayout(VolverBtn);
+        VolverBtn.setLayout(VolverBtnLayout);
+        VolverBtnLayout.setHorizontalGroup(
+            VolverBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VolverBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(VolverBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        VolverBtnLayout.setVerticalGroup(
+            VolverBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VolverBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(VolverBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        Background.add(VolverBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 100, 50));
+
+        RegistrarBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        RegistrarBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        RegistrarBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        RegistrarBtnTxt.setText("  REGISTRAR");
+        RegistrarBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RegistrarBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                RegistrarBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout RegistrarBtnLayout = new javax.swing.GroupLayout(RegistrarBtn);
+        RegistrarBtn.setLayout(RegistrarBtnLayout);
+        RegistrarBtnLayout.setHorizontalGroup(
+            RegistrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RegistrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        RegistrarBtnLayout.setVerticalGroup(
+            RegistrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RegistrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        Background.add(RegistrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, -1, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void VolverBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverBtnTxtMouseEntered
+      VolverBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_VolverBtnTxtMouseEntered
+
+    private void VolverBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverBtnTxtMouseExited
+      VolverBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_VolverBtnTxtMouseExited
+
+    private void VolverBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VolverBtnTxtMouseClicked
+      new InicioSesion().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_VolverBtnTxtMouseClicked
+
+    private void RegistrarBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarBtnTxtMouseEntered
+        RegistrarBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_RegistrarBtnTxtMouseEntered
+
+    private void RegistrarBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarBtnTxtMouseExited
+       RegistrarBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_RegistrarBtnTxtMouseExited
 
     /**
      * @param args the command line arguments
@@ -79,5 +267,29 @@ public class Registro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ApellidoTxt;
+    private javax.swing.JPanel Background;
+    private javax.swing.JComboBox<String> ComboDocumento;
+    private javax.swing.JTextField ContraseñaTxt;
+    private javax.swing.JTextField CorreoTxt;
+    private javax.swing.JTextField NombreTxt;
+    private javax.swing.JTextField NumeroDocumentoTxt;
+    private javax.swing.JPanel RegistrarBtn;
+    private javax.swing.JLabel RegistrarBtnTxt;
+    private javax.swing.JPanel VolverBtn;
+    private javax.swing.JLabel VolverBtnTxt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     // End of variables declaration//GEN-END:variables
 }
