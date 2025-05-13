@@ -4,14 +4,20 @@ actor Administrador
 actor "Sistema de Pago" as Pago
 
 Cliente --> (Registrarse/Iniciar sesión)
-Cliente --> (Buscar repuestos)
+Cliente --> (Ver productos)
 Cliente --> (Ver detalles del producto)
-Cliente --> (Agregar al carrito)
-Cliente --> (Comprar productos)
+Cliente --> (Realizar Compra)
+Cliente --> (Cancelar Compra)
 Cliente --> (Ver historial de compras)
 
 Administrador --> (Gestionar usuarios)
 Administrador --> (Gestionar productos)
+Administrador --> (Realizar compra)
+Administrador --> (Ver detalles del producto)
+Administrador --> (Realizar compra)
+Administrador --> (Cancelar compra)
+Administrador --> (Modificar Compra)
+Administrador --> (Ver Historial de compra de los clientes)
 Administrador --> (Ver reportes de ventas)
 
 (Comprar productos) --> Pago : <<include>> Procesar pago
