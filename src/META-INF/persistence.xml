@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>techwheels.Clases.Usuario</class>
     <class>techwheels.Clases.GestionProductos</class>
+    <class>techwheels.Clases.Compra</class>
+    <class>techwheels.Clases.DetalleCompra</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/techwheelsdb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
