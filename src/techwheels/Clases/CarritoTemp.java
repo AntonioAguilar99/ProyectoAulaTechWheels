@@ -1,56 +1,37 @@
 
 
 package techwheels.Clases;
-
 import java.io.Serializable;
 import javax.persistence.*;
-
 /**
  *
  * @author Antonio Aguilar
  */
+
 @Entity
-@Table(name = "compra")
-public class Compra implements Serializable{
+@Table(name = "carrito_temp")
+public class CarritoTemp implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Datos del cliente
-    @Column(name = "nombre_cliente")
     private String nombreCliente;
-
-    @Column(name = "tipo_documento")
     private String tipoDocumento;
-
-    @Column(name = "numero_documento")
     private String numeroDocumento;
-
-    @Column(name = "metodo_pago")
     private String metodoPago;
 
-    // Información del producto comprado
-    @Column(name = "nombre_producto")
     private String nombreProducto;
-
-    @Column(name = "descripcion_producto")
     private String descripcionProducto;
-
-    @Column(name = "precio_producto")
     private double precioProducto;
-
-    @Column(name = "cantidad")
     private int cantidad;
 
-    // Constructor vacío
-    public Compra() {
+    public CarritoTemp() {
+        
     }
 
-    // Constructor con parámetros
-    public Compra(String nombreCliente, String tipoDocumento, String numeroDocumento,
-                  String metodoPago, String nombreProducto, String descripcionProducto,
-                  double precioProducto, int cantidad) {
+    public CarritoTemp(String nombreCliente, String tipoDocumento, String numeroDocumento, String metodoPago,
+                       String nombreProducto, String descripcionProducto, double precioProducto, int cantidad) {
         this.nombreCliente = nombreCliente;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
@@ -61,9 +42,12 @@ public class Compra implements Serializable{
         this.cantidad = cantidad;
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombreCliente() {
@@ -129,4 +113,7 @@ public class Compra implements Serializable{
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+  
 }
+
