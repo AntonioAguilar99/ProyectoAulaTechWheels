@@ -5,6 +5,13 @@
 package techwheels.Interfaces;
 
 import java.awt.Color;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
+import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
+import techwheels.Clases.Usuario;
 
 /**
  *
@@ -31,9 +38,8 @@ public class InicioSesion extends javax.swing.JFrame {
 
         Background = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        CorreoElecTxt = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField2 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -43,10 +49,10 @@ public class InicioSesion extends javax.swing.JFrame {
         EntrarBtnTxt = new javax.swing.JLabel();
         RegistroBtn = new javax.swing.JPanel();
         RegistroBtnTxt = new javax.swing.JLabel();
+        ContraseñaTxt = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setSize(new java.awt.Dimension(800, 500));
 
         Background.setBackground(new java.awt.Color(255, 255, 255));
@@ -57,16 +63,11 @@ public class InicioSesion extends javax.swing.JFrame {
         jLabel1.setText("BIENVENIDO USUARIO");
         Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setBorder(null);
-        Background.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 260, 25));
+        CorreoElecTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        CorreoElecTxt.setForeground(new java.awt.Color(0, 0, 0));
+        CorreoElecTxt.setBorder(null);
+        Background.add(CorreoElecTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 260, 25));
         Background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 270, 15));
-
-        jTextField2.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField2.setBorder(null);
-        Background.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 260, 25));
         Background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 270, 15));
 
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
@@ -76,7 +77,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("NOMBRE DE USUARIO");
+        jLabel3.setText("CORREO ELECTRONICO");
         Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         LlavesmecanicoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
@@ -93,6 +94,9 @@ public class InicioSesion extends javax.swing.JFrame {
         EntrarBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         EntrarBtnTxt.setText("        ENTRAR");
         EntrarBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EntrarBtnTxtMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 EntrarBtnTxtMouseEntered(evt);
             }
@@ -144,6 +148,15 @@ public class InicioSesion extends javax.swing.JFrame {
 
         Background.add(RegistroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, -1, 40));
 
+        ContraseñaTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        ContraseñaTxt.setBorder(null);
+        ContraseñaTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContraseñaTxtActionPerformed(evt);
+            }
+        });
+        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 260, 25));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,6 +191,59 @@ public class InicioSesion extends javax.swing.JFrame {
         new Registro(). setVisible(true);
         this.dispose();
     }//GEN-LAST:event_RegistroBtnTxtMouseClicked
+
+    private void EntrarBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarBtnTxtMouseClicked
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
+        EntityManager em = emf.createEntityManager();
+    try {
+        String correo = CorreoElecTxt.getText().trim();
+        String contrasena = new String(ContraseñaTxt.getPassword()).trim();
+        
+        // Validar campos vacíos
+        if (correo.isEmpty() || contrasena.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos obligatorios.");
+            return;
+        }
+
+        // Buscar usuario por correo y contraseña
+        TypedQuery<Usuario> query = em.createQuery(
+    "SELECT u FROM Usuarios u WHERE u.correo = :correo AND u.contraseña = :contrasena",
+    Usuario.class
+);
+        query.setParameter("correo", correo);
+        query.setParameter("contrasena", contrasena);
+        
+        Usuario usuario = null;
+        try {
+            usuario = query.getSingleResult();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
+            return;
+        }
+
+        // Redirigir según el rol
+        if (usuario.getRol() == RolUsuarioEnum.CLIENTE) {
+            new Cliente().setVisible(true);
+            this.dispose(); // Cierra el JFrame actual
+        } else if (usuario.getRol() == RolUsuarioEnum.ADMINISTRADOR) {
+            new Administrador().setVisible(true);
+            this.dispose(); // Cierra el JFrame actual
+        }
+        
+        JOptionPane.showMessageDialog(this, "Bienvenido, " + usuario.getNombres() + "!");
+        
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al iniciar sesión: " + ex.getMessage());
+    } finally {
+        em.close();
+        emf.close();
+      }  
+    }//GEN-LAST:event_EntrarBtnTxtMouseClicked
+
+    private void ContraseñaTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContraseñaTxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,6 +282,8 @@ public class InicioSesion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
+    private javax.swing.JPasswordField ContraseñaTxt;
+    private javax.swing.JTextField CorreoElecTxt;
     private javax.swing.JPanel EntrarBtn;
     private javax.swing.JLabel EntrarBtnTxt;
     private javax.swing.JLabel LlavesmecanicoImg;
@@ -227,7 +295,5 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

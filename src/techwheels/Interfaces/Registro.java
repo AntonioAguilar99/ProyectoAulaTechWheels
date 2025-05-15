@@ -5,6 +5,14 @@
 package techwheels.Interfaces;
 
 import java.awt.Color;
+import java.util.UUID;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.swing.JOptionPane;
+import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
+import techwheels.Clases.Usuario;
 
 /**
  *
@@ -53,10 +61,14 @@ public class Registro extends javax.swing.JFrame {
         VolverBtnTxt = new javax.swing.JLabel();
         RegistrarBtn = new javax.swing.JPanel();
         RegistrarBtnTxt = new javax.swing.JLabel();
+        ComboRol = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        TelefonoTxt = new javax.swing.JTextField();
+        jSeparator6 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setSize(new java.awt.Dimension(800, 500));
 
         Background.setBackground(new java.awt.Color(255, 255, 255));
@@ -106,34 +118,35 @@ public class Registro extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Tipo de Documento");
-        Background.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, -1, -1));
+        Background.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
 
         ComboDocumento.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        ComboDocumento.setForeground(new java.awt.Color(0, 0, 0));
         ComboDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Tarjeta de identidad", "Cedula de Ciudadania", " " }));
         ComboDocumento.setBorder(null);
-        Background.add(ComboDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, 170, 20));
+        Background.add(ComboDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 170, 20));
 
         jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Numero de Documento");
-        Background.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, -1, -1));
+        Background.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
 
         NumeroDocumentoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         NumeroDocumentoTxt.setForeground(new java.awt.Color(0, 0, 0));
         NumeroDocumentoTxt.setBorder(null);
-        Background.add(NumeroDocumentoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 200, 20));
-        Background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 220, 15));
+        Background.add(NumeroDocumentoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 200, 20));
+        Background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 220, 15));
 
         ContraseñaTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         ContraseñaTxt.setForeground(new java.awt.Color(0, 0, 0));
         ContraseñaTxt.setBorder(null);
-        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 280, 200, 20));
+        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 200, 20));
 
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Contraseña");
-        Background.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, -1, -1));
-        Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 300, 220, 15));
+        Background.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, -1));
+        Background.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 220, 15));
 
         VolverBtn.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -175,6 +188,9 @@ public class Registro extends javax.swing.JFrame {
         RegistrarBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         RegistrarBtnTxt.setText("  REGISTRAR");
         RegistrarBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrarBtnTxtMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 RegistrarBtnTxtMouseEntered(evt);
             }
@@ -196,11 +212,33 @@ public class Registro extends javax.swing.JFrame {
 
         Background.add(RegistrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, -1, 50));
 
+        ComboRol.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        ComboRol.setForeground(new java.awt.Color(0, 0, 0));
+        ComboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cliente", "Administrador" }));
+        ComboRol.setBorder(null);
+        Background.add(ComboRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 140, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Rol");
+        Background.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Telefono");
+        Background.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, -1, -1));
+
+        TelefonoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        TelefonoTxt.setForeground(new java.awt.Color(0, 0, 0));
+        TelefonoTxt.setBorder(null);
+        Background.add(TelefonoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 200, 20));
+        Background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, 220, 15));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,6 +268,108 @@ public class Registro extends javax.swing.JFrame {
     private void RegistrarBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarBtnTxtMouseExited
        RegistrarBtn.setBackground(new Color(0, 0, 0));
     }//GEN-LAST:event_RegistrarBtnTxtMouseExited
+
+    private void RegistrarBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarBtnTxtMouseClicked
+      EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
+   EntityManager em = emf.createEntityManager();
+   
+   try {
+    // Validaciones de campos obligatorios
+    if (NombreTxt.getText().trim().isEmpty() ||
+        ApellidoTxt.getText().trim().isEmpty() ||
+        ComboRol.getSelectedItem() == null ||
+        NumeroDocumentoTxt.getText().trim().isEmpty() ||
+        CorreoTxt.getText().trim().isEmpty() ||
+        ContraseñaTxt.getText().trim().isEmpty() ||
+        ComboRol.getSelectedItem() == null) {
+
+        JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
+        return;
+    }
+
+    // Validaciones 
+    if (!NombreTxt.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+    JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+    return;
+    }
+    if (!ApellidoTxt.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+    JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
+    return;
+    }
+    if (!NumeroDocumentoTxt.getText().matches("\\d+")) {
+    JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
+    return;
+    }
+    if (CorreoTxt.getText().trim().length() > 100) {
+        JOptionPane.showMessageDialog(null, "El correo no puede superar los 100 caracteres.");
+        return;
+    }
+    if (TelefonoTxt.getText().trim().length() > 15) {
+        JOptionPane.showMessageDialog(null, "El teléfono no puede superar los 15 caracteres.");
+        return;
+    }
+    if (ContraseñaTxt.getText().trim().length() > 70) {
+        JOptionPane.showMessageDialog(null, "La contraseña no puede superar los 70 caracteres.");
+        return;
+    }
+
+    // Validar formato de correo
+    if (!CorreoTxt.getText().trim().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+        JOptionPane.showMessageDialog(null, "El correo no tiene un formato válido.");
+        return;
+    }
+
+    // Validar unicidad de correo y documento
+    TypedQuery<Long> query = em.createQuery(
+        "SELECT COUNT(u) FROM Usuarios u WHERE u.correo = :correo OR u.numeroDocumento = :numeroDocumento", Long.class);
+    query.setParameter("correo", CorreoTxt.getText().trim());
+    query.setParameter("numeroDocumento", NumeroDocumentoTxt.getText().trim());
+
+    Long count = query.getSingleResult();
+    if (count > 0) {
+        JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese correo o número de documento.");
+        return;
+    }
+
+    // Crear nuevo usuario
+    Usuario usuario = new Usuario();
+    usuario.setCodigo(UUID.randomUUID().toString());
+    usuario.setNombres(NombreTxt.getText().trim());
+    usuario.setApellidos(ApellidoTxt.getText().trim());
+    usuario.setTipoDocumento(ComboDocumento.getSelectedItem().toString());
+    usuario.setNumeroDocumento(NumeroDocumentoTxt.getText().trim());
+    usuario.setCorreo(CorreoTxt.getText().trim());
+    usuario.setTelefono(TelefonoTxt.getText().trim());
+    usuario.setContraseña(ContraseñaTxt.getText().trim());
+
+    // Convertir string a enum
+    String rolSeleccionado = ComboRol.getSelectedItem().toString().toUpperCase();
+    try {
+        usuario.setRol(RolUsuarioEnum.valueOf(rolSeleccionado));  // Convierte el valor del JComboBox a enum
+    } catch (IllegalArgumentException ex) {
+        JOptionPane.showMessageDialog(null, "Rol inválido: " + rolSeleccionado);
+        return;
+    }
+
+    // Guardar en la base de datos
+    em.getTransaction().begin();
+    em.persist(usuario);
+    em.getTransaction().commit();
+
+    JOptionPane.showMessageDialog(null, "Registro exitoso");
+    limpiarCampos(); // Limpiar los campos si existe este método
+
+}   catch (Exception e) {
+    if (em.getTransaction().isActive()) {
+        em.getTransaction().rollback();
+    }
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(null, "Error al registrar: " + e.getMessage());
+}   finally {
+    em.close();
+    emf.close();
+}
+    }//GEN-LAST:event_RegistrarBtnTxtMouseClicked
 
     /**
      * @param args the command line arguments
@@ -270,15 +410,18 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField ApellidoTxt;
     private javax.swing.JPanel Background;
     private javax.swing.JComboBox<String> ComboDocumento;
+    private javax.swing.JComboBox<String> ComboRol;
     private javax.swing.JTextField ContraseñaTxt;
     private javax.swing.JTextField CorreoTxt;
     private javax.swing.JTextField NombreTxt;
     private javax.swing.JTextField NumeroDocumentoTxt;
     private javax.swing.JPanel RegistrarBtn;
     private javax.swing.JLabel RegistrarBtnTxt;
+    private javax.swing.JTextField TelefonoTxt;
     private javax.swing.JPanel VolverBtn;
     private javax.swing.JLabel VolverBtnTxt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -286,10 +429,16 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

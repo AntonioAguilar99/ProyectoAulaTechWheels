@@ -23,7 +23,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="Administrador" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="Administrador" pref="1328" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -86,7 +90,7 @@
                               <Component id="jLabel20" min="-2" pref="384" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="154" max="32767" attributes="0"/>
+                      <EmptySpace pref="142" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -175,6 +179,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salir&#xa;"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton3MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton11">
               <Properties>
@@ -270,24 +277,15 @@
                               </Group>
                               <EmptySpace min="-2" pref="274" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtNumeroDocumento" min="-2" pref="207" max="-2" attributes="0"/>
-                                          <Component id="jSeparator3" min="-2" pref="207" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="124" pref="643" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel6" min="-2" pref="132" max="-2" attributes="0"/>
-                                          <Component id="txtApellidos" min="-2" pref="221" max="-2" attributes="0"/>
-                                          <Component id="jLabel3" min="-2" pref="221" max="-2" attributes="0"/>
-                                          <Component id="jSeparator2" alignment="0" min="-2" pref="221" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" min="-2" pref="132" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtNumeroDocumento" min="-2" pref="207" max="-2" attributes="0"/>
+                                  <Component id="jSeparator3" min="-2" pref="207" max="-2" attributes="0"/>
+                                  <Component id="jLabel6" min="-2" pref="132" max="-2" attributes="0"/>
+                                  <Component id="txtApellidos" min="-2" pref="221" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" pref="221" max="-2" attributes="0"/>
+                                  <Component id="jSeparator2" alignment="0" min="-2" pref="221" max="-2" attributes="0"/>
+                                  <Component id="jLabel9" min="-2" pref="132" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -442,6 +440,9 @@
                   <Border info="null"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JSeparator" name="jSeparator4">
             </Component>
@@ -530,7 +531,7 @@
                           <Component id="jButton18" alignment="0" max="32767" attributes="0"/>
                           <Component id="jButton15" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="106" max="32767" attributes="0"/>
+                      <EmptySpace pref="95" max="32767" attributes="0"/>
                       <Component id="jScrollPane5" min="-2" pref="818" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                   </Group>
@@ -703,7 +704,7 @@
                           <Component id="jTextField6" min="-2" pref="162" max="-2" attributes="0"/>
                           <Component id="jLabel11" min="-2" pref="153" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="126" max="32767" attributes="0"/>
+                      <EmptySpace pref="114" max="32767" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="843" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                   </Group>
@@ -890,7 +891,7 @@
                               <Component id="jScrollPane6" min="-2" pref="812" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="125" max="32767" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1059,7 +1060,7 @@
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="64" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="52" max="32767" attributes="0"/>
                               <Component id="jButton6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
