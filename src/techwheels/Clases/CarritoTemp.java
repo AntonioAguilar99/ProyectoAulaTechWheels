@@ -1,12 +1,8 @@
-
-
 package techwheels.Clases;
+
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.*;
-/**
- *
- * @author Antonio Aguilar
- */
 
 @Entity
 @Table(name = "carrito_temp")
@@ -26,8 +22,11 @@ public class CarritoTemp implements Serializable {
     private double precioProducto;
     private int cantidad;
 
+    private LocalDate fecha;     // Nueva propiedad
+    private double subtotal;     // Nueva propiedad
+    private double total;        // Nueva propiedad
+
     public CarritoTemp() {
-        
     }
 
     public CarritoTemp(String nombreCliente, String tipoDocumento, String numeroDocumento, String metodoPago,
@@ -40,7 +39,12 @@ public class CarritoTemp implements Serializable {
         this.descripcionProducto = descripcionProducto;
         this.precioProducto = precioProducto;
         this.cantidad = cantidad;
+        this.fecha = LocalDate.now();
+        this.subtotal = precioProducto * cantidad;
+        this.total = this.subtotal; // Puedes modificar esto si aplicas impuestos o descuentos
     }
+
+    // Getters y Setters
 
     public Long getId() {
         return id;
@@ -104,6 +108,7 @@ public class CarritoTemp implements Serializable {
 
     public void setPrecioProducto(double precioProducto) {
         this.precioProducto = precioProducto;
+        recalcularTotales();
     }
 
     public int getCantidad() {
@@ -112,8 +117,37 @@ public class CarritoTemp implements Serializable {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+        recalcularTotales();
     }
 
-  
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    private void recalcularTotales() {
+        this.subtotal = this.precioProducto * this.cantidad;
+        this.total = this.subtotal;
+    }
 }
+
 

@@ -11,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import techwheels.Clases.GestionProductos;
-import techwheels.Clases.ItemCarrito;
 import techwheels.Infraestructura.Config.Bd.ConexionBd;
 
 /**

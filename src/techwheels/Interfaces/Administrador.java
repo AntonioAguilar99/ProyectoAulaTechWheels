@@ -5,6 +5,7 @@
 package techwheels.Interfaces;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -100,11 +101,10 @@ public class Administrador extends javax.swing.JFrame {
         jSeparator14 = new javax.swing.JSeparator();
         jLabel32 = new javax.swing.JLabel();
         comboMetodo = new javax.swing.JComboBox<>();
+        jLabel33 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         CancelarCompra = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jSeparator7 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
@@ -114,12 +114,10 @@ public class Administrador extends javax.swing.JFrame {
         HistorialCompras = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jSeparator12 = new javax.swing.JSeparator();
         jButton16 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        jButton10 = new javax.swing.JButton();
         GestionProductos = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -495,6 +493,8 @@ public class Administrador extends javax.swing.JFrame {
 
         comboMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Tarjeta de Credito", "Efectivo", " " }));
 
+        jLabel33.setText("Fecha");
+
         javax.swing.GroupLayout RealizarCompraLayout = new javax.swing.GroupLayout(RealizarCompra);
         RealizarCompra.setLayout(RealizarCompraLayout);
         RealizarCompraLayout.setHorizontalGroup(
@@ -507,17 +507,14 @@ public class Administrador extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(RealizarCompraLayout.createSequentialGroup()
                 .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RealizarCompraLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(249, 249, 249))
                     .addGroup(RealizarCompraLayout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(RealizarCompraLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(RealizarCompraLayout.createSequentialGroup()
-                                .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
-                                .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RealizarCompraLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
                                 .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton13)
                                     .addGroup(RealizarCompraLayout.createSequentialGroup()
@@ -526,19 +523,26 @@ public class Administrador extends javax.swing.JFrame {
                                             .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(Nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                                                .addComponent(jSeparator13))
+                                                .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
                                 .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(comboMetodo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(comboTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                                    .addComponent(comboMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(RealizarCompraLayout.createSequentialGroup()
+                                .addGap(111, 111, 111)
+                                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(RealizarCompraLayout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)))
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
@@ -556,7 +560,7 @@ public class Administrador extends javax.swing.JFrame {
                     .addGroup(RealizarCompraLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(64, Short.MAX_VALUE))
                     .addGroup(RealizarCompraLayout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -578,17 +582,21 @@ public class Administrador extends javax.swing.JFrame {
                             .addComponent(comboMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel33)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton13)
                             .addComponent(jButton14))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addGap(47, 47, 47)
                         .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton17)
                             .addComponent(jButton18))
-                        .addGap(54, 54, 54)
+                        .addGap(38, 38, 38)
                         .addComponent(jButton15)
-                        .addGap(82, 82, 82))))
+                        .addGap(41, 41, 41))))
         );
 
         Administrador.addTab("Realizar Compra", RealizarCompra);
@@ -599,10 +607,6 @@ public class Administrador extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("CANCELE  LAS COMPRAS FACIL Y RAPIDO");
-
-        jLabel11.setText("Numero de Documento");
-
-        jTextField6.setBorder(null);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -619,9 +623,19 @@ public class Administrador extends javax.swing.JFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
         jButton5.setText("Cancelar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
         jButton12.setText("Buscar");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
 
@@ -633,20 +647,13 @@ public class Administrador extends javax.swing.JFrame {
         CancelarCompraLayout.setHorizontalGroup(
             CancelarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CancelarCompraLayout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addGroup(CancelarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(CancelarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CancelarCompraLayout.createSequentialGroup()
-                            .addGroup(CancelarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(CancelarCompraLayout.createSequentialGroup()
-                                    .addComponent(jButton12)
-                                    .addGap(9, 9, 9)))
-                            .addGap(24, 24, 24))
-                        .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addGap(166, 166, 166)
+                .addGroup(CancelarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(CancelarCompraLayout.createSequentialGroup()
+                        .addComponent(jButton12)
+                        .addGap(9, 9, 9)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 843, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CancelarCompraLayout.createSequentialGroup()
@@ -676,13 +683,7 @@ public class Administrador extends javax.swing.JFrame {
                         .addComponent(jLabel10)))
                 .addGroup(CancelarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CancelarCompraLayout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
+                        .addGap(183, 183, 183)
                         .addComponent(jButton12)
                         .addGap(62, 62, 62)
                         .addComponent(jButton5))
@@ -700,12 +701,13 @@ public class Administrador extends javax.swing.JFrame {
 
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
 
-        jLabel28.setText("Numero de documento ");
-
-        jTextField1.setBorder(null);
-
         jButton16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
         jButton16.setText("Buscar");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -719,6 +721,14 @@ public class Administrador extends javax.swing.JFrame {
             }
         ));
         jScrollPane6.setViewportView(jTable4);
+
+        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
+        jButton10.setText("Ver todos los historiales de compras");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout HistorialComprasLayout = new javax.swing.GroupLayout(HistorialCompras);
         HistorialCompras.setLayout(HistorialComprasLayout);
@@ -734,17 +744,14 @@ public class Administrador extends javax.swing.JFrame {
                     .addGroup(HistorialComprasLayout.createSequentialGroup()
                         .addGroup(HistorialComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(HistorialComprasLayout.createSequentialGroup()
-                                .addGap(139, 139, 139)
-                                .addGroup(HistorialComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel28)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                    .addComponent(jSeparator12)))
+                                .addGap(107, 107, 107)
+                                .addComponent(jButton10))
                             .addGroup(HistorialComprasLayout.createSequentialGroup()
-                                .addGap(184, 184, 184)
+                                .addGap(186, 186, 186)
                                 .addComponent(jButton16)))
-                        .addGap(72, 72, 72)
+                        .addGap(149, 149, 149)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         HistorialComprasLayout.setVerticalGroup(
             HistorialComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -758,14 +765,10 @@ public class Administrador extends javax.swing.JFrame {
                         .addComponent(jLabel24)))
                 .addGroup(HistorialComprasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HistorialComprasLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel28)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButton16))
+                        .addGap(114, 114, 114)
+                        .addComponent(jButton16)
+                        .addGap(153, 153, 153)
+                        .addComponent(jButton10))
                     .addGroup(HistorialComprasLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1390,8 +1393,8 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento" }, 0);
+       DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento", "Fecha", "Subtotal", "Total" }, 0);
 tablaProductos1.setModel(modelo);
 
 // Ajustar ancho columna "Descripción"
@@ -1415,19 +1418,24 @@ if (cedula != null && !cedula.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
         } else {
             // Mostrar productos en la tabla
-            for (CarritoTemp c : lista) {
-                modelo.addRow(new Object[]{
-                    c.getNombreProducto(),
-                    c.getDescripcionProducto(),
-                    c.getPrecioProducto(),
-                    c.getCantidad(),
-                    c.getMetodoPago(),
-                    c.getNombreCliente(),
-                    c.getTipoDocumento(),
-                    c.getNumeroDocumento()
-                });
+         for (CarritoTemp c : lista) {
+    modelo.addRow(new Object[]{
+        c.getNombreProducto(),
+        c.getDescripcionProducto(),
+        c.getPrecioProducto(),
+        c.getCantidad(),
+        c.getMetodoPago(),
+        c.getNombreCliente(),
+        c.getTipoDocumento(),
+        c.getNumeroDocumento(),
+        c.getFecha(),         // ← fecha
+        c.getSubtotal(),      // ← subtotal
+        c.getTotal()          // ← total
+    });
+}
+
             }
-        }
+        
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
@@ -1466,7 +1474,7 @@ try {
     String nombreProd = tablaProductos1.getValueAt(fila, 0) != null ? tablaProductos1.getValueAt(fila, 0).toString() : "";
     String descripcion = tablaProductos1.getValueAt(fila, 1) != null ? tablaProductos1.getValueAt(fila, 1).toString() : "";
     String precioStr = tablaProductos1.getValueAt(fila, 2) != null ? tablaProductos1.getValueAt(fila, 2).toString() : "0";
-    
+
     double precio;
     try {
         precio = Double.parseDouble(precioStr);
@@ -1502,8 +1510,26 @@ try {
     producto.setCantidad(producto.getCantidad() - cantidadAgregar);
     em.merge(producto);
 
+    // Calcular fecha, subtotal y total
+    java.time.LocalDate fecha = java.time.LocalDate.now();
+    double subtotal = precio * cantidadAgregar;
+    double total = subtotal; // Aquí podrías agregar descuentos o impuestos si lo deseas
+
     // Crear y persistir carrito temporal
-    CarritoTemp carrito = new CarritoTemp(nombreCliente, tipoDoc, numDoc, metodoPago, nombreProd, descripcion, precio, cantidadAgregar);
+    CarritoTemp carrito = new CarritoTemp(
+            nombreCliente,
+            tipoDoc,
+            numDoc,
+            metodoPago,
+            nombreProd,
+            descripcion,
+            precio,
+            cantidadAgregar
+    );
+    carrito.setFecha(fecha);
+    carrito.setSubtotal(subtotal);
+    carrito.setTotal(total);
+
     em.persist(carrito);
 
     tx.commit();
@@ -1515,6 +1541,7 @@ try {
 } finally {
     em.close();
 }
+
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
@@ -1534,109 +1561,110 @@ try {
         // TODO add your handling code here:
         int filaSeleccionada = tablaProductos1.getSelectedRow();
 
-    if (filaSeleccionada == -1) {
-    JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
-    return;
-}
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
+            return;
+        }
 
-    DefaultTableModel modelo = (DefaultTableModel) tablaProductos1.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tablaProductos1.getModel();
 
-    // Obtener datos desde la fila seleccionada
-    String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
-    String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // Ajusta el índice si es necesario
+        // Obtener datos desde la fila seleccionada
+        String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
+        String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // Asegúrate del índice correcto
 
-    // Pedir cantidad a quitar
-    String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad a quitar:");
-    if (cantidadStr == null || cantidadStr.isEmpty()) {
-    return; // Cancelado por usuario
-}
+        // Pedir cantidad a quitar
+        String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad a quitar:");
+        if (cantidadStr == null || cantidadStr.isEmpty()) {
+            return; // Cancelado por el usuario
+        }
 
-    int cantidadQuitar;
-    try {
-    cantidadQuitar = Integer.parseInt(cantidadStr);
-    if (cantidadQuitar <= 0) {
-        JOptionPane.showMessageDialog(null, "Cantidad inválida.");
-        return;
-    }
-}   catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Cantidad inválida.");
-    return;
-}
+        int cantidadQuitar;
+        try {
+            cantidadQuitar = Integer.parseInt(cantidadStr);
+            if (cantidadQuitar <= 0) {
+                JOptionPane.showMessageDialog(null, "Cantidad inválida.");
+                return;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Cantidad inválida.");
+            return;
+        }
 
-    EntityManager em = ConexionBd.conectar().createEntityManager();
-    EntityTransaction tx = em.getTransaction();
+        EntityManager em = ConexionBd.conectar().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-    try {
-    tx.begin();
+        try {
+            tx.begin();
 
-    // Buscar el producto en CarritoTemp
-    List<CarritoTemp> carritoItems = em.createQuery(
-        "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :doc AND c.nombreProducto = :nombre", CarritoTemp.class)
-        .setParameter("doc", numeroDocumento)
-        .setParameter("nombre", nombreProducto)
-        .getResultList();
+            // Buscar el producto en CarritoTemp
+            List<CarritoTemp> carritoItems = em.createQuery(
+                "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :doc AND c.nombreProducto = :nombre", CarritoTemp.class)
+                .setParameter("doc", numeroDocumento)
+                .setParameter("nombre", nombreProducto)
+                .getResultList();
 
-    if (carritoItems.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "No se encontró el producto en el carrito.");
-        tx.rollback();
-        return;
-    }
+            if (carritoItems.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontró el producto en el carrito.");
+                tx.rollback();
+                return;
+            }
 
-    CarritoTemp itemCarrito = carritoItems.get(0);
-    int cantidadActualCarrito = itemCarrito.getCantidad();
+            CarritoTemp itemCarrito = carritoItems.get(0);
+            int cantidadActualCarrito = itemCarrito.getCantidad();
 
-    if (cantidadQuitar > cantidadActualCarrito) {
-        JOptionPane.showMessageDialog(null, "La cantidad a quitar es mayor que la cantidad en el carrito.");
-        tx.rollback();
-        return;
-    }
+            if (cantidadQuitar > cantidadActualCarrito) {
+                JOptionPane.showMessageDialog(null, "La cantidad a quitar es mayor que la cantidad en el carrito.");
+                tx.rollback();
+                return;
+            }
 
-    // Buscar el producto en la tabla productos para actualizar stock
-    List<GestionProductos> productos = em.createQuery(
-        "SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
-        .setParameter("nombre", nombreProducto)
-        .getResultList();
+            // Buscar el producto en la tabla productos para actualizar stock
+            List<GestionProductos> productos = em.createQuery(
+                "SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
+                .setParameter("nombre", nombreProducto)
+                .getResultList();
 
-    if (productos.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "No se encontró el producto en inventario.");
-        tx.rollback();
-        return;
-    }
+            if (productos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontró el producto en inventario.");
+                tx.rollback();
+                return;
+            }
 
-    GestionProductos productoInventario = productos.get(0);
-    int cantidadActualInventario = productoInventario.getCantidad();
+            GestionProductos productoInventario = productos.get(0);
+            int cantidadActualInventario = productoInventario.getCantidad();
 
-    // Actualizar cantidades
-    int nuevaCantidadCarrito = cantidadActualCarrito - cantidadQuitar;
-    int nuevaCantidadInventario = cantidadActualInventario + cantidadQuitar;
+            // Actualizar cantidades
+            int nuevaCantidadCarrito = cantidadActualCarrito - cantidadQuitar;
+            int nuevaCantidadInventario = cantidadActualInventario + cantidadQuitar;
 
-    if (nuevaCantidadCarrito == 0) {
-        // Eliminar producto del carrito
-        em.remove(itemCarrito);
-        modelo.removeRow(filaSeleccionada);
-    } else {
-        // Actualizar carrito con nueva cantidad
-        itemCarrito.setCantidad(nuevaCantidadCarrito);
-        em.merge(itemCarrito);
-        modelo.setValueAt(nuevaCantidadCarrito, filaSeleccionada, 3); // actualizar tabla carrito
-    }
+            if (nuevaCantidadCarrito == 0) {
+                // Eliminar producto del carrito
+                em.remove(itemCarrito);
+                modelo.removeRow(filaSeleccionada);
+            } else {
+                // Actualizar carrito con nueva cantidad
+                itemCarrito.setCantidad(nuevaCantidadCarrito);
+                em.merge(itemCarrito);
+                modelo.setValueAt(nuevaCantidadCarrito, filaSeleccionada, 3); // actualizar tabla carrito
+            }
 
-    // Actualizar inventario
-    productoInventario.setCantidad(nuevaCantidadInventario);
-    em.merge(productoInventario);
+            // Actualizar inventario
+            productoInventario.setCantidad(nuevaCantidadInventario);
+            em.merge(productoInventario);
 
-    tx.commit();
+            tx.commit();
 
-    JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.");
+            JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.");
 
-} catch (Exception e) {
-    if (tx.isActive()) {
-        tx.rollback();
-    }
-    JOptionPane.showMessageDialog(null, "Error al quitar producto: " + e.getMessage());
-} finally {
-    em.close();
-}
+        } catch (Exception ex) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al quitar producto: " + ex.getMessage());
+        } finally {
+            em.close();
+        }
+    
 
     }//GEN-LAST:event_jButton18ActionPerformed
 
@@ -1666,18 +1694,27 @@ try {
                 return;
             }
 
-            for (CarritoTemp producto : productos) {
-                Compra compra = new Compra();
-                compra.setNombreCliente(producto.getNombreCliente());
-                compra.setDescripcionProducto(producto.getDescripcionProducto());
-                compra.setPrecioProducto(producto.getPrecioProducto());
-                compra.setCantidad(producto.getCantidad());
-                compra.setNumeroDocumento(producto.getNumeroDocumento());
-                compra.setMetodoPago(producto.getMetodoPago());
-                compra.setNombreProducto(producto.getNombreProducto());
-                compra.setTipoDocumento(producto.getTipoDocumento());
-                em.persist(compra);
-            }
+           for (CarritoTemp producto : productos) {
+    Compra compra = new Compra();
+    compra.setNombreCliente(producto.getNombreCliente());
+    compra.setDescripcionProducto(producto.getDescripcionProducto());
+    compra.setPrecioProducto(producto.getPrecioProducto());
+    compra.setCantidad(producto.getCantidad());
+    compra.setNumeroDocumento(producto.getNumeroDocumento());
+    compra.setMetodoPago(producto.getMetodoPago());
+    compra.setNombreProducto(producto.getNombreProducto());
+    compra.setTipoDocumento(producto.getTipoDocumento());
+
+    // Fecha de la compra, asigna el momento actual
+    compra.setFechaCompra(LocalDateTime.now());
+
+    // Calcular subtotal y total
+    double subtotal = producto.getPrecioProducto() * producto.getCantidad();
+    compra.setSubtotal(subtotal);
+    compra.setTotal(subtotal);  // Si tienes impuestos o descuentos, aplícalos aquí
+
+    em.persist(compra);
+}
 
             em.getTransaction().commit();
             JOptionPane.showMessageDialog(null, "¡Compra registrada exitosamente!");
@@ -1692,6 +1729,241 @@ try {
     
     }//GEN-LAST:event_jButton15ActionPerformed
 
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        // TODO add your handling code here:
+          DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento", "Fecha", "Subtotal", "Total" }, 0);
+jTable4.setModel(modelo);
+
+// Ajustar ancho columna "Descripción"
+jTable4.getColumnModel().getColumn(1).setPreferredWidth(300);
+
+// Pedir número de documento (cédula) con JOptionPane
+String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+
+// Si el usuario no cancela ni deja vacío
+if (cedula != null && !cedula.trim().isEmpty()) {
+    EntityManager em = ConexionBd.conectar().createEntityManager();
+
+    try {
+        // Consulta con parámetro para filtrar por cédula
+        List<CarritoTemp> lista = em.createQuery(
+            "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
+            .setParameter("cedula", cedula)
+            .getResultList();
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
+        } else {
+            // Mostrar productos en la tabla
+         for (CarritoTemp c : lista) {
+    modelo.addRow(new Object[]{
+        c.getNombreProducto(),
+        c.getDescripcionProducto(),
+        c.getPrecioProducto(),
+        c.getCantidad(),
+        c.getMetodoPago(),
+        c.getNombreCliente(),
+        c.getTipoDocumento(),
+        c.getNumeroDocumento(),
+        c.getFecha(),         // ← fecha
+        c.getSubtotal(),      // ← subtotal
+        c.getTotal()          // ← total
+    });
+}
+
+            }
+        
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
+    } finally {
+        em.close();
+    }
+
+} else {
+    JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
+}
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento", "Fecha", "Subtotal", "Total" }, 0);
+jTable4.setModel(modelo);
+
+// Ajustar ancho columna "Descripción"
+jTable4.getColumnModel().getColumn(1).setPreferredWidth(300);
+
+EntityManager em = ConexionBd.conectar().createEntityManager();
+
+try {
+    // Consulta sin filtrar por cédula: trae todos los productos del carrito
+    List<CarritoTemp> lista = em.createQuery(
+        "SELECT c FROM CarritoTemp c", CarritoTemp.class)
+        .getResultList();
+
+    if (lista.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No se encontraron productos en el carrito.");
+    } else {
+        // Mostrar productos en la tabla
+        for (CarritoTemp c : lista) {
+            modelo.addRow(new Object[]{
+                c.getNombreProducto(),
+                c.getDescripcionProducto(),
+                c.getPrecioProducto(),
+                c.getCantidad(),
+                c.getMetodoPago(),
+                c.getNombreCliente(),
+                c.getTipoDocumento(),
+                c.getNumeroDocumento(),
+                c.getFecha(),
+                c.getSubtotal(),
+                c.getTotal()
+            });
+        }
+    }
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
+} finally {
+    em.close();
+}
+
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento", "Fecha", "Subtotal", "Total" }, 0);
+jTable2.setModel(modelo);
+
+// Ajustar ancho columna "Descripción"
+jTable2.getColumnModel().getColumn(1).setPreferredWidth(300);
+
+// Pedir número de documento (cédula) con JOptionPane
+String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+
+// Si el usuario no cancela ni deja vacío
+if (cedula != null && !cedula.trim().isEmpty()) {
+    EntityManager em = ConexionBd.conectar().createEntityManager();
+
+    try {
+        // Consulta con parámetro para filtrar por cédula
+        List<CarritoTemp> lista = em.createQuery(
+            "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
+            .setParameter("cedula", cedula)
+            .getResultList();
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
+        } else {
+            // Mostrar productos en la tabla
+         for (CarritoTemp c : lista) {
+    modelo.addRow(new Object[]{
+        c.getNombreProducto(),
+        c.getDescripcionProducto(),
+        c.getPrecioProducto(),
+        c.getCantidad(),
+        c.getMetodoPago(),
+        c.getNombreCliente(),
+        c.getTipoDocumento(),
+        c.getNumeroDocumento(),
+        c.getFecha(),         // ← fecha
+        c.getSubtotal(),      // ← subtotal
+        c.getTotal()          // ← total
+    });
+}
+
+            }
+        
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
+    } finally {
+        em.close();
+    }
+
+} else {
+    JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
+}
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        int filaSeleccionada = jTable2.getSelectedRow();
+
+if (filaSeleccionada == -1) {
+    JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
+    return;
+}
+
+DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
+
+// Obtener datos desde la fila seleccionada
+String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
+String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // columna "Número Documento"
+
+EntityManager em = ConexionBd.conectar().createEntityManager();
+EntityTransaction tx = em.getTransaction();
+
+try {
+    tx.begin();
+
+    // Buscar el producto en CarritoTemp
+    List<CarritoTemp> carritoItems = em.createQuery(
+        "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :doc AND c.nombreProducto = :nombre", CarritoTemp.class)
+        .setParameter("doc", numeroDocumento)
+        .setParameter("nombre", nombreProducto)
+        .getResultList();
+
+    if (carritoItems.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No se encontró el producto en el carrito.");
+        tx.rollback();
+        return;
+    }
+
+    CarritoTemp itemCarrito = carritoItems.get(0);
+    int cantidadCarrito = itemCarrito.getCantidad();
+
+    // Buscar el producto en inventario
+    List<GestionProductos> productos = em.createQuery(
+        "SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
+        .setParameter("nombre", nombreProducto)
+        .getResultList();
+
+    if (productos.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No se encontró el producto en inventario.");
+        tx.rollback();
+        return;
+    }
+
+    GestionProductos productoInventario = productos.get(0);
+
+    // Actualizar inventario
+    int nuevaCantidadInventario = productoInventario.getCantidad() + cantidadCarrito;
+    productoInventario.setCantidad(nuevaCantidadInventario);
+    em.merge(productoInventario);
+
+    // Eliminar el producto del carrito
+    em.remove(itemCarrito);
+    modelo.removeRow(filaSeleccionada); // quitar de la tabla visual
+
+    tx.commit();
+
+    JOptionPane.showMessageDialog(null, "Producto eliminado del carrito y stock actualizado.");
+
+} catch (Exception ex) {
+    if (tx.isActive()) {
+        tx.rollback();
+    }
+    JOptionPane.showMessageDialog(null, "Error al eliminar producto: " + ex.getMessage());
+} finally {
+    em.close();
+}
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+     
     /**
      * @param args the command line arguments
      */
@@ -1743,6 +2015,7 @@ try {
     private javax.swing.JComboBox<String> comboTipoDocumento;
     private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
@@ -1759,9 +2032,9 @@ try {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -1779,12 +2052,12 @@ try {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1800,7 +2073,6 @@ try {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator2;
@@ -1808,13 +2080,10 @@ try {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JPasswordField setContrasena;
     private javax.swing.JTable tablaProductos;
     private javax.swing.JTable tablaProductos1;

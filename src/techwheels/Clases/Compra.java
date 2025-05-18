@@ -3,12 +3,9 @@
 package techwheels.Clases;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
-/**
- *
- * @author Antonio Aguilar
- */
 @Entity
 @Table(name = "compra")
 public class Compra implements Serializable{
@@ -43,14 +40,24 @@ public class Compra implements Serializable{
     @Column(name = "cantidad")
     private int cantidad;
 
+    // Nuevos campos
+    @Column(name = "fecha_compra")
+    private LocalDateTime fechaCompra;
+
+    @Column(name = "subtotal")
+    private double subtotal;
+
+    @Column(name = "total")
+    private double total;
+
     // Constructor vacío
     public Compra() {
     }
 
-    // Constructor con parámetros
+    // Constructor con parámetros (incluyendo los nuevos campos)
     public Compra(String nombreCliente, String tipoDocumento, String numeroDocumento,
                   String metodoPago, String nombreProducto, String descripcionProducto,
-                  double precioProducto, int cantidad) {
+                  double precioProducto, int cantidad, LocalDateTime fechaCompra) {
         this.nombreCliente = nombreCliente;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
@@ -59,11 +66,21 @@ public class Compra implements Serializable{
         this.descripcionProducto = descripcionProducto;
         this.precioProducto = precioProducto;
         this.cantidad = cantidad;
+        this.fechaCompra = fechaCompra;
+
+        // Calcular subtotal y total al construir
+        this.subtotal = precioProducto * cantidad;
+        this.total = this.subtotal; // Aquí puedes agregar lógica para impuestos o descuentos
     }
 
     // Getters y setters
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombreCliente() {
@@ -128,5 +145,37 @@ public class Compra implements Serializable{
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public LocalDateTime getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public void setFechaCompra(LocalDateTime fechaCompra) {
+        this.fechaCompra = fechaCompra;
+    }
+
+    public double getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+
+
+    // Método privado para recalcular subtotal y total
+    private void actualizarMontos() {
+        this.subtotal = this.precioProducto * this.cantidad;
+        this.total = this.subtotal; // Aquí añade impuestos o descuentos si quieres
     }
 }
