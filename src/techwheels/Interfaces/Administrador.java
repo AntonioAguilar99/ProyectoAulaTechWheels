@@ -1036,6 +1036,11 @@ public class Administrador extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "El teléfono no puede superar los 15 caracteres.");
         return;
     }
+    // Validar que teléfono solo contenga números
+    if (!txtTelefono.getText().trim().matches("\\d+")) {
+    JOptionPane.showMessageDialog(null, "El teléfono solo debe contener números.");
+    return;
+    }
     if (setContrasena.getText().trim().length() > 70) {
         JOptionPane.showMessageDialog(null, "La contraseña no puede superar los 70 caracteres.");
         return;

@@ -54,7 +54,6 @@ public class Registro extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         NumeroDocumentoTxt = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        ContraseñaTxt = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         VolverBtn = new javax.swing.JPanel();
@@ -66,6 +65,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         TelefonoTxt = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
+        ContraseñaTxt = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -137,11 +137,6 @@ public class Registro extends javax.swing.JFrame {
         Background.add(NumeroDocumentoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 200, 20));
         Background.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 220, 15));
 
-        ContraseñaTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        ContraseñaTxt.setForeground(new java.awt.Color(0, 0, 0));
-        ContraseñaTxt.setBorder(null);
-        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 200, 20));
-
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Contraseña");
@@ -203,7 +198,7 @@ public class Registro extends javax.swing.JFrame {
         RegistrarBtn.setLayout(RegistrarBtnLayout);
         RegistrarBtnLayout.setHorizontalGroup(
             RegistrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RegistrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(RegistrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         RegistrarBtnLayout.setVerticalGroup(
             RegistrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,6 +228,9 @@ public class Registro extends javax.swing.JFrame {
         TelefonoTxt.setBorder(null);
         Background.add(TelefonoTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 200, 20));
         Background.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 230, 220, 15));
+
+        ContraseñaTxt.setBorder(null);
+        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 210, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -307,6 +305,11 @@ public class Registro extends javax.swing.JFrame {
     if (TelefonoTxt.getText().trim().length() > 15) {
         JOptionPane.showMessageDialog(null, "El teléfono no puede superar los 15 caracteres.");
         return;
+    }
+    // Validar que teléfono solo contenga números
+    if (!TelefonoTxt.getText().matches("\\d+")) {
+    JOptionPane.showMessageDialog(null, "El teléfono solo debe contener números.");
+    return;
     }
     if (ContraseñaTxt.getText().trim().length() > 70) {
         JOptionPane.showMessageDialog(null, "La contraseña no puede superar los 70 caracteres.");
@@ -411,7 +414,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JPanel Background;
     private javax.swing.JComboBox<String> ComboDocumento;
     private javax.swing.JComboBox<String> ComboRol;
-    private javax.swing.JTextField ContraseñaTxt;
+    private javax.swing.JPasswordField ContraseñaTxt;
     private javax.swing.JTextField CorreoTxt;
     private javax.swing.JTextField NombreTxt;
     private javax.swing.JTextField NumeroDocumentoTxt;
@@ -439,6 +442,14 @@ public class Registro extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpiarCampos() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        NombreTxt.setText("");
+    ApellidoTxt.setText("");
+    NumeroDocumentoTxt.setText("");
+    CorreoTxt.setText("");
+    TelefonoTxt.setText("");
+    ContraseñaTxt.setText("");
+    
+    ComboRol.setSelectedIndex(-1);        // Para que no quede nada seleccionado
+    ComboDocumento.setSelectedIndex(-1);  // Igual, si quieres que se deseleccione
     }
 }
