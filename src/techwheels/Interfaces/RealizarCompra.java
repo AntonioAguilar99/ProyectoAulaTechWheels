@@ -5,11 +5,19 @@
 package techwheels.Interfaces;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import techwheels.Clases.CarritoTemp;
+import techwheels.Clases.Compra;
 import techwheels.Clases.GestionProductos;
 import techwheels.Infraestructura.Config.Bd.ConexionBd;
 
@@ -40,12 +48,25 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProductos = new javax.swing.JTable();
+        tablaProductos1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        Nombre = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
+        comboTipo = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        txtNumero = new javax.swing.JTextField();
+        jSeparator2 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
+        comboMetodo = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        fechaChooser = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,7 +77,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
         jLabel2.setText("jLabel2");
 
-        tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProductos1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -67,7 +88,7 @@ public class RealizarCompra extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tablaProductos);
+        jScrollPane1.setViewportView(tablaProductos1);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
         jButton1.setText("Productos disponibles");
@@ -103,55 +124,143 @@ public class RealizarCompra extends javax.swing.JFrame {
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
         jButton5.setText("Ver carrito de compras");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
+        jButton6.setText("Quitar del carrito");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Ingrese su nombre");
+
+        Nombre.setBorder(null);
+
+        jLabel4.setText("Tipo de documento");
+
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cedula de Ciudadania", "Pasaporte", "Cedula de Extranjeria" }));
+
+        jLabel5.setText("Numero de documento");
+
+        txtNumero.setBorder(null);
+
+        jLabel6.setText("Metodo de pago");
+
+        comboMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Efectico ", "Tarjeta de Credito", " " }));
+
+        jLabel7.setText("Fecha");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton4))
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(148, 148, 148)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jButton5)
+                                            .addComponent(jButton4)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(53, 53, 53)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Nombre)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jSeparator1)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                            .addComponent(txtNumero)
+                                            .addComponent(jSeparator2))))
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                                        .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(comboMetodo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(comboTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(200, 200, 200)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(151, 151, 151)
+                                .addComponent(fechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(48, 48, 48)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboMetodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)
+                        .addGap(1, 1, 1)
+                        .addComponent(jButton4)
+                        .addGap(18, 18, 18))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(71, 71, 71)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(37, 37, 37)
-                .addComponent(jButton5)
-                .addGap(36, 36, 36)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addGap(31, 31, 31))
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,21 +278,31 @@ public class RealizarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-         // Configurar columnas de la tabla
     DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ "Nombre", "Descripción", "Precio", "Cantidad", "Categoría", "Marca"}, 0);
-    
-    tablaProductos.setModel(modelo);
+    new Object[]{ "Nombre", "Descripción", "Precio", "Cantidad", "Categoría", "Marca" }, 0
+);
+   tablaProductos1.setModel(modelo);
 
-    // Ajustar ancho de columna "Descripción"
-    tablaProductos.getColumnModel().getColumn(1).setPreferredWidth(300); // más grande
+   // Ajustar ancho de columnas
+   tablaProductos1.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre
+   tablaProductos1.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
+   tablaProductos1.getColumnModel().getColumn(2).setPreferredWidth(100); // Precio
+   tablaProductos1.getColumnModel().getColumn(3).setPreferredWidth(100); // Cantidad
+   tablaProductos1.getColumnModel().getColumn(4).setPreferredWidth(150); // Categoría
+   tablaProductos1.getColumnModel().getColumn(5).setPreferredWidth(150); // Marca
 
-    // Conexión JPA
-    EntityManager em = ConexionBd.conectar().createEntityManager();
+   // Aumentar la altura de las filas
+   tablaProductos1.setRowHeight(30);
 
-    try {
-    List<GestionProductos> lista = em.createQuery("SELECT p FROM productos p", GestionProductos.class).getResultList();
+   // Desactivar el autoajuste automático para que no se compriman las columnas
+   tablaProductos1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+   // Cargar productos desde la base de datos
+   EntityManager em = ConexionBd.conectar().createEntityManager();
+
+try {
+    List<GestionProductos> lista = em.createQuery("SELECT p FROM productos p", GestionProductos.class)
+                                     .getResultList();
 
     for (GestionProductos p : lista) {
         modelo.addRow(new Object[]{
@@ -192,22 +311,17 @@ public class RealizarCompra extends javax.swing.JFrame {
             p.getPrecio(),
             p.getCantidad(),
             p.getCategoria(),
-            p.getMarca(),
+            p.getMarca()
         });
     }
-    
-    } catch (Exception e) 
-    
-    {
-    JOptionPane.showMessageDialog(this, "Error al cargar productos: " + e.getMessage());
-    
-    } finally 
-        
-    {
-    em.close();
-    
-    }
 
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this, "Error al cargar productos: " + e.getMessage());
+} finally {
+    em.close();
+}
+
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -217,12 +331,387 @@ public class RealizarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        EntityManager em = ConexionBd.getEntityManager();
+      EntityTransaction tx = em.getTransaction();
+
+try {
+    tx.begin();
+
+    String nombreCliente = Nombre.getText().trim();
+    String tipoDoc = comboTipo.getSelectedItem().toString();
+    String numDoc = txtNumero.getText().trim();
+    String metodoPago = comboMetodo.getSelectedItem().toString();
+
+    // Validación: nombre solo letras
+    if (!nombreCliente.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
+        JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+        return;
+    }
+
+    if (!numDoc.matches("\\d+")) {
+        JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
+        return;
+    }
+
+    int fila = tablaProductos1.getSelectedRow();
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(null, "Por favor selecciona un producto.");
+        return;
+    }
+
+    String nombreProd = tablaProductos1.getValueAt(fila, 0).toString();
+    String descripcion = tablaProductos1.getValueAt(fila, 1).toString();
+    String precioStr = tablaProductos1.getValueAt(fila, 2).toString();
+
+    double precio;
+    try {
+        precio = Double.parseDouble(precioStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Precio inválido en la tabla.");
+        return;
+    }
+
+    int cantidadAgregar;
+    try {
+        cantidadAgregar = Integer.parseInt(JOptionPane.showInputDialog("Cantidad a agregar:"));
+        if (cantidadAgregar <= 0) {
+            JOptionPane.showMessageDialog(null, "Cantidad debe ser mayor a cero.");
+            return;
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Cantidad inválida.");
+        return;
+    }
+
+    // Verificar fecha seleccionada
+    java.util.Date fechaSeleccionada = fechaChooser.getDate(); // ← tu JDateChooser
+    if (fechaSeleccionada == null) {
+        JOptionPane.showMessageDialog(null, "Por favor seleccione una fecha.");
+        return;
+    }
+
+    java.time.LocalDate fechaLocal = fechaSeleccionada.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+    java.time.LocalDate hoy = java.time.LocalDate.now();
+
+    if (fechaLocal.isBefore(hoy)) {
+        JOptionPane.showMessageDialog(null, "La fecha no puede ser anterior a hoy.");
+        return;
+    }
+
+    // Buscar producto en DB
+    GestionProductos producto = em.createQuery("SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
+            .setParameter("nombre", nombreProd)
+            .getSingleResult();
+
+    if (producto.getCantidad() < cantidadAgregar) {
+        JOptionPane.showMessageDialog(null, "No hay suficiente stock.");
+        tx.rollback();
+        return;
+    }
+
+    producto.setCantidad(producto.getCantidad() - cantidadAgregar);
+    em.merge(producto);
+
+    double subtotal = precio * cantidadAgregar;
+    double total = subtotal;
+
+    CarritoTemp carrito = new CarritoTemp(
+            nombreCliente,
+            tipoDoc,
+            numDoc,
+            metodoPago,
+            nombreProd,
+            descripcion,
+            precio,
+            cantidadAgregar
+    );
+    carrito.setFecha(fechaLocal);
+    carrito.setSubtotal(subtotal);
+    carrito.setTotal(total);
+
+    em.persist(carrito);
+    tx.commit();
+
+    JOptionPane.showMessageDialog(null, "Producto agregado al carrito.");
+
+    // ✅ LIMPIAR CAMPOS después de guardar
+    Nombre.setText("");
+    txtNumero.setText("");
+    comboTipo.setSelectedIndex(0);
+    comboMetodo.setSelectedIndex(0);
+    fechaChooser.setDate(null);
+
+} catch (Exception e) {
+    if (tx.isActive()) tx.rollback();
+    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+} finally {
+    em.close();
+}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // Pedimos al usuario que ingrese su número de cédula para registrar la compra
+       String cedula = JOptionPane.showInputDialog(null, "Ingrese su cédula para registrar la compra:");
+
+       // Verificamos si el usuario canceló o dejó el campo vacío
+   if (cedula == null || cedula.trim().isEmpty()) {
+       JOptionPane.showMessageDialog(null, "Debe ingresar una cédula válida.");
+       return; // Salimos del método
+}
+
+       // Creamos el EntityManager y el EntityManagerFactory para conectarnos a la base de datos
+       EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
+       EntityManager em = emf.createEntityManager();
+
+try {
+    // Iniciamos la transacción
+    em.getTransaction().begin();
+
+    // Hacemos una consulta para obtener todos los productos en el carrito temporal asociados a la cédula
+    TypedQuery<CarritoTemp> query = em.createQuery(
+        "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :documento", CarritoTemp.class);
+    query.setParameter("documento", cedula);
+
+    // Obtenemos los resultados como una lista
+    List<CarritoTemp> productos = query.getResultList();
+
+    // Si no se encontraron productos para esa cédula, mostramos un mensaje y cancelamos la transacción
+    if (productos.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No hay productos en el carrito para esta cédula.");
+        em.getTransaction().rollback(); // Deshacemos la transacción por seguridad
+        return; // Salimos del método
+    }
+
+    // Si hay productos, recorremos la lista y creamos una nueva compra por cada producto
+    for (CarritoTemp producto : productos) {
+        Compra compra = new Compra();
+        compra.setNombreCliente(producto.getNombreCliente());              // Nombre del cliente
+        compra.setDescripcionProducto(producto.getDescripcionProducto());  // Descripción del producto
+        compra.setPrecioProducto(producto.getPrecioProducto());            // Precio unitario
+        compra.setCantidad(producto.getCantidad());                        // Cantidad comprada
+        compra.setNumeroDocumento(producto.getNumeroDocumento());          // Documento del cliente
+        compra.setMetodoPago(producto.getMetodoPago());                    // Método de pago usado
+        compra.setNombreProducto(producto.getNombreProducto());            // Nombre del producto
+        compra.setTipoDocumento(producto.getTipoDocumento());              // Tipo de documento (C.C, T.I, etc.)
+
+        // Guardamos la fecha actual como fecha de compra
+        compra.setFechaCompra(LocalDateTime.now());
+
+        // Calculamos el subtotal (precio * cantidad)
+        double subtotal = producto.getPrecioProducto() * producto.getCantidad();
+        compra.setSubtotal(subtotal);
+
+        // Asignamos el total (en este ejemplo, igual al subtotal porque no hay impuestos o descuentos)
+        compra.setTotal(subtotal);
+
+        // Guardamos el objeto compra en la base de datos
+        em.persist(compra);
+    }
+
+    // Confirmamos los cambios y guardamos en la base de datos
+    em.getTransaction().commit();
+
+    // Mostramos un mensaje indicando que todo salió bien
+    JOptionPane.showMessageDialog(null, "¡Compra registrada exitosamente!");
+
+} catch (Exception ex) {
+    // Si ocurre un error, deshacemos la transacción (solo si aún está activa)
+    if (em.getTransaction().isActive()) {
+        em.getTransaction().rollback();
+    }
+
+    // Mostramos el mensaje de error
+    JOptionPane.showMessageDialog(null, "Error al registrar la compra: " + ex.getMessage());
+
+} finally {
+    // Cerramos la conexión a la base de datos
+    em.close();
+    emf.close();
+}
+
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ 
+        "Nombre Producto", "Descripción", "Precio", "Cantidad", 
+        "Método de Pago", "Nombre Cliente", "Tipo Documento", 
+        "Número Documento", "Fecha", "Subtotal", "Total" 
+    }, 0
+);
+    tablaProductos1.setModel(modelo);
+
+    // Ajustar tamaño preferido por columna
+    tablaProductos1.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre Producto
+    tablaProductos1.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
+    tablaProductos1.getColumnModel().getColumn(2).setPreferredWidth(80);  // Precio
+    tablaProductos1.getColumnModel().getColumn(3).setPreferredWidth(70);  // Cantidad
+    tablaProductos1.getColumnModel().getColumn(4).setPreferredWidth(120); // Método de Pago
+    tablaProductos1.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente
+    tablaProductos1.getColumnModel().getColumn(6).setPreferredWidth(100); // Tipo Documento
+    tablaProductos1.getColumnModel().getColumn(7).setPreferredWidth(130); // Número Documento
+    tablaProductos1.getColumnModel().getColumn(8).setPreferredWidth(100); // Fecha
+    tablaProductos1.getColumnModel().getColumn(9).setPreferredWidth(100); // Subtotal
+    tablaProductos1.getColumnModel().getColumn(10).setPreferredWidth(100); // Total
+
+    // Ajustar altura de las filas para mejor visibilidad
+    tablaProductos1.setRowHeight(30);
+
+    // Desactivar autoajuste de columnas para que respeten el ancho establecido
+    tablaProductos1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+    // Pedir número de documento
+    String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+
+if (cedula != null && !cedula.trim().isEmpty()) {
+    EntityManager em = ConexionBd.conectar().createEntityManager();
+
+    try {
+        List<CarritoTemp> lista = em.createQuery(
+            "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
+            .setParameter("cedula", cedula)
+            .getResultList();
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
+        } else {
+            for (CarritoTemp c : lista) {
+                modelo.addRow(new Object[]{
+                    c.getNombreProducto(),
+                    c.getDescripcionProducto(),
+                    c.getPrecioProducto(),
+                    c.getCantidad(),
+                    c.getMetodoPago(),
+                    c.getNombreCliente(),
+                    c.getTipoDocumento(),
+                    c.getNumeroDocumento(),
+                    c.getFecha(),
+                    c.getSubtotal(),
+                    c.getTotal()
+                });
+            }
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
+    } finally {
+        em.close();
+    }
+
+} else {
+    JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
+}
+
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int filaSeleccionada = tablaProductos1.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
+            return;
+        }
+
+        DefaultTableModel modelo = (DefaultTableModel) tablaProductos1.getModel();
+
+        // Obtener datos desde la fila seleccionada
+        String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
+        String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // Asegúrate del índice correcto
+
+        // Pedir cantidad a quitar
+        String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad a quitar:");
+        if (cantidadStr == null || cantidadStr.isEmpty()) {
+            return; // Cancelado por el usuario
+        }
+
+        int cantidadQuitar;
+        try {
+            cantidadQuitar = Integer.parseInt(cantidadStr);
+            if (cantidadQuitar <= 0) {
+                JOptionPane.showMessageDialog(null, "Cantidad inválida.");
+                return;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Cantidad inválida.");
+            return;
+        }
+
+        EntityManager em = ConexionBd.conectar().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+
+            // Buscar el producto en CarritoTemp
+            List<CarritoTemp> carritoItems = em.createQuery(
+                "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :doc AND c.nombreProducto = :nombre", CarritoTemp.class)
+                .setParameter("doc", numeroDocumento)
+                .setParameter("nombre", nombreProducto)
+                .getResultList();
+
+            if (carritoItems.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontró el producto en el carrito.");
+                tx.rollback();
+                return;
+            }
+
+            CarritoTemp itemCarrito = carritoItems.get(0);
+            int cantidadActualCarrito = itemCarrito.getCantidad();
+
+            if (cantidadQuitar > cantidadActualCarrito) {
+                JOptionPane.showMessageDialog(null, "La cantidad a quitar es mayor que la cantidad en el carrito.");
+                tx.rollback();
+                return;
+            }
+
+            // Buscar el producto en la tabla productos para actualizar stock
+            List<GestionProductos> productos = em.createQuery(
+                "SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
+                .setParameter("nombre", nombreProducto)
+                .getResultList();
+
+            if (productos.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No se encontró el producto en inventario.");
+                tx.rollback();
+                return;
+            }
+
+            GestionProductos productoInventario = productos.get(0);
+            int cantidadActualInventario = productoInventario.getCantidad();
+
+            // Actualizar cantidades
+            int nuevaCantidadCarrito = cantidadActualCarrito - cantidadQuitar;
+            int nuevaCantidadInventario = cantidadActualInventario + cantidadQuitar;
+
+            if (nuevaCantidadCarrito == 0) {
+                // Eliminar producto del carrito
+                em.remove(itemCarrito);
+                modelo.removeRow(filaSeleccionada);
+            } else {
+                // Actualizar carrito con nueva cantidad
+                itemCarrito.setCantidad(nuevaCantidadCarrito);
+                em.merge(itemCarrito);
+                modelo.setValueAt(nuevaCantidadCarrito, filaSeleccionada, 3); // actualizar tabla carrito
+            }
+
+            // Actualizar inventario
+            productoInventario.setCantidad(nuevaCantidadInventario);
+            em.merge(productoInventario);
+
+            tx.commit();
+
+            JOptionPane.showMessageDialog(null, "Producto actualizado correctamente.");
+
+        } catch (Exception ex) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Error al quitar producto: " + ex.getMessage());
+        } finally {
+            em.close();
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,15 +752,28 @@ public class RealizarCompra extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Nombre;
+    private javax.swing.JComboBox<String> comboMetodo;
+    private javax.swing.JComboBox<String> comboTipo;
+    private com.toedter.calendar.JDateChooser fechaChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaProductos;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTable tablaProductos1;
+    private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables
 }

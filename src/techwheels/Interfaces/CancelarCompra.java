@@ -4,6 +4,16 @@
  */
 package techwheels.Interfaces;
 
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import techwheels.Clases.CarritoTemp;
+import techwheels.Clases.GestionProductos;
+import techwheels.Infraestructura.Config.Bd.ConexionBd;
+
 /**
  *
  * @author anton
@@ -34,7 +44,8 @@ public class CancelarCompra extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable2 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,8 +69,13 @@ public class CancelarCompra extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
         jButton2.setText("NO, VOLVER");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -70,7 +86,15 @@ public class CancelarCompra extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable2);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,26 +102,23 @@ public class CancelarCompra extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(134, 134, 134)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addGap(104, 104, 104)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3)
-                        .addGap(81, 81, 81)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,16 +130,18 @@ public class CancelarCompra extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jLabel2)))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addGap(54, 54, 54)
+                .addGap(29, 29, 29)
+                .addComponent(jButton3)
+                .addGap(50, 50, 50)
                 .addComponent(jButton1)
-                .addGap(68, 68, 68)
+                .addGap(60, 60, 60)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 81, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -137,8 +160,166 @@ public class CancelarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        int filaSeleccionada = jTable2.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
+        return;
+}
+
+        DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
+
+        // Obtener datos desde la fila seleccionada
+        String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
+        String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // columna "Número Documento"
+
+        EntityManager em = ConexionBd.conectar().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+  try {
+    tx.begin();
+
+    // Buscar el producto en CarritoTemp
+    List<CarritoTemp> carritoItems = em.createQuery(
+        "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :doc AND c.nombreProducto = :nombre", CarritoTemp.class)
+        .setParameter("doc", numeroDocumento)
+        .setParameter("nombre", nombreProducto)
+        .getResultList();
+
+    if (carritoItems.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No se encontró el producto en el carrito.");
+        tx.rollback();
+        return;
+    }
+
+    CarritoTemp itemCarrito = carritoItems.get(0);
+    int cantidadCarrito = itemCarrito.getCantidad();
+
+    // Buscar el producto en inventario
+    List<GestionProductos> productos = em.createQuery(
+        "SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
+        .setParameter("nombre", nombreProducto)
+        .getResultList();
+
+    if (productos.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No se encontró el producto en inventario.");
+        tx.rollback();
+        return;
+    }
+
+    GestionProductos productoInventario = productos.get(0);
+
+    // Actualizar inventario
+    int nuevaCantidadInventario = productoInventario.getCantidad() + cantidadCarrito;
+    productoInventario.setCantidad(nuevaCantidadInventario);
+    em.merge(productoInventario);
+
+    // Eliminar el producto del carrito
+    em.remove(itemCarrito);
+    modelo.removeRow(filaSeleccionada); // quitar de la tabla visual
+
+    tx.commit();
+
+    JOptionPane.showMessageDialog(null, "Producto eliminado del carrito y stock actualizado.");
+
+} catch (Exception ex) {
+    if (tx.isActive()) {
+        tx.rollback();
+    }
+    JOptionPane.showMessageDialog(null, "Error al eliminar producto: " + ex.getMessage());
+} finally {
+    em.close();
+}
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       // Crear y configurar el modelo de la tabla
+DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ 
+        "Nombre Producto", "Descripción", "Precio", "Cantidad", 
+        "Método de Pago", "Nombre Cliente", "Tipo Documento", 
+        "Número Documento", "Fecha", "Subtotal", "Total" 
+    }, 0
+);
+jTable2.setModel(modelo);
+
+// Configurar anchos adecuados para cada columna
+jTable2.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre Producto
+jTable2.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
+jTable2.getColumnModel().getColumn(2).setPreferredWidth(80);  // Precio
+jTable2.getColumnModel().getColumn(3).setPreferredWidth(70);  // Cantidad
+jTable2.getColumnModel().getColumn(4).setPreferredWidth(120); // Método de Pago
+jTable2.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente
+jTable2.getColumnModel().getColumn(6).setPreferredWidth(100); // Tipo Documento
+jTable2.getColumnModel().getColumn(7).setPreferredWidth(130); // Número Documento
+jTable2.getColumnModel().getColumn(8).setPreferredWidth(100); // Fecha
+jTable2.getColumnModel().getColumn(9).setPreferredWidth(100); // Subtotal
+jTable2.getColumnModel().getColumn(10).setPreferredWidth(100); // Total
+
+// Ajustar altura de las filas (opcional)
+jTable2.setRowHeight(30);
+
+// Permitir desplazamiento horizontal si es necesario
+jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+// Verifica que jTable2 esté dentro de un JScrollPane en tu diseño, así:
+// JScrollPane scroll = new JScrollPane(jTable2);
+// scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+// Pedir número de cédula
+String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+
+// Validar que no esté vacío
+if (cedula != null && !cedula.trim().isEmpty()) {
+    EntityManager em = ConexionBd.conectar().createEntityManager();
+
+    try {
+        // Limpia el modelo de la tabla antes de llenar
+        modelo.setRowCount(0);
+
+        // Consulta con parámetro por cédula
+        List<CarritoTemp> lista = em.createQuery(
+            "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
+            .setParameter("cedula", cedula)
+            .getResultList();
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
+        } else {
+            // Llenar la tabla con los datos obtenidos
+            for (CarritoTemp c : lista) {
+                modelo.addRow(new Object[]{
+                    c.getNombreProducto(),
+                    c.getDescripcionProducto(),
+                    c.getPrecioProducto(),
+                    c.getCantidad(),
+                    c.getMetodoPago(),
+                    c.getNombreCliente(),
+                    c.getTipoDocumento(),
+                    c.getNumeroDocumento(),
+                    c.getFecha(),
+                    c.getSubtotal(),
+                    c.getTotal()
+                });
+            }
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
+    } finally {
+        em.close();
+    }
+
+} else {
+    JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
+}
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new Cliente().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,11 +360,12 @@ public class CancelarCompra extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

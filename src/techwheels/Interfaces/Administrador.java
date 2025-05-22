@@ -15,6 +15,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import techwheels.Clases.CarritoTemp;
 import techwheels.Clases.Compra;
@@ -102,7 +103,7 @@ public class Administrador extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         comboMetodo = new javax.swing.JComboBox<>();
         jLabel33 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        fechaChooser = new com.toedter.calendar.JDateChooser();
         CancelarCompra = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -541,7 +542,7 @@ public class Administrador extends javax.swing.JFrame {
                                 .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(RealizarCompraLayout.createSequentialGroup()
                                 .addGap(148, 148, 148)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(fechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)))
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 818, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -585,7 +586,7 @@ public class Administrador extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addComponent(jLabel33)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fechaChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(RealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton13)
@@ -1353,18 +1354,30 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
     DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ "Nombre", "Descripción", "Precio", "Cantidad", "Categoría", "Marca"}, 0);
-    
-    tablaProductos1.setModel(modelo);
+    new Object[]{ "Nombre", "Descripción", "Precio", "Cantidad", "Categoría", "Marca" }, 0
+);
+   tablaProductos1.setModel(modelo);
 
-    // Ajustar ancho de columna "Descripción"
-    tablaProductos1.getColumnModel().getColumn(1).setPreferredWidth(300); // más grande
+   // Ajustar ancho de columnas
+   tablaProductos1.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre
+   tablaProductos1.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
+   tablaProductos1.getColumnModel().getColumn(2).setPreferredWidth(100); // Precio
+   tablaProductos1.getColumnModel().getColumn(3).setPreferredWidth(100); // Cantidad
+   tablaProductos1.getColumnModel().getColumn(4).setPreferredWidth(150); // Categoría
+   tablaProductos1.getColumnModel().getColumn(5).setPreferredWidth(150); // Marca
 
-    // Conexión JPA
-    EntityManager em = ConexionBd.conectar().createEntityManager();
+   // Aumentar la altura de las filas
+   tablaProductos1.setRowHeight(30);
 
-    try {
-    List<GestionProductos> lista = em.createQuery("SELECT p FROM productos p", GestionProductos.class).getResultList();
+   // Desactivar el autoajuste automático para que no se compriman las columnas
+   tablaProductos1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+   // Cargar productos desde la base de datos
+   EntityManager em = ConexionBd.conectar().createEntityManager();
+
+try {
+    List<GestionProductos> lista = em.createQuery("SELECT p FROM productos p", GestionProductos.class)
+                                     .getResultList();
 
     for (GestionProductos p : lista) {
         modelo.addRow(new Object[]{
@@ -1373,42 +1386,55 @@ public class Administrador extends javax.swing.JFrame {
             p.getPrecio(),
             p.getCantidad(),
             p.getCategoria(),
-            p.getMarca(),
+            p.getMarca()
         });
     }
-    
-    } catch (Exception e) 
-    
-    {
+
+} catch (Exception e) {
     JOptionPane.showMessageDialog(this, "Error al cargar productos: " + e.getMessage());
-    
-    } finally 
-        
-    {
+} finally {
     em.close();
-    
-    }
+}
 
     
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-       DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento", "Fecha", "Subtotal", "Total" }, 0);
-tablaProductos1.setModel(modelo);
+      DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ 
+        "Nombre Producto", "Descripción", "Precio", "Cantidad", 
+        "Método de Pago", "Nombre Cliente", "Tipo Documento", 
+        "Número Documento", "Fecha", "Subtotal", "Total" 
+    }, 0
+);
+    tablaProductos1.setModel(modelo);
 
-// Ajustar ancho columna "Descripción"
-tablaProductos1.getColumnModel().getColumn(1).setPreferredWidth(300);
+    // Ajustar tamaño preferido por columna
+    tablaProductos1.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre Producto
+    tablaProductos1.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
+    tablaProductos1.getColumnModel().getColumn(2).setPreferredWidth(80);  // Precio
+    tablaProductos1.getColumnModel().getColumn(3).setPreferredWidth(70);  // Cantidad
+    tablaProductos1.getColumnModel().getColumn(4).setPreferredWidth(120); // Método de Pago
+    tablaProductos1.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente
+    tablaProductos1.getColumnModel().getColumn(6).setPreferredWidth(100); // Tipo Documento
+    tablaProductos1.getColumnModel().getColumn(7).setPreferredWidth(130); // Número Documento
+    tablaProductos1.getColumnModel().getColumn(8).setPreferredWidth(100); // Fecha
+    tablaProductos1.getColumnModel().getColumn(9).setPreferredWidth(100); // Subtotal
+    tablaProductos1.getColumnModel().getColumn(10).setPreferredWidth(100); // Total
 
-// Pedir número de documento (cédula) con JOptionPane
-String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+    // Ajustar altura de las filas para mejor visibilidad
+    tablaProductos1.setRowHeight(30);
 
-// Si el usuario no cancela ni deja vacío
+    // Desactivar autoajuste de columnas para que respeten el ancho establecido
+    tablaProductos1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+    // Pedir número de documento
+    String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+
 if (cedula != null && !cedula.trim().isEmpty()) {
     EntityManager em = ConexionBd.conectar().createEntityManager();
 
     try {
-        // Consulta con parámetro para filtrar por cédula
         List<CarritoTemp> lista = em.createQuery(
             "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
             .setParameter("cedula", cedula)
@@ -1417,25 +1443,22 @@ if (cedula != null && !cedula.trim().isEmpty()) {
         if (lista.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
         } else {
-            // Mostrar productos en la tabla
-         for (CarritoTemp c : lista) {
-    modelo.addRow(new Object[]{
-        c.getNombreProducto(),
-        c.getDescripcionProducto(),
-        c.getPrecioProducto(),
-        c.getCantidad(),
-        c.getMetodoPago(),
-        c.getNombreCliente(),
-        c.getTipoDocumento(),
-        c.getNumeroDocumento(),
-        c.getFecha(),         // ← fecha
-        c.getSubtotal(),      // ← subtotal
-        c.getTotal()          // ← total
-    });
-}
-
+            for (CarritoTemp c : lista) {
+                modelo.addRow(new Object[]{
+                    c.getNombreProducto(),
+                    c.getDescripcionProducto(),
+                    c.getPrecioProducto(),
+                    c.getCantidad(),
+                    c.getMetodoPago(),
+                    c.getNombreCliente(),
+                    c.getTipoDocumento(),
+                    c.getNumeroDocumento(),
+                    c.getFecha(),
+                    c.getSubtotal(),
+                    c.getTotal()
+                });
             }
-        
+        }
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
@@ -1447,33 +1470,41 @@ if (cedula != null && !cedula.trim().isEmpty()) {
     JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
 }
 
-
+       
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-    EntityManager em = ConexionBd.getEntityManager();
-EntityTransaction tx = em.getTransaction();
+      EntityManager em = ConexionBd.getEntityManager();
+      EntityTransaction tx = em.getTransaction();
 
 try {
     tx.begin();
 
-    // Datos del cliente
-    String nombreCliente = Nombre.getText();
+    String nombreCliente = Nombre.getText().trim();
     String tipoDoc = comboTipo.getSelectedItem().toString();
-    String numDoc = txtNumero.getText();
+    String numDoc = txtNumero.getText().trim();
     String metodoPago = comboMetodo.getSelectedItem().toString();
 
-    // Verificar fila seleccionada en la tabla correcta
+    // Validación: nombre solo letras
+    if (!nombreCliente.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$")) {
+        JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+        return;
+    }
+
+    if (!numDoc.matches("\\d+")) {
+        JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
+        return;
+    }
+
     int fila = tablaProductos1.getSelectedRow();
     if (fila == -1) {
         JOptionPane.showMessageDialog(null, "Por favor selecciona un producto.");
         return;
     }
 
-    // Obtener datos de la fila seleccionada
-    String nombreProd = tablaProductos1.getValueAt(fila, 0) != null ? tablaProductos1.getValueAt(fila, 0).toString() : "";
-    String descripcion = tablaProductos1.getValueAt(fila, 1) != null ? tablaProductos1.getValueAt(fila, 1).toString() : "";
-    String precioStr = tablaProductos1.getValueAt(fila, 2) != null ? tablaProductos1.getValueAt(fila, 2).toString() : "0";
+    String nombreProd = tablaProductos1.getValueAt(fila, 0).toString();
+    String descripcion = tablaProductos1.getValueAt(fila, 1).toString();
+    String precioStr = tablaProductos1.getValueAt(fila, 2).toString();
 
     double precio;
     try {
@@ -1495,7 +1526,22 @@ try {
         return;
     }
 
-    // Buscar producto en la base de datos con JPA
+    // Verificar fecha seleccionada
+    java.util.Date fechaSeleccionada = fechaChooser.getDate(); // ← tu JDateChooser
+    if (fechaSeleccionada == null) {
+        JOptionPane.showMessageDialog(null, "Por favor seleccione una fecha.");
+        return;
+    }
+
+    java.time.LocalDate fechaLocal = fechaSeleccionada.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+    java.time.LocalDate hoy = java.time.LocalDate.now();
+
+    if (fechaLocal.isBefore(hoy)) {
+        JOptionPane.showMessageDialog(null, "La fecha no puede ser anterior a hoy.");
+        return;
+    }
+
+    // Buscar producto en DB
     GestionProductos producto = em.createQuery("SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
             .setParameter("nombre", nombreProd)
             .getSingleResult();
@@ -1506,16 +1552,12 @@ try {
         return;
     }
 
-    // Reducir cantidad y actualizar
     producto.setCantidad(producto.getCantidad() - cantidadAgregar);
     em.merge(producto);
 
-    // Calcular fecha, subtotal y total
-    java.time.LocalDate fecha = java.time.LocalDate.now();
     double subtotal = precio * cantidadAgregar;
-    double total = subtotal; // Aquí podrías agregar descuentos o impuestos si lo deseas
+    double total = subtotal;
 
-    // Crear y persistir carrito temporal
     CarritoTemp carrito = new CarritoTemp(
             nombreCliente,
             tipoDoc,
@@ -1526,14 +1568,21 @@ try {
             precio,
             cantidadAgregar
     );
-    carrito.setFecha(fecha);
+    carrito.setFecha(fechaLocal);
     carrito.setSubtotal(subtotal);
     carrito.setTotal(total);
 
     em.persist(carrito);
-
     tx.commit();
+
     JOptionPane.showMessageDialog(null, "Producto agregado al carrito.");
+
+    // ✅ LIMPIAR CAMPOS después de guardar
+    Nombre.setText("");
+    txtNumero.setText("");
+    comboTipo.setSelectedIndex(0);
+    comboMetodo.setSelectedIndex(0);
+    fechaChooser.setDate(null);
 
 } catch (Exception e) {
     if (tx.isActive()) tx.rollback();
@@ -1669,84 +1718,124 @@ try {
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        // TODO add your handling code here:
-        String cedula = JOptionPane.showInputDialog(null, "Ingrese su cédula para registrar la compra:");
-        if (cedula == null || cedula.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar una cédula válida.");
-            return;
-        }
+        // Pedimos al usuario que ingrese su número de cédula para registrar la compra
+       String cedula = JOptionPane.showInputDialog(null, "Ingrese su cédula para registrar la compra:");
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd"); 
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-
-            // Obtener productos del carrito temporal con esa cédula
-            TypedQuery<CarritoTemp> query = em.createQuery(
-                "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :documento", CarritoTemp.class);
-            query.setParameter("documento", cedula);
-
-            List<CarritoTemp> productos = query.getResultList();
-
-            if (productos.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "No hay productos en el carrito para esta cédula.");
-                return;
-            }
-
-           for (CarritoTemp producto : productos) {
-    Compra compra = new Compra();
-    compra.setNombreCliente(producto.getNombreCliente());
-    compra.setDescripcionProducto(producto.getDescripcionProducto());
-    compra.setPrecioProducto(producto.getPrecioProducto());
-    compra.setCantidad(producto.getCantidad());
-    compra.setNumeroDocumento(producto.getNumeroDocumento());
-    compra.setMetodoPago(producto.getMetodoPago());
-    compra.setNombreProducto(producto.getNombreProducto());
-    compra.setTipoDocumento(producto.getTipoDocumento());
-
-    // Fecha de la compra, asigna el momento actual
-    compra.setFechaCompra(LocalDateTime.now());
-
-    // Calcular subtotal y total
-    double subtotal = producto.getPrecioProducto() * producto.getCantidad();
-    compra.setSubtotal(subtotal);
-    compra.setTotal(subtotal);  // Si tienes impuestos o descuentos, aplícalos aquí
-
-    em.persist(compra);
+       // Verificamos si el usuario canceló o dejó el campo vacío
+   if (cedula == null || cedula.trim().isEmpty()) {
+       JOptionPane.showMessageDialog(null, "Debe ingresar una cédula válida.");
+       return; // Salimos del método
 }
 
-            em.getTransaction().commit();
-            JOptionPane.showMessageDialog(null, "¡Compra registrada exitosamente!");
+       // Creamos el EntityManager y el EntityManagerFactory para conectarnos a la base de datos
+       EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
+       EntityManager em = emf.createEntityManager();
 
-        } catch (Exception ex) {
-            em.getTransaction().rollback();
-            JOptionPane.showMessageDialog(null, "Error al registrar la compra: " + ex.getMessage());
-        } finally {
-            em.close();
-            emf.close();
-        }
+try {
+    // Iniciamos la transacción
+    em.getTransaction().begin();
+
+    // Hacemos una consulta para obtener todos los productos en el carrito temporal asociados a la cédula
+    TypedQuery<CarritoTemp> query = em.createQuery(
+        "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :documento", CarritoTemp.class);
+    query.setParameter("documento", cedula);
+
+    // Obtenemos los resultados como una lista
+    List<CarritoTemp> productos = query.getResultList();
+
+    // Si no se encontraron productos para esa cédula, mostramos un mensaje y cancelamos la transacción
+    if (productos.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No hay productos en el carrito para esta cédula.");
+        em.getTransaction().rollback(); // Deshacemos la transacción por seguridad
+        return; // Salimos del método
+    }
+
+    // Si hay productos, recorremos la lista y creamos una nueva compra por cada producto
+    for (CarritoTemp producto : productos) {
+        Compra compra = new Compra();
+        compra.setNombreCliente(producto.getNombreCliente());              // Nombre del cliente
+        compra.setDescripcionProducto(producto.getDescripcionProducto());  // Descripción del producto
+        compra.setPrecioProducto(producto.getPrecioProducto());            // Precio unitario
+        compra.setCantidad(producto.getCantidad());                        // Cantidad comprada
+        compra.setNumeroDocumento(producto.getNumeroDocumento());          // Documento del cliente
+        compra.setMetodoPago(producto.getMetodoPago());                    // Método de pago usado
+        compra.setNombreProducto(producto.getNombreProducto());            // Nombre del producto
+        compra.setTipoDocumento(producto.getTipoDocumento());              // Tipo de documento (C.C, T.I, etc.)
+
+        // Guardamos la fecha actual como fecha de compra
+        compra.setFechaCompra(LocalDateTime.now());
+
+        // Calculamos el subtotal (precio * cantidad)
+        double subtotal = producto.getPrecioProducto() * producto.getCantidad();
+        compra.setSubtotal(subtotal);
+
+        // Asignamos el total (en este ejemplo, igual al subtotal porque no hay impuestos o descuentos)
+        compra.setTotal(subtotal);
+
+        // Guardamos el objeto compra en la base de datos
+        em.persist(compra);
+    }
+
+    // Confirmamos los cambios y guardamos en la base de datos
+    em.getTransaction().commit();
+
+    // Mostramos un mensaje indicando que todo salió bien
+    JOptionPane.showMessageDialog(null, "¡Compra registrada exitosamente!");
+
+} catch (Exception ex) {
+    // Si ocurre un error, deshacemos la transacción (solo si aún está activa)
+    if (em.getTransaction().isActive()) {
+        em.getTransaction().rollback();
+    }
+
+    // Mostramos el mensaje de error
+    JOptionPane.showMessageDialog(null, "Error al registrar la compra: " + ex.getMessage());
+
+} finally {
+    // Cerramos la conexión a la base de datos
+    em.close();
+    emf.close();
+}
     
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
           DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento", "Fecha", "Subtotal", "Total" }, 0);
-jTable4.setModel(modelo);
+    new Object[]{ 
+        "Nombre Producto", "Descripción", "Precio", "Cantidad", 
+        "Método de Pago", "Nombre Cliente", "Tipo Documento", 
+        "Número Documento", "Fecha", "Subtotal", "Total" 
+    }, 0
+    );
+    jTable4.setModel(modelo);
 
-// Ajustar ancho columna "Descripción"
-jTable4.getColumnModel().getColumn(1).setPreferredWidth(300);
+    // Ajustar tamaño preferido por columna
+    jTable4.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre Producto
+    jTable4.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
+    jTable4.getColumnModel().getColumn(2).setPreferredWidth(80);  // Precio
+    jTable4.getColumnModel().getColumn(3).setPreferredWidth(70);  // Cantidad
+    jTable4.getColumnModel().getColumn(4).setPreferredWidth(120); // Método de Pago
+    jTable4.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente
+    jTable4.getColumnModel().getColumn(6).setPreferredWidth(100); // Tipo Documento
+    jTable4.getColumnModel().getColumn(7).setPreferredWidth(130); // Número Documento
+    jTable4.getColumnModel().getColumn(8).setPreferredWidth(100); // Fecha
+    jTable4.getColumnModel().getColumn(9).setPreferredWidth(100); // Subtotal
+    jTable4.getColumnModel().getColumn(10).setPreferredWidth(100); // Total
 
-// Pedir número de documento (cédula) con JOptionPane
-String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+    // Opcional: ajustar altura si el texto es largo
+    jTable4.setRowHeight(30);
 
-// Si el usuario no cancela ni deja vacío
-if (cedula != null && !cedula.trim().isEmpty()) {
+    // Opcional: permitir ajuste automático al cambiar tamaño
+    jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+    // Pedir número de documento
+    String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
+
+  if (cedula != null && !cedula.trim().isEmpty()) {
     EntityManager em = ConexionBd.conectar().createEntityManager();
 
     try {
-        // Consulta con parámetro para filtrar por cédula
         List<CarritoTemp> lista = em.createQuery(
             "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
             .setParameter("cedula", cedula)
@@ -1755,25 +1844,22 @@ if (cedula != null && !cedula.trim().isEmpty()) {
         if (lista.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
         } else {
-            // Mostrar productos en la tabla
-         for (CarritoTemp c : lista) {
-    modelo.addRow(new Object[]{
-        c.getNombreProducto(),
-        c.getDescripcionProducto(),
-        c.getPrecioProducto(),
-        c.getCantidad(),
-        c.getMetodoPago(),
-        c.getNombreCliente(),
-        c.getTipoDocumento(),
-        c.getNumeroDocumento(),
-        c.getFecha(),         // ← fecha
-        c.getSubtotal(),      // ← subtotal
-        c.getTotal()          // ← total
-    });
-}
-
+            for (CarritoTemp c : lista) {
+                modelo.addRow(new Object[]{
+                    c.getNombreProducto(),
+                    c.getDescripcionProducto(),
+                    c.getPrecioProducto(),
+                    c.getCantidad(),
+                    c.getMetodoPago(),
+                    c.getNombreCliente(),
+                    c.getTipoDocumento(),
+                    c.getNumeroDocumento(),
+                    c.getFecha(),
+                    c.getSubtotal(),
+                    c.getTotal()
+                });
             }
-        
+        }
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
@@ -1833,23 +1919,51 @@ try {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ "Nombre Producto", "Descripción", "Precio", "Cantidad", "Método de Pago", "Nombre Cliente", "Tipo Documento", "Número Documento", "Fecha", "Subtotal", "Total" }, 0);
+      // Crear y configurar el modelo de la tabla
+DefaultTableModel modelo = new DefaultTableModel(
+    new Object[]{ 
+        "Nombre Producto", "Descripción", "Precio", "Cantidad", 
+        "Método de Pago", "Nombre Cliente", "Tipo Documento", 
+        "Número Documento", "Fecha", "Subtotal", "Total" 
+    }, 0
+);
 jTable2.setModel(modelo);
 
-// Ajustar ancho columna "Descripción"
-jTable2.getColumnModel().getColumn(1).setPreferredWidth(300);
+// Configurar anchos adecuados para cada columna
+jTable2.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre Producto
+jTable2.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
+jTable2.getColumnModel().getColumn(2).setPreferredWidth(80);  // Precio
+jTable2.getColumnModel().getColumn(3).setPreferredWidth(70);  // Cantidad
+jTable2.getColumnModel().getColumn(4).setPreferredWidth(120); // Método de Pago
+jTable2.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente
+jTable2.getColumnModel().getColumn(6).setPreferredWidth(100); // Tipo Documento
+jTable2.getColumnModel().getColumn(7).setPreferredWidth(130); // Número Documento
+jTable2.getColumnModel().getColumn(8).setPreferredWidth(100); // Fecha
+jTable2.getColumnModel().getColumn(9).setPreferredWidth(100); // Subtotal
+jTable2.getColumnModel().getColumn(10).setPreferredWidth(100); // Total
 
-// Pedir número de documento (cédula) con JOptionPane
+// Ajustar altura de las filas (opcional)
+jTable2.setRowHeight(30);
+
+// Permitir desplazamiento horizontal si es necesario
+jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+// Verifica que jTable2 esté dentro de un JScrollPane en tu diseño, así:
+// JScrollPane scroll = new JScrollPane(jTable2);
+// scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+// Pedir número de cédula
 String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
 
-// Si el usuario no cancela ni deja vacío
+// Validar que no esté vacío
 if (cedula != null && !cedula.trim().isEmpty()) {
     EntityManager em = ConexionBd.conectar().createEntityManager();
 
     try {
-        // Consulta con parámetro para filtrar por cédula
+        // Limpia el modelo de la tabla antes de llenar
+        modelo.setRowCount(0);
+
+        // Consulta con parámetro por cédula
         List<CarritoTemp> lista = em.createQuery(
             "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
             .setParameter("cedula", cedula)
@@ -1858,25 +1972,23 @@ if (cedula != null && !cedula.trim().isEmpty()) {
         if (lista.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
         } else {
-            // Mostrar productos en la tabla
-         for (CarritoTemp c : lista) {
-    modelo.addRow(new Object[]{
-        c.getNombreProducto(),
-        c.getDescripcionProducto(),
-        c.getPrecioProducto(),
-        c.getCantidad(),
-        c.getMetodoPago(),
-        c.getNombreCliente(),
-        c.getTipoDocumento(),
-        c.getNumeroDocumento(),
-        c.getFecha(),         // ← fecha
-        c.getSubtotal(),      // ← subtotal
-        c.getTotal()          // ← total
-    });
-}
-
+            // Llenar la tabla con los datos obtenidos
+            for (CarritoTemp c : lista) {
+                modelo.addRow(new Object[]{
+                    c.getNombreProducto(),
+                    c.getDescripcionProducto(),
+                    c.getPrecioProducto(),
+                    c.getCantidad(),
+                    c.getMetodoPago(),
+                    c.getNombreCliente(),
+                    c.getTipoDocumento(),
+                    c.getNumeroDocumento(),
+                    c.getFecha(),
+                    c.getSubtotal(),
+                    c.getTotal()
+                });
             }
-        
+        }
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
@@ -1887,27 +1999,29 @@ if (cedula != null && !cedula.trim().isEmpty()) {
 } else {
     JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
 }
+
+        
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         int filaSeleccionada = jTable2.getSelectedRow();
 
-if (filaSeleccionada == -1) {
-    JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
-    return;
+        if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
+        return;
 }
 
-DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
 
-// Obtener datos desde la fila seleccionada
-String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
-String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // columna "Número Documento"
+        // Obtener datos desde la fila seleccionada
+        String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
+        String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // columna "Número Documento"
 
-EntityManager em = ConexionBd.conectar().createEntityManager();
-EntityTransaction tx = em.getTransaction();
+        EntityManager em = ConexionBd.conectar().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-try {
+  try {
     tx.begin();
 
     // Buscar el producto en CarritoTemp
@@ -2014,6 +2128,7 @@ try {
     private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JComboBox<String> comboTipoDocumento;
     private com.toedter.calendar.JDateChooser dateChooser;
+    private com.toedter.calendar.JDateChooser fechaChooser;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -2032,7 +2147,6 @@ try {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
