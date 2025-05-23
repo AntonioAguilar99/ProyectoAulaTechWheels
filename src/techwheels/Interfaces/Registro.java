@@ -181,7 +181,7 @@ public class Registro extends javax.swing.JFrame {
 
         RegistrarBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         RegistrarBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
-        RegistrarBtnTxt.setText("  REGISTRAR");
+        RegistrarBtnTxt.setText(" REGISTRAR");
         RegistrarBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 RegistrarBtnTxtMouseClicked(evt);

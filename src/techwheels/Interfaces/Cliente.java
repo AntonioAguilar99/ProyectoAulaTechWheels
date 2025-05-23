@@ -4,6 +4,8 @@
  */
 package techwheels.Interfaces;
 
+import java.awt.Color;
+
 /**
  *
  * @author anton
@@ -29,90 +31,166 @@ public class Cliente extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        RealizarCompraBtn = new javax.swing.JPanel();
+        RealizarCompraBtnTxt = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        CancelarCompraBtn = new javax.swing.JPanel();
+        CancelarCompraBtnTxt = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        HistorialDeComprasBtn = new javax.swing.JPanel();
+        HistorialDeComprasBtnTxt = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        ExitBtn = new javax.swing.JPanel();
+        ExitBtnTxt = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("BIENVENIDO COMPRE Y VENDA SUS ARTICULOS");
+        jLabel1.setText("BIENVENIDO CLIENTE");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 250, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
-        jButton1.setText("Realizar Compra");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        RealizarCompraBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        RealizarCompraBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        RealizarCompraBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        RealizarCompraBtnTxt.setText("   Realizar Compra");
+        RealizarCompraBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RealizarCompraBtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RealizarCompraBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                RealizarCompraBtnTxtMouseExited(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
-        jButton2.setText("Cancelar Compra");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
-        jButton3.setText("Salir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/history.png"))); // NOI18N
-        jButton5.setText("Historial de Compras");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(62, 62, 62))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(194, 194, 194))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(353, 353, 353)
-                        .addComponent(jButton5)))
-                .addContainerGap(15, Short.MAX_VALUE))
+        javax.swing.GroupLayout RealizarCompraBtnLayout = new javax.swing.GroupLayout(RealizarCompraBtn);
+        RealizarCompraBtn.setLayout(RealizarCompraBtnLayout);
+        RealizarCompraBtnLayout.setHorizontalGroup(
+            RealizarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RealizarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel1)
-                .addGap(149, 149, 149)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addGap(71, 71, 71)
-                .addComponent(jButton3)
-                .addGap(34, 34, 34))
+        RealizarCompraBtnLayout.setVerticalGroup(
+            RealizarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(RealizarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
+
+        jPanel1.add(RealizarCompraBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 140, 50));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 70, -1));
+
+        CancelarCompraBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        CancelarCompraBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        CancelarCompraBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        CancelarCompraBtnTxt.setText("  Cancelar Compra");
+        CancelarCompraBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CancelarCompraBtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                CancelarCompraBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                CancelarCompraBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout CancelarCompraBtnLayout = new javax.swing.GroupLayout(CancelarCompraBtn);
+        CancelarCompraBtn.setLayout(CancelarCompraBtnLayout);
+        CancelarCompraBtnLayout.setHorizontalGroup(
+            CancelarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(CancelarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+        CancelarCompraBtnLayout.setVerticalGroup(
+            CancelarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(CancelarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(CancelarCompraBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 140, 50));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, -1));
+
+        HistorialDeComprasBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        HistorialDeComprasBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        HistorialDeComprasBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        HistorialDeComprasBtnTxt.setText("  Historial De Compras");
+        HistorialDeComprasBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                HistorialDeComprasBtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                HistorialDeComprasBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                HistorialDeComprasBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout HistorialDeComprasBtnLayout = new javax.swing.GroupLayout(HistorialDeComprasBtn);
+        HistorialDeComprasBtn.setLayout(HistorialDeComprasBtnLayout);
+        HistorialDeComprasBtnLayout.setHorizontalGroup(
+            HistorialDeComprasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistorialDeComprasBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        HistorialDeComprasBtnLayout.setVerticalGroup(
+            HistorialDeComprasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistorialDeComprasBtnLayout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(HistorialDeComprasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, 170, 50));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/history.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, -1, -1));
+
+        ExitBtn.setBackground(new java.awt.Color(0, 0, 0));
+
+        ExitBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        ExitBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        ExitBtnTxt.setText("           SALIR");
+        ExitBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ExitBtnTxtMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ExitBtnTxtMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ExitBtnTxtMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ExitBtnLayout = new javax.swing.GroupLayout(ExitBtn);
+        ExitBtn.setLayout(ExitBtnLayout);
+        ExitBtnLayout.setHorizontalGroup(
+            ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ExitBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+        );
+        ExitBtnLayout.setVerticalGroup(
+            ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ExitBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(ExitBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, 140, 50));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,29 +206,57 @@ public class Cliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-         new InicioSesion().setVisible(true);
-         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void RealizarCompraBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseEntered
+       RealizarCompraBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_RealizarCompraBtnTxtMouseEntered
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-          new RealizarCompra().setVisible(true);
+    private void RealizarCompraBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseExited
+       RealizarCompraBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_RealizarCompraBtnTxtMouseExited
+
+    private void RealizarCompraBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseClicked
+       new RealizarCompra().setVisible(true);
+          this.dispose(); 
+    }//GEN-LAST:event_RealizarCompraBtnTxtMouseClicked
+
+    private void CancelarCompraBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseClicked
+       new CancelarCompra().setVisible(true);
           this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_CancelarCompraBtnTxtMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-          new CancelarCompra().setVisible(true);
-          this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void CancelarCompraBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseEntered
+        CancelarCompraBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_CancelarCompraBtnTxtMouseEntered
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-         new HistorialCompra().setVisible(true);
+    private void CancelarCompraBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseExited
+        CancelarCompraBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_CancelarCompraBtnTxtMouseExited
+
+    private void HistorialDeComprasBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseClicked
+        new HistorialCompra().setVisible(true);
          this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseClicked
+
+    private void HistorialDeComprasBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseEntered
+        HistorialDeComprasBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseEntered
+
+    private void HistorialDeComprasBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseExited
+        HistorialDeComprasBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseExited
+
+    private void ExitBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnTxtMouseClicked
+        new InicioSesion().setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_ExitBtnTxtMouseClicked
+
+    private void ExitBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnTxtMouseEntered
+        ExitBtn.setBackground(new Color(51, 51, 51));
+    }//GEN-LAST:event_ExitBtnTxtMouseEntered
+
+    private void ExitBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnTxtMouseExited
+        ExitBtn.setBackground(new Color(0, 0, 0));
+    }//GEN-LAST:event_ExitBtnTxtMouseExited
 
     /**
      * @param args the command line arguments
@@ -188,11 +294,19 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JPanel CancelarCompraBtn;
+    private javax.swing.JLabel CancelarCompraBtnTxt;
+    private javax.swing.JPanel ExitBtn;
+    private javax.swing.JLabel ExitBtnTxt;
+    private javax.swing.JPanel HistorialDeComprasBtn;
+    private javax.swing.JLabel HistorialDeComprasBtnTxt;
+    private javax.swing.JPanel RealizarCompraBtn;
+    private javax.swing.JLabel RealizarCompraBtnTxt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
