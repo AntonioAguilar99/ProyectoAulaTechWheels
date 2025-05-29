@@ -1,4 +1,4 @@
-
+ 
 
 package techwheels.Infraestructura.Config.Bd;
 
@@ -29,7 +29,7 @@ public class ConexionBd {
         emf = null;
     }
 
-    // Método para obtener EntityManager
+    // Método para obtener EntityManager 
     public static EntityManager getEntityManager() {
         if (emf == null) {
             conectar(); // Asegura que emf esté inicializado

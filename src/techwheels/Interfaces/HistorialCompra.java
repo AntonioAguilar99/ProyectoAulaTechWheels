@@ -55,7 +55,7 @@ public class HistorialCompra extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 21, 131, -1));
 
         jButton1.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
         jButton1.setText("Buscar Historial");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +81,7 @@ public class HistorialCompra extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 155, 720, -1));
 
         jButton2.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
         jButton2.setText("Salir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {

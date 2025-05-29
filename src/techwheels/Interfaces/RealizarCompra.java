@@ -93,10 +93,10 @@ public class RealizarCompra extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaProductos1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 168, 681, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 168, 670, -1));
 
         jButton1.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
         jButton1.setText("Productos disponibles");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +107,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 187, -1));
 
         jButton2.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
         jButton2.setText("Agregar al carrito ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +118,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 456, 187, -1));
 
         jButton3.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/up-arrow.png"))); // NOI18N
         jButton3.setText("Realizar compra");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +129,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 582, 187, -1));
 
         jButton4.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
         jButton4.setText("Salir");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -137,10 +137,10 @@ public class RealizarCompra extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 622, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, -1, -1));
 
         jButton5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
+        jButton5.setForeground(new java.awt.Color(0, 0, 0));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
         jButton5.setText("Ver carrito de compras");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +151,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 525, -1, -1));
 
         jButton6.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setForeground(new java.awt.Color(0, 0, 0));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
         jButton6.setText("Quitar del carrito");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +189,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 285, 100, -1));
 
         comboMetodo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        comboMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Efectico ", "Tarjeta de Credito", " " }));
+        comboMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Efectivo", "Tarjeta de Credito", " " }));
         comboMetodo.setBorder(null);
         jPanel1.add(comboMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 307, 147, -1));
 

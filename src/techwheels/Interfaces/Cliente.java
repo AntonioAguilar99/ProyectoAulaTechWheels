@@ -54,7 +54,7 @@ public class Cliente extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("BIENVENIDO CLIENTE");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 250, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 320, -1));
 
         RealizarCompraBtn.setBackground(new java.awt.Color(0, 0, 0));
 
