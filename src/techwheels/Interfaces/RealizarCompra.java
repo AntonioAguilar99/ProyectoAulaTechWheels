@@ -67,6 +67,10 @@ public class RealizarCompra extends javax.swing.JFrame {
         comboMetodo = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         fechaChooser = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
+        jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,7 +78,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cooltext482257288908357.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 43, 350, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 43, 350, 80));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -93,7 +97,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablaProductos1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(492, 168, 670, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 670, -1));
 
         jButton1.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -104,7 +108,7 @@ public class RealizarCompra extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 187, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 550, 187, -1));
 
         jButton2.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
@@ -115,7 +119,7 @@ public class RealizarCompra extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 456, 187, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 630, 187, -1));
 
         jButton3.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(0, 0, 0));
@@ -126,7 +130,7 @@ public class RealizarCompra extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 582, 187, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 700, 187, -1));
 
         jButton4.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
@@ -137,7 +141,7 @@ public class RealizarCompra extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 610, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 760, 100, 50));
 
         jButton5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jButton5.setForeground(new java.awt.Color(0, 0, 0));
@@ -148,7 +152,7 @@ public class RealizarCompra extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 525, -1, -1));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, -1, -1));
 
         jButton6.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(0, 0, 0));
@@ -159,53 +163,80 @@ public class RealizarCompra extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 525, 187, -1));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, 187, -1));
 
+        jLabel3.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("Ingrese su nombre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 196, 112, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 196, 170, -1));
 
         Nombre.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         Nombre.setBorder(null);
         jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 220, 138, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 150, 15));
 
+        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Tipo de documento");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 196, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 200, -1, -1));
 
         comboTipo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cedula de Ciudadania", "Pasaporte", "Cedula de Extranjeria" }));
         comboTipo.setBorder(null);
-        jPanel1.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 218, -1, -1));
+        jPanel1.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Numero de documento");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 285, 138, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 285, 190, -1));
 
         txtNumero.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         txtNumero.setBorder(null);
         jPanel1.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 310, 138, -1));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 150, 10));
 
+        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
         jLabel6.setText("Metodo de pago");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 285, 100, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 180, -1));
 
         comboMetodo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         comboMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Efectivo", "Tarjeta de Credito", " " }));
         comboMetodo.setBorder(null);
-        jPanel1.add(comboMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 307, 147, -1));
+        jPanel1.add(comboMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 147, -1));
 
+        jLabel7.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Fecha");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 364, 55, -1));
-        jPanel1.add(fechaChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 386, 136, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 55, -1));
+        jPanel1.add(fechaChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 136, -1));
+
+        jLabel8.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setText("Dirrecion de envio");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
+
+        jTextField1.setBorder(null);
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 170, -1));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 170, 10));
+
+        jButton7.setText("Descargar factura");
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 821, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
@@ -696,6 +727,7 @@ if (cedula != null && !cedula.trim().isEmpty()) {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -703,10 +735,13 @@ if (cedula != null && !cedula.trim().isEmpty()) {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tablaProductos1;
     private javax.swing.JTextField txtNumero;
     // End of variables declaration//GEN-END:variables

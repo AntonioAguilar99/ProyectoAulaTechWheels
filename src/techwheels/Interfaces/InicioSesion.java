@@ -50,6 +50,7 @@ public class InicioSesion extends javax.swing.JFrame {
         RegistroBtn = new javax.swing.JPanel();
         RegistroBtnTxt = new javax.swing.JLabel();
         ContraseñaTxt = new javax.swing.JPasswordField();
+        chkMostrar = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -58,25 +59,35 @@ public class InicioSesion extends javax.swing.JFrame {
         Background.setBackground(new java.awt.Color(255, 255, 255));
         Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("BIENVENIDO USUARIO");
-        Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, -1, -1));
+        Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
 
-        CorreoElecTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        CorreoElecTxt.setForeground(new java.awt.Color(0, 0, 0));
+        CorreoElecTxt.setBackground(new java.awt.Color(255, 255, 255));
+        CorreoElecTxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        CorreoElecTxt.setForeground(new java.awt.Color(51, 51, 51));
         CorreoElecTxt.setBorder(null);
+        CorreoElecTxt.setCaretColor(new java.awt.Color(0, 0, 0));
         Background.add(CorreoElecTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 260, 25));
+
+        jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         Background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 270, 15));
+
+        jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         Background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 270, 15));
 
-        jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("CONTRASEÑA");
         Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setText("CORREO ELECTRONICO");
         Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
@@ -148,7 +159,8 @@ public class InicioSesion extends javax.swing.JFrame {
 
         Background.add(RegistroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, -1, 40));
 
-        ContraseñaTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
+        ContraseñaTxt.setBackground(new java.awt.Color(255, 255, 255));
+        ContraseñaTxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ContraseñaTxt.setBorder(null);
         ContraseñaTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +168,16 @@ public class InicioSesion extends javax.swing.JFrame {
             }
         });
         Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 260, 25));
+
+        chkMostrar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        chkMostrar.setForeground(new java.awt.Color(51, 51, 51));
+        chkMostrar.setText("Mostrar contraseña");
+        chkMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkMostrarActionPerformed(evt);
+            }
+        });
+        Background.add(chkMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,6 +267,16 @@ public class InicioSesion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ContraseñaTxtActionPerformed
 
+    private void chkMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkMostrarActionPerformed
+        // TODO add your handling code here:
+        if (chkMostrar.isSelected()){
+            ContraseñaTxt.setEchoChar((char)0);
+        }else{
+            ContraseñaTxt.setEchoChar('*');
+        }
+      
+    }//GEN-LAST:event_chkMostrarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,6 +321,7 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JLabel LlavesmecanicoImg;
     private javax.swing.JPanel RegistroBtn;
     private javax.swing.JLabel RegistroBtnTxt;
+    private javax.swing.JCheckBox chkMostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
