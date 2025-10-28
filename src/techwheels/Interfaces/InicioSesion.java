@@ -4,6 +4,7 @@
  */
 package techwheels.Interfaces;
 
+import Controller.UserController;
 import java.awt.Color;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -215,52 +216,31 @@ public class InicioSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_RegistroBtnTxtMouseClicked
 
     private void EntrarBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarBtnTxtMouseClicked
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
-        EntityManager em = emf.createEntityManager();
-    try {
-        String correo = CorreoElecTxt.getText().trim();
-        String contrasena = new String(ContraseñaTxt.getPassword()).trim();
-        
-        // Validar campos vacíos
-        if (correo.isEmpty() || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos obligatorios.");
-            return;
-        }
+       
+         String correo = CorreoElecTxt.getText().trim();
+         String contraseña = new String(ContraseñaTxt.getPassword()).trim();
+         
+         
+          if (correo.isEmpty() || contraseña.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos", "Error", JOptionPane.WARNING_MESSAGE);
+               return;
+             }
 
-        // Buscar usuario por correo y contraseña
-        TypedQuery<Usuario> query = em.createQuery(
-    "SELECT u FROM Usuarios u WHERE u.correo = :correo AND u.contraseña = :contrasena",
-    Usuario.class
-);
-        query.setParameter("correo", correo);
-        query.setParameter("contrasena", contrasena);
-        
-        Usuario usuario = null;
-        try {
-            usuario = query.getSingleResult();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Correo o contraseña incorrectos.");
-            return;
-        }
+    
+        UserController controller = new UserController();
+        Usuario usuario = controller.login(correo, contraseña);
 
-        // Redirigir según el rol
-        if (usuario.getRol() == RolUsuarioEnum.CLIENTE) {
-            new Cliente().setVisible(true);
-            this.dispose(); // Cierra el JFrame actual
-        } else if (usuario.getRol() == RolUsuarioEnum.ADMINISTRADOR) {
-            new Administrador().setVisible(true);
-            this.dispose(); // Cierra el JFrame actual
-        }
-        
-        JOptionPane.showMessageDialog(this, "Bienvenido, " + usuario.getNombres() + "!");
-        
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al iniciar sesión: " + ex.getMessage());
-    } finally {
-        em.close();
-        emf.close();
-      }  
+        if (usuario != null) {
+           if (usuario.getRol() == RolUsuarioEnum.ADMINISTRADOR) {
+               new Administrador(usuario).setVisible(true);
+            } else {
+              new Cliente(usuario).setVisible(true);
+            } 
+             } else {
+                 JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
+                     }
+
+
     }//GEN-LAST:event_EntrarBtnTxtMouseClicked
 
     private void ContraseñaTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaTxtActionPerformed

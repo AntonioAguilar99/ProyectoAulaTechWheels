@@ -9,33 +9,16 @@ import javax.persistence.*;
  * @author Antonio Aguilar
  */
 
-@Entity(name = "productos") // nombre de la tabla en la BD
+
 public class GestionProductos implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long codigo; // Cambiado de String a Long
-
-    @Column(length = 40, nullable = false)
+    private Long codigo;
     private String nombre;
-
-    @Column(length = 255, nullable = false)
     private String descripcion;
-
-    @Column(nullable = false)
     private Double precio;
-
-    @Column(nullable = false)
     private Integer cantidad;
-
-    @Column(length = 30)
     private String categoria;
-
-    @Column(length = 70)
     private String marca;
-
-    @Temporal(TemporalType.DATE)
     private Date fecha;
 
     public GestionProductos() {

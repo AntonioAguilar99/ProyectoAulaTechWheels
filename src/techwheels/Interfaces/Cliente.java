@@ -5,6 +5,7 @@
 package techwheels.Interfaces;
 
 import java.awt.Color;
+import techwheels.Clases.Usuario;
 
 /**
  *
@@ -15,7 +16,11 @@ public class Cliente extends javax.swing.JFrame {
     /**
      * Creates new form Cliente
      */
-    public Cliente() {
+    
+    public Cliente(){
+        initComponents();
+    }
+    public Cliente(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
     }

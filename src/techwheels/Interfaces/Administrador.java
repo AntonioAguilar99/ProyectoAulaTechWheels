@@ -22,7 +22,7 @@ import techwheels.Clases.Compra;
 import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
 import techwheels.Clases.GestionProductos;
 import techwheels.Clases.Usuario;
-import techwheels.Infraestructura.Config.Bd.ConexionBd;
+
 
 /**
  *
@@ -33,7 +33,13 @@ public class Administrador extends javax.swing.JFrame {
     /**
      * Creates new form Administrador
      */
+    
+    
     public Administrador() {
+        initComponents();
+    }
+    
+    public Administrador(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
     }
@@ -81,7 +87,7 @@ public class Administrador extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         setContrasena = new javax.swing.JPasswordField();
         jSeparator6 = new javax.swing.JSeparator();
-        jButton4 = new javax.swing.JButton();
+        BtnRegistrar = new javax.swing.JButton();
         RealizarCompra = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -261,7 +267,6 @@ public class Administrador extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Registre a los Usuarios Facil y Rapido");
 
         jLabel2.setText("Nombres");
@@ -301,11 +306,11 @@ public class Administrador extends javax.swing.JFrame {
 
         setContrasena.setBorder(null);
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/register.png"))); // NOI18N
-        jButton4.setText("Registrar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BtnRegistrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/register.png"))); // NOI18N
+        BtnRegistrar.setText("Registrar");
+        BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BtnRegistrarActionPerformed(evt);
             }
         });
 
@@ -315,7 +320,7 @@ public class Administrador extends javax.swing.JFrame {
             RegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RegistroLayout.createSequentialGroup()
                 .addGap(558, 558, 558)
-                .addComponent(jButton4)
+                .addComponent(BtnRegistrar)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(RegistroLayout.createSequentialGroup()
                 .addGap(69, 69, 69)
@@ -408,7 +413,7 @@ public class Administrador extends javax.swing.JFrame {
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(BtnRegistrar)
                 .addGap(77, 77, 77))
         );
 
@@ -606,7 +611,6 @@ public class Administrador extends javax.swing.JFrame {
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("CANCELE  LAS COMPRAS FACIL Y RAPIDO");
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -996,7 +1000,7 @@ public class Administrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
         // TODO add your handling code here:
    EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
    EntityManager em = emf.createEntityManager();
@@ -1104,7 +1108,7 @@ public class Administrador extends javax.swing.JFrame {
 }
 
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -2086,7 +2090,7 @@ if (cedula != null && !cedula.trim().isEmpty()) {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+   public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -2120,6 +2124,7 @@ if (cedula != null && !cedula.trim().isEmpty()) {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane Administrador;
+    private javax.swing.JButton BtnRegistrar;
     private javax.swing.JPanel CancelarCompra;
     private javax.swing.JPanel GestionProductos;
     private javax.swing.JPanel HistorialCompras;
@@ -2146,7 +2151,6 @@ if (cedula != null && !cedula.trim().isEmpty()) {
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
