@@ -5,6 +5,7 @@
 package techwheels.Interfaces;
 
 import java.awt.Color;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,6 +14,7 @@ import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
 import techwheels.Clases.Usuario;
+import techwheels.DAO.UsuarioDAO;
 
 /**
  *
@@ -268,110 +270,108 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_RegistrarBtnTxtMouseExited
 
     private void RegistrarBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrarBtnTxtMouseClicked
-      EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
-   EntityManager em = emf.createEntityManager();
-   
+      
    try {
-    // Validaciones de campos obligatorios
-    if (NombreTxt.getText().trim().isEmpty() ||
-        ApellidoTxt.getText().trim().isEmpty() ||
-        ComboRol.getSelectedItem() == null ||
-        NumeroDocumentoTxt.getText().trim().isEmpty() ||
-        CorreoTxt.getText().trim().isEmpty() ||
-        ContraseñaTxt.getText().trim().isEmpty() ||
-        ComboRol.getSelectedItem() == null) {
+        // Validaciones de campos obligatorios
+        if (NombreTxt.getText().trim().isEmpty() ||
+            ApellidoTxt.getText().trim().isEmpty() ||
+            ComboRol.getSelectedItem() == null ||
+            NumeroDocumentoTxt.getText().trim().isEmpty() ||
+            CorreoTxt.getText().trim().isEmpty() ||
+            ContraseñaTxt.getText().trim().isEmpty() ||
+            ComboDocumento.getSelectedItem() == null) {
 
-        JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
-        return;
-    }
+            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos obligatorios.");
+            return;
+        }
+        
+         // Validaciones de formato
+        if (!NombreTxt.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+            return;
+        }
+        if (!ApellidoTxt.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
+            return;
+        }
+        if (!NumeroDocumentoTxt.getText().matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
+            return;
+        }
+        if (CorreoTxt.getText().trim().length() > 100) {
+            JOptionPane.showMessageDialog(null, "El correo no puede superar los 100 caracteres.");
+            return;
+        }
+        if (TelefonoTxt.getText().trim().length() > 15) {
+            JOptionPane.showMessageDialog(null, "El teléfono no puede superar los 15 caracteres.");
+            return;
+        }
+        if (!TelefonoTxt.getText().matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El teléfono solo debe contener números.");
+            return;
+        }
+        if (ContraseñaTxt.getText().trim().length() > 70) {
+            JOptionPane.showMessageDialog(null, "La contraseña no puede superar los 70 caracteres.");
+            return;
+        }
+        if (!CorreoTxt.getText().trim().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            JOptionPane.showMessageDialog(null, "El correo no tiene un formato válido.");
+            return;
+        }
+        
+         // Cargar usuarios existentes
+        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        List<Usuario> usuarios = usuarioDAO.listarUsuarios();
 
-    // Validaciones 
-    if (!NombreTxt.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
-    JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
-    return;
-    }
-    if (!ApellidoTxt.getText().matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
-    JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
-    return;
-    }
-    if (!NumeroDocumentoTxt.getText().matches("\\d+")) {
-    JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
-    return;
-    }
-    if (CorreoTxt.getText().trim().length() > 100) {
-        JOptionPane.showMessageDialog(null, "El correo no puede superar los 100 caracteres.");
-        return;
-    }
-    if (TelefonoTxt.getText().trim().length() > 15) {
-        JOptionPane.showMessageDialog(null, "El teléfono no puede superar los 15 caracteres.");
-        return;
-    }
-    // Validar que teléfono solo contenga números
-    if (!TelefonoTxt.getText().matches("\\d+")) {
-    JOptionPane.showMessageDialog(null, "El teléfono solo debe contener números.");
-    return;
-    }
-    if (ContraseñaTxt.getText().trim().length() > 70) {
-        JOptionPane.showMessageDialog(null, "La contraseña no puede superar los 70 caracteres.");
-        return;
-    }
+        // Validar unicidad de correo y documento
+        for (Usuario u : usuarios) {
+            if (u.getCorreo().equalsIgnoreCase(CorreoTxt.getText().trim())) {
+                JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese correo.");
+                return;
+            }
+            if (u.getNumeroDocumento().equalsIgnoreCase(NumeroDocumentoTxt.getText().trim())) {
+                JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese número de documento.");
+                return;
+            }
+        }
+        
+         // Crear nuevo usuario
+        Usuario usuario = new Usuario();
+        usuario.setCodigo(UUID.randomUUID().toString());
+        usuario.setNombres(NombreTxt.getText().trim());
+        usuario.setApellidos(ApellidoTxt.getText().trim());
+        usuario.setTipoDocumento(ComboDocumento.getSelectedItem().toString());
+        usuario.setNumeroDocumento(NumeroDocumentoTxt.getText().trim());
+        usuario.setCorreo(CorreoTxt.getText().trim());
+        usuario.setTelefono(TelefonoTxt.getText().trim());
+        usuario.setContraseña(ContraseñaTxt.getText().trim());
 
-    // Validar formato de correo
-    if (!CorreoTxt.getText().trim().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-        JOptionPane.showMessageDialog(null, "El correo no tiene un formato válido.");
-        return;
+        // Convertir string a enum (si lo usas)
+        String rolSeleccionado = ComboRol.getSelectedItem().toString().toUpperCase();
+        try {
+            usuario.setRol(RolUsuarioEnum.valueOf(rolSeleccionado));
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "Rol inválido: " + rolSeleccionado);
+            return;
+        }
+
+        // Agregar y guardar usuario
+        usuarios.add(usuario);
+        usuarioDAO.guardarUsuarios(usuarios);
+
+        JOptionPane.showMessageDialog(null, "Registro exitoso.");
+        limpiarCampos();
+        
+        } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al registrar: " + e.getMessage());
     }
+   
 
-    // Validar unicidad de correo y documento
-    TypedQuery<Long> query = em.createQuery(
-        "SELECT COUNT(u) FROM Usuarios u WHERE u.correo = :correo OR u.numeroDocumento = :numeroDocumento", Long.class);
-    query.setParameter("correo", CorreoTxt.getText().trim());
-    query.setParameter("numeroDocumento", NumeroDocumentoTxt.getText().trim());
+   
 
-    Long count = query.getSingleResult();
-    if (count > 0) {
-        JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese correo o número de documento.");
-        return;
-    }
+    
 
-    // Crear nuevo usuario
-    Usuario usuario = new Usuario();
-    usuario.setCodigo(UUID.randomUUID().toString());
-    usuario.setNombres(NombreTxt.getText().trim());
-    usuario.setApellidos(ApellidoTxt.getText().trim());
-    usuario.setTipoDocumento(ComboDocumento.getSelectedItem().toString());
-    usuario.setNumeroDocumento(NumeroDocumentoTxt.getText().trim());
-    usuario.setCorreo(CorreoTxt.getText().trim());
-    usuario.setTelefono(TelefonoTxt.getText().trim());
-    usuario.setContraseña(ContraseñaTxt.getText().trim());
-
-    // Convertir string a enum
-    String rolSeleccionado = ComboRol.getSelectedItem().toString().toUpperCase();
-    try {
-        usuario.setRol(RolUsuarioEnum.valueOf(rolSeleccionado));  // Convierte el valor del JComboBox a enum
-    } catch (IllegalArgumentException ex) {
-        JOptionPane.showMessageDialog(null, "Rol inválido: " + rolSeleccionado);
-        return;
-    }
-
-    // Guardar en la base de datos
-    em.getTransaction().begin();
-    em.persist(usuario);
-    em.getTransaction().commit();
-
-    JOptionPane.showMessageDialog(null, "Registro exitoso");
-    limpiarCampos(); // Limpiar los campos si existe este método
-
-}   catch (Exception e) {
-    if (em.getTransaction().isActive()) {
-        em.getTransaction().rollback();
-    }
-    e.printStackTrace();
-    JOptionPane.showMessageDialog(null, "Error al registrar: " + e.getMessage());
-}   finally {
-    em.close();
-    emf.close();
-}
     }//GEN-LAST:event_RegistrarBtnTxtMouseClicked
 
     /**

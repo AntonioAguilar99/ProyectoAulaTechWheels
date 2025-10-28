@@ -15,36 +15,18 @@ import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
  *
  * @author Antonio Aguilar
  */
-@Entity (name = "Usuarios")
+
   public class Usuario implements Serializable{
-    @Id
-    @Column(name = "Id", length = 36)
-    protected String codigo;
-
-    @Column(length = 40, nullable = false)
-    protected String nombres;
-
-    @Column(length = 50, nullable = false)
-    protected String apellidos;
-
-    @Column(length = 50, nullable = false)
-    protected String tipoDocumento;
-
-    @Column(length = 20, unique = true)
-    protected String numeroDocumento;
-
-    @Column(length = 100, unique = true)
-    protected String correo;
-
-    @Column(length = 15)
-    protected String telefono;
-
-    @Column(length = 70)
-    protected String contraseña;
+    private String codigo;
+    private String nombres;
+    private String apellidos;
+    private String tipoDocumento;
+    private String numeroDocumento;
+    private String correo;
+    private String telefono;
+    private String contraseña;
+    private RolUsuarioEnum rol;
     
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20, nullable = false)
-    protected RolUsuarioEnum rol;
     
     public Usuario(){
     

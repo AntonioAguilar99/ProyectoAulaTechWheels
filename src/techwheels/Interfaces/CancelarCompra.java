@@ -12,7 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import techwheels.Clases.CarritoTemp;
 import techwheels.Clases.GestionProductos;
-import techwheels.Infraestructura.Config.Bd.ConexionBd;
+//import techwheels.Infraestructura.Config.Bd.ConexionBd;
 
 /**
  *
