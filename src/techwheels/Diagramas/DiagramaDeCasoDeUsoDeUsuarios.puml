@@ -20,7 +20,7 @@ Administrador --> (Modificar Compra)
 Administrador --> (Ver Historial de compra de los clientes)
 Administrador --> (Ver reportes de ventas)
 
-(Comprar productos) --> Pago : <<include>> Procesar pago
+(Comprar productos) --> Pago : <<incluye>> Procesar pago
 
 
 

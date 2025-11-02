@@ -4,15 +4,7 @@
  */
 package techwheels.Interfaces;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import techwheels.Clases.CarritoTemp;
-import techwheels.Clases.GestionProductos;
-//import techwheels.Infraestructura.Config.Bd.ConexionBd;
+
 
 /**
  *
@@ -126,159 +118,11 @@ public class CancelarCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int filaSeleccionada = jTable2.getSelectedRow();
-
-        if (filaSeleccionada == -1) {
-        JOptionPane.showMessageDialog(null, "Seleccione un producto para quitar del carrito.");
-        return;
-}
-
-        DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
-
-        // Obtener datos desde la fila seleccionada
-        String nombreProducto = (String) modelo.getValueAt(filaSeleccionada, 0);
-        String numeroDocumento = (String) modelo.getValueAt(filaSeleccionada, 7); // columna "Número Documento"
-
-        EntityManager em = ConexionBd.conectar().createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-  try {
-    tx.begin();
-
-    // Buscar el producto en CarritoTemp
-    List<CarritoTemp> carritoItems = em.createQuery(
-        "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :doc AND c.nombreProducto = :nombre", CarritoTemp.class)
-        .setParameter("doc", numeroDocumento)
-        .setParameter("nombre", nombreProducto)
-        .getResultList();
-
-    if (carritoItems.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "No se encontró el producto en el carrito.");
-        tx.rollback();
-        return;
-    }
-
-    CarritoTemp itemCarrito = carritoItems.get(0);
-    int cantidadCarrito = itemCarrito.getCantidad();
-
-    // Buscar el producto en inventario
-    List<GestionProductos> productos = em.createQuery(
-        "SELECT p FROM productos p WHERE p.nombre = :nombre", GestionProductos.class)
-        .setParameter("nombre", nombreProducto)
-        .getResultList();
-
-    if (productos.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "No se encontró el producto en inventario.");
-        tx.rollback();
-        return;
-    }
-
-    GestionProductos productoInventario = productos.get(0);
-
-    // Actualizar inventario
-    int nuevaCantidadInventario = productoInventario.getCantidad() + cantidadCarrito;
-    productoInventario.setCantidad(nuevaCantidadInventario);
-    em.merge(productoInventario);
-
-    // Eliminar el producto del carrito
-    em.remove(itemCarrito);
-    modelo.removeRow(filaSeleccionada); // quitar de la tabla visual
-
-    tx.commit();
-
-    JOptionPane.showMessageDialog(null, "Producto eliminado del carrito y stock actualizado.");
-
-} catch (Exception ex) {
-    if (tx.isActive()) {
-        tx.rollback();
-    }
-    JOptionPane.showMessageDialog(null, "Error al eliminar producto: " + ex.getMessage());
-} finally {
-    em.close();
-}
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       // Crear y configurar el modelo de la tabla
-DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ 
-        "Nombre Producto", "Descripción", "Precio", "Cantidad", 
-        "Método de Pago", "Nombre Cliente", "Tipo Documento", 
-        "Número Documento", "Fecha", "Subtotal", "Total" 
-    }, 0
-);
-jTable2.setModel(modelo);
 
-// Configurar anchos adecuados para cada columna
-jTable2.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre Producto
-jTable2.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
-jTable2.getColumnModel().getColumn(2).setPreferredWidth(80);  // Precio
-jTable2.getColumnModel().getColumn(3).setPreferredWidth(70);  // Cantidad
-jTable2.getColumnModel().getColumn(4).setPreferredWidth(120); // Método de Pago
-jTable2.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente
-jTable2.getColumnModel().getColumn(6).setPreferredWidth(100); // Tipo Documento
-jTable2.getColumnModel().getColumn(7).setPreferredWidth(130); // Número Documento
-jTable2.getColumnModel().getColumn(8).setPreferredWidth(100); // Fecha
-jTable2.getColumnModel().getColumn(9).setPreferredWidth(100); // Subtotal
-jTable2.getColumnModel().getColumn(10).setPreferredWidth(100); // Total
-
-// Ajustar altura de las filas (opcional)
-jTable2.setRowHeight(30);
-
-// Permitir desplazamiento horizontal si es necesario
-jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-// Verifica que jTable2 esté dentro de un JScrollPane en tu diseño, así:
-// JScrollPane scroll = new JScrollPane(jTable2);
-// scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-// Pedir número de cédula
-String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
-
-// Validar que no esté vacío
-if (cedula != null && !cedula.trim().isEmpty()) {
-    EntityManager em = ConexionBd.conectar().createEntityManager();
-
-    try {
-        // Limpia el modelo de la tabla antes de llenar
-        modelo.setRowCount(0);
-
-        // Consulta con parámetro por cédula
-        List<CarritoTemp> lista = em.createQuery(
-            "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
-            .setParameter("cedula", cedula)
-            .getResultList();
-
-        if (lista.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
-        } else {
-            // Llenar la tabla con los datos obtenidos
-            for (CarritoTemp c : lista) {
-                modelo.addRow(new Object[]{
-                    c.getNombreProducto(),
-                    c.getDescripcionProducto(),
-                    c.getPrecioProducto(),
-                    c.getCantidad(),
-                    c.getMetodoPago(),
-                    c.getNombreCliente(),
-                    c.getTipoDocumento(),
-                    c.getNumeroDocumento(),
-                    c.getFecha(),
-                    c.getSubtotal(),
-                    c.getTotal()
-                });
-            }
-        }
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
-    } finally {
-        em.close();
-    }
-
-} else {
-    JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
-}
 
     }//GEN-LAST:event_jButton3ActionPerformed
 

@@ -12,6 +12,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
+
 import techwheels.Clases.Usuario;
 
 /**

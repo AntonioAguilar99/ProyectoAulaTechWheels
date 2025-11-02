@@ -4,13 +4,7 @@
  */
 package techwheels.Interfaces;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import techwheels.Clases.CarritoTemp;
-import techwheels.Infraestructura.Config.Bd.ConexionBd;
+
 
 /**
  *
@@ -106,76 +100,9 @@ public class HistorialCompra extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel modelo = new DefaultTableModel(
-    new Object[]{ 
-        "Nombre Producto", "Descripción", "Precio", "Cantidad", 
-        "Método de Pago", "Nombre Cliente", "Tipo Documento", 
-        "Número Documento", "Fecha", "Subtotal", "Total" 
-    }, 0
-    );
-    jTable4.setModel(modelo);
+       
+    
 
-    // Ajustar tamaño preferido por columna
-    jTable4.getColumnModel().getColumn(0).setPreferredWidth(150); // Nombre Producto
-    jTable4.getColumnModel().getColumn(1).setPreferredWidth(300); // Descripción
-    jTable4.getColumnModel().getColumn(2).setPreferredWidth(80);  // Precio
-    jTable4.getColumnModel().getColumn(3).setPreferredWidth(70);  // Cantidad
-    jTable4.getColumnModel().getColumn(4).setPreferredWidth(120); // Método de Pago
-    jTable4.getColumnModel().getColumn(5).setPreferredWidth(150); // Nombre Cliente
-    jTable4.getColumnModel().getColumn(6).setPreferredWidth(100); // Tipo Documento
-    jTable4.getColumnModel().getColumn(7).setPreferredWidth(130); // Número Documento
-    jTable4.getColumnModel().getColumn(8).setPreferredWidth(100); // Fecha
-    jTable4.getColumnModel().getColumn(9).setPreferredWidth(100); // Subtotal
-    jTable4.getColumnModel().getColumn(10).setPreferredWidth(100); // Total
-
-    // Opcional: ajustar altura si el texto es largo
-    jTable4.setRowHeight(30);
-
-    // Opcional: permitir ajuste automático al cambiar tamaño
-    jTable4.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-    // Pedir número de documento
-    String cedula = JOptionPane.showInputDialog(null, "Ingrese su número de cédula para ver el carrito:");
-
-  if (cedula != null && !cedula.trim().isEmpty()) {
-    EntityManager em = ConexionBd.conectar().createEntityManager();
-
-    try {
-        List<CarritoTemp> lista = em.createQuery(
-            "SELECT c FROM CarritoTemp c WHERE c.numeroDocumento = :cedula", CarritoTemp.class)
-            .setParameter("cedula", cedula)
-            .getResultList();
-
-        if (lista.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se encontraron productos para la cédula ingresada.");
-        } else {
-            for (CarritoTemp c : lista) {
-                modelo.addRow(new Object[]{
-                    c.getNombreProducto(),
-                    c.getDescripcionProducto(),
-                    c.getPrecioProducto(),
-                    c.getCantidad(),
-                    c.getMetodoPago(),
-                    c.getNombreCliente(),
-                    c.getTipoDocumento(),
-                    c.getNumeroDocumento(),
-                    c.getFecha(),
-                    c.getSubtotal(),
-                    c.getTotal()
-                });
-            }
-        }
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al cargar el carrito: " + e.getMessage());
-    } finally {
-        em.close();
-    }
-
-} else {
-    JOptionPane.showMessageDialog(null, "Debe ingresar un número de cédula válido.");
-}
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

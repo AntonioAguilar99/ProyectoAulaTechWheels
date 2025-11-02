@@ -11,6 +11,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
 
+
+
+
 /**
  *
  * @author Antonio Aguilar
