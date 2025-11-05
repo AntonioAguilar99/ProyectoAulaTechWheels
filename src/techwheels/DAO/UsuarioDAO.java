@@ -4,7 +4,9 @@
  */
 package techwheels.DAO;
 
+
 import com.google.gson.Gson;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,26 +22,26 @@ import techwheels.Clases.Usuario;
  * @author ASUS
  */
 public class UsuarioDAO {
-      private final String archivoUsers = "C:\\Users\\ASUS\\Documents\\MARIA PAULINA\\TechWheels\\src\\DATA\\Usuario.json";
+      private final String archivoUsers = new File("src/DATA/Usuario.json").getAbsolutePath();
      private final Gson gson = new Gson();//Libreria
      private List<Usuario> usuarios;
       
      
-        private List<Usuario> cargarUsuarios() {
-       List<Usuario> lista = new ArrayList<>();
-          try {
+       private List<Usuario> cargarUsuarios() {
+    List<Usuario> lista = new ArrayList<>();
+    try (Reader reader = new FileReader(archivoUsers)) {
         Gson gson = new Gson();
-        Reader reader = new FileReader(archivoUsers); //Lee los archivos json
-        Usuario[] users= gson.fromJson(reader, Usuario[].class);
-        lista = Arrays.asList(users);
-        reader.close();
-              } catch (IOException e) {
-                  e.printStackTrace();
-               }
-                  return lista;
-              }
-        
-        
+        Usuario[] users = gson.fromJson(reader, Usuario[].class);
+        if (users != null) {
+            lista = new ArrayList<>(Arrays.asList(users)); // ✅ lista editable
+        }
+    } catch (IOException e) {
+        System.out.println("⚠ No se encontró el archivo: " + archivoUsers);
+        e.printStackTrace();
+    }
+    return lista;
+}
+              
          public List<Usuario> listarUsuarios() {
         return cargarUsuarios();
     }

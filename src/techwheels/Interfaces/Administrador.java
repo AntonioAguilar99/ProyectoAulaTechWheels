@@ -4,16 +4,12 @@
  */
 package techwheels.Interfaces;
 
+import Controller.UserController;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -23,25 +19,35 @@ import techwheels.Clases.Compra;
 import techwheels.Clases.GestionProductos;
 import techwheels.Clases.Usuario;
 
-
 /**
  *
  * @author anton
  */
 public class Administrador extends javax.swing.JFrame {
 
+  
+
     /**
      * Creates new form Administrador
      */
-    
-    
+
     public Administrador() {
         initComponents();
     }
-    
+
     public Administrador(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
+
+        cargarUsers();
+    }
+
+    public void cargarUsers() {
+        DefaultTableModel user = (DefaultTableModel) tablaUsuarios.getModel();
+        user.setRowCount(0);
+        UserController controler = new UserController();
+        controler.cargarUsuarios(user);
+
     }
 
     /**
@@ -175,13 +181,13 @@ public class Administrador extends javax.swing.JFrame {
 
         tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Apellido", "T. Documento", "Num. Documento", "Correo", "Telefono", "Contraseña", "Rol"
             }
         ));
         jScrollPane1.setViewportView(tablaUsuarios);
@@ -1001,34 +1007,31 @@ public class Administrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
-     
 
- 
 
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+        cargarUsers();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
- 
+
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-       
 
-   
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -1036,28 +1039,21 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        
+
 
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-   
 
-    
+
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-  
-  
 
-       
+
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-     
-       
-    
-   
 
 
     }//GEN-LAST:event_jButton14ActionPerformed
@@ -1077,19 +1073,18 @@ public class Administrador extends javax.swing.JFrame {
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
         // TODO add your handling code here:
-       
-          
+
 
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-       
-  
+
+
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         // TODO add your handling code here:
-         
+
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -1098,22 +1093,19 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-     
 
-        
+
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       
-       
 
 
     }//GEN-LAST:event_jButton5ActionPerformed
-     
+
     /**
      * @param args the command line arguments
      */
-   public static void main(String args[]) {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -1248,17 +1240,17 @@ public class Administrador extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpiarCampos() {
-    txtNombres.setText("");
-    txtApellidos.setText("");
-    txtNumeroDocumento.setText("");
-    txtCorreo.setText("");
-    txtTelefono.setText("");
-    setContrasena.setText("");
-    comboTipoDocumento.setSelectedIndex(-1); // Deselecciona cualquier opción
-    cmbRol.setSelectedIndex(-1);             // Deselecciona cualquier opción
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtNumeroDocumento.setText("");
+        txtCorreo.setText("");
+        txtTelefono.setText("");
+        setContrasena.setText("");
+        comboTipoDocumento.setSelectedIndex(-1); // Deselecciona cualquier opción
+        cmbRol.setSelectedIndex(-1);             // Deselecciona cualquier opción
     }
 
-    private void cargarUsuarios() {
+    /*private void cargarUsuarios() {
        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
     EntityManager em = emf.createEntityManager();
 
@@ -1290,18 +1282,17 @@ public class Administrador extends javax.swing.JFrame {
         em.close();
         emf.close();
     }
-    }
-
+    }*/
     private GestionProductos productoSeleccionado = null;
 
     private void limpiarCampos2() {
-    txtNombre.setText("");
-    txtDescripcion.setText("");
-    txtPrecio.setText("");
-    txtCantidad.setText("");
-    comboCategoria.setSelectedIndex(0);
-    txtMarca.setText("");
-    dateChooser.setDate(null);
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtCantidad.setText("");
+        comboCategoria.setSelectedIndex(0);
+        txtMarca.setText("");
+        dateChooser.setDate(null);
     }
 
 }

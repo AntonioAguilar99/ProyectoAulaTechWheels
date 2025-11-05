@@ -6,6 +6,7 @@ package Controller;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import techwheels.Clases.Usuario;
 import techwheels.DAO.UsuarioDAO;
 
@@ -56,5 +57,23 @@ public class UserController {
         userDAO.guardarUsuarios(usuarios);
         JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
         return true;
+    }
+     
+     public void cargarUsuarios(DefaultTableModel u){
+         List<Usuario> usuario = userDAO.listarUsuarios();
+         System.out.println("Usuarios cargados: " + usuario.size());
+        for (Usuario user : usuario) {//recorre todos los elementos de la lista reservas.Se toma un objeto reserva de la lista
+            Object[] fila = {//Se crea un arreglo de objetos. Con los datos de la reserva
+                user.getNombres(),
+                user.getApellidos(),
+                user.getTipoDocumento(),
+                user.getNumeroDocumento(),
+                user.getCorreo(),
+                user.getTelefono(),
+                user.getContraseña(),
+                user.getRol()
+            };
+            u.addRow(fila);
+        }
     }
 }

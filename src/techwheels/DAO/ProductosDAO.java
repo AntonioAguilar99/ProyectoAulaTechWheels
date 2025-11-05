@@ -6,6 +6,7 @@ package techwheels.DAO;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import techwheels.Clases.GestionProductos;
  * @author ASUS
  */
 public class ProductosDAO {
-     private final String archivoProductos = "C:\\Users\\ASUS\\Documents\\MARIA PAULINA\\TechWheels\\src\\DATA\\productos.json";
+     private final String archivoProductos = new File("src/DATA/Productos.json").getAbsolutePath();
     private final Gson gson = new Gson();
 
     private List<GestionProductos> cargarProductos() {

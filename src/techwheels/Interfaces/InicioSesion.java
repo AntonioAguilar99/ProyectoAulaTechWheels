@@ -45,14 +45,14 @@ public class InicioSesion extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        LlavesmecanicoImg = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         EntrarBtn = new javax.swing.JPanel();
         EntrarBtnTxt = new javax.swing.JLabel();
         RegistroBtn = new javax.swing.JPanel();
         RegistroBtnTxt = new javax.swing.JLabel();
         ContraseñaTxt = new javax.swing.JPasswordField();
         chkMostrar = new javax.swing.JCheckBox();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 500));
@@ -62,48 +62,38 @@ public class InicioSesion extends javax.swing.JFrame {
         Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("BIENVENIDO USUARIO");
-        Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 34)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(30, 46, 62));
+        jLabel1.setText("BIENVENIDO A");
+        Background.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
-        CorreoElecTxt.setBackground(new java.awt.Color(255, 255, 255));
         CorreoElecTxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         CorreoElecTxt.setForeground(new java.awt.Color(51, 51, 51));
         CorreoElecTxt.setBorder(null);
-        CorreoElecTxt.setCaretColor(new java.awt.Color(0, 0, 0));
-        Background.add(CorreoElecTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 260, 25));
+        Background.add(CorreoElecTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 260, 25));
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        Background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 270, 15));
+        Background.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 270, 15));
 
         jSeparator2.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        Background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 270, 15));
+        Background.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 270, 15));
 
-        jLabel2.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(46, 60, 78));
         jLabel2.setText("CONTRASEÑA");
-        Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        Background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 16)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(46, 60, 78));
         jLabel3.setText("CORREO ELECTRONICO");
-        Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        Background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
-        LlavesmecanicoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
-        LlavesmecanicoImg.setText(" ");
-        Background.add(LlavesmecanicoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, -1, -1));
+        EntrarBtn.setBackground(new java.awt.Color(30, 46, 62));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cooltext482257288908357.png"))); // NOI18N
-        jLabel4.setText("  ");
-        Background.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, -1, -1));
-
-        EntrarBtn.setBackground(new java.awt.Color(0, 0, 0));
-
-        EntrarBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        EntrarBtnTxt.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         EntrarBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         EntrarBtnTxt.setText("        ENTRAR");
         EntrarBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -122,18 +112,23 @@ public class InicioSesion extends javax.swing.JFrame {
         EntrarBtn.setLayout(EntrarBtnLayout);
         EntrarBtnLayout.setHorizontalGroup(
             EntrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(EntrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addGroup(EntrarBtnLayout.createSequentialGroup()
+                .addComponent(EntrarBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 25, Short.MAX_VALUE))
         );
         EntrarBtnLayout.setVerticalGroup(
             EntrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(EntrarBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(EntrarBtnLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(EntrarBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Background.add(EntrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, -1, 40));
+        Background.add(EntrarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, 40));
 
-        RegistroBtn.setBackground(new java.awt.Color(0, 0, 0));
+        RegistroBtn.setBackground(new java.awt.Color(30, 46, 62));
 
-        RegistroBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        RegistroBtnTxt.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
         RegistroBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         RegistroBtnTxt.setText("     REGISTRO");
         RegistroBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -152,16 +147,19 @@ public class InicioSesion extends javax.swing.JFrame {
         RegistroBtn.setLayout(RegistroBtnLayout);
         RegistroBtnLayout.setHorizontalGroup(
             RegistroBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RegistroBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroBtnLayout.createSequentialGroup()
+                .addGap(0, 12, Short.MAX_VALUE)
+                .addComponent(RegistroBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         RegistroBtnLayout.setVerticalGroup(
             RegistroBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RegistroBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(RegistroBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Background.add(RegistroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 370, -1, 40));
+        Background.add(RegistroBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 420, -1, 40));
 
-        ContraseñaTxt.setBackground(new java.awt.Color(255, 255, 255));
         ContraseñaTxt.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ContraseñaTxt.setBorder(null);
         ContraseñaTxt.addActionListener(new java.awt.event.ActionListener() {
@@ -169,9 +167,9 @@ public class InicioSesion extends javax.swing.JFrame {
                 ContraseñaTxtActionPerformed(evt);
             }
         });
-        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 260, 25));
+        Background.add(ContraseñaTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 270, 25));
 
-        chkMostrar.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        chkMostrar.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         chkMostrar.setForeground(new java.awt.Color(51, 51, 51));
         chkMostrar.setText("Mostrar contraseña");
         chkMostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -179,17 +177,39 @@ public class InicioSesion extends javax.swing.JFrame {
                 chkMostrarActionPerformed(evt);
             }
         });
-        Background.add(chkMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+        Background.add(chkMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(217, 225, 234));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+        );
+
+        Background.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 0, 500, 580));
+
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 34)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(30, 46, 62));
+        jLabel5.setText("TECHWHEELS");
+        Background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Background, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,7 +233,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void RegistroBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistroBtnTxtMouseClicked
         new Registro(). setVisible(true);
-        this.dispose();
+       this.dispose();
     }//GEN-LAST:event_RegistroBtnTxtMouseClicked
 
     private void EntrarBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarBtnTxtMouseClicked
@@ -234,8 +254,10 @@ public class InicioSesion extends javax.swing.JFrame {
         if (usuario != null) {
            if (usuario.getRol() == RolUsuarioEnum.ADMINISTRADOR) {
                new Administrador(usuario).setVisible(true);
+               this.dispose();
             } else {
               new Cliente(usuario).setVisible(true);
+              this.dispose();
             } 
              } else {
                  JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
@@ -299,14 +321,14 @@ public class InicioSesion extends javax.swing.JFrame {
     private javax.swing.JTextField CorreoElecTxt;
     private javax.swing.JPanel EntrarBtn;
     private javax.swing.JLabel EntrarBtnTxt;
-    private javax.swing.JLabel LlavesmecanicoImg;
     private javax.swing.JPanel RegistroBtn;
     private javax.swing.JLabel RegistroBtnTxt;
     private javax.swing.JCheckBox chkMostrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     // End of variables declaration//GEN-END:variables
