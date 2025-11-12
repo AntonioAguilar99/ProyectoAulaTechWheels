@@ -76,4 +76,47 @@ public class UserController {
             u.addRow(fila);
         }
     }
+         public void refrescarTabla(DefaultTableModel modelo) {
+        modelo.setRowCount(0);
+        cargarUsuarios(modelo);
+        JOptionPane.showMessageDialog(null, "Tabla actualizada correctamente.");
+    }
+         public void eliminarUsuario(DefaultTableModel modelo, int filaSeleccionada) {
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(null, "Seleccione un usuario para eliminar.");
+        return;
+    }
+
+    // Confirmación antes de eliminar
+    int confirm = JOptionPane.showConfirmDialog(
+        null,
+        "¿Está seguro de que desea eliminar este usuario?",
+        "Confirmar eliminación",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirm != JOptionPane.YES_OPTION) {
+        return; // Si el usuario elige "No", no se hace nada
+    }
+
+    // Obtiene el correo del usuario seleccionado (columna 4)
+    String correo = modelo.getValueAt(filaSeleccionada, 4).toString();
+    List<Usuario> usuarios = userDAO.listarUsuarios();
+
+    // Elimina el usuario de la lista
+    boolean eliminado = usuarios.removeIf(u -> u.getCorreo().equalsIgnoreCase(correo));
+
+    if (eliminado) {
+        // Guarda los cambios en el archivo JSON
+        userDAO.guardarUsuarios(usuarios);
+
+        // Elimina la fila del modelo de la tabla
+        modelo.removeRow(filaSeleccionada);
+
+        JOptionPane.showMessageDialog(null, "✅ Usuario eliminado correctamente.");
+    } else {
+        JOptionPane.showMessageDialog(null, "⚠️ No se encontró el usuario a eliminar.");
+    }
+}
+
 }

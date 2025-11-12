@@ -1,104 +1,57 @@
 package techwheels.Clases;
 
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-/**
- *
- * @author Antonio Aguilar
- */
-
-
-public class GestionProductos implements Serializable {
-
-    private Long codigo;
+public class GestionProductos {
+    private String id;
+    private String fecha;
     private String nombre;
+    private String entregadoPor;
+    private String recibidoPor;
     private String descripcion;
-    private Double precio;
-    private Integer cantidad;
-    private String categoria;
     private String marca;
-    private Date fecha;
+    private int cantidad;
+    private String categoria;
+    private double precio;
+    private boolean disponible;
 
-    public GestionProductos() {
-        this.fecha = new Date(); // fecha por defecto
-    }
-
-    public GestionProductos(String nombre, String descripcion, Double precio, Integer cantidad, String categoria, String marca, Date fecha) {
+    public GestionProductos(String id, String nombre, String entregadoPor, String recibidoPor,
+                            String descripcion, String marca, int cantidad, String categoria, double precio) {
+        this.id = id;
         this.nombre = nombre;
+        this.entregadoPor = entregadoPor;
+        this.recibidoPor = recibidoPor;
         this.descripcion = descripcion;
-        this.precio = precio;
+        this.marca = marca;
         this.cantidad = cantidad;
         this.categoria = categoria;
-        this.marca = marca;
-        this.fecha = fecha;
-    }
-
-    public Long getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Double precio) {
         this.precio = precio;
+        this.disponible = cantidad > 0;
+
+        // Fecha actual en formato legible
+        this.fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
-    public Integer getCantidad() {
-        return cantidad;
-    }
+    // Getters y setters
+    public String getId() { return id; }
+    public String getFecha() { return fecha; }
+    public String getNombre() { return nombre; }
+    public String getEntregadoPor() { return entregadoPor; }
+    public String getRecibidoPor() { return recibidoPor; }
+    public String getDescripcion() { return descripcion; }
+    public String getMarca() { return marca; }
+    public int getCantidad() { return cantidad; }
+    public String getCategoria() { return categoria; }
+    public double getPrecio() { return precio; }
+    public boolean isDisponible() { return disponible; }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+        this.disponible = cantidad > 0;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setId(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
-
-
-
