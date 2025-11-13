@@ -4,6 +4,22 @@
  */
 package techwheels.Interfaces;
 
+import Controller.InventarioController;
+import com.toedter.calendar.JDateChooser;
+import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import techwheels.Clases.CarritoTemp;
+import techwheels.Clases.Compra;
+import techwheels.Clases.Usuario;
+import techwheels.DAO.CarritoDAO;
+import techwheels.DAO.CompraDAO;
+
 
 
 
@@ -16,10 +32,97 @@ public class RealizarCompra extends javax.swing.JFrame {
     /**
      * Creates new form VerArticulos
      */
+    private Usuario usuarioActual;
+    private JDateChooser dateChooser;
+    private CarritoDAO carritoDAO = new CarritoDAO();
+            
+
+    
     public RealizarCompra() {
         initComponents();
         setLocationRelativeTo(this);
+       
+               
     }
+    
+     public RealizarCompra(Usuario usuario) {
+        initComponents();
+        setLocationRelativeTo(this);
+        this.usuarioActual = usuario;
+        cargarDatosUsuario();
+       
+        
+    }
+     
+    private void cargarDatosUsuario() {
+        textNombre.setText(usuarioActual.getNombres());
+        textApellidos.setText(usuarioActual.getApellidos());
+        txtTipoDocumento.setText(usuarioActual.getTipoDocumento());
+        txtNumeroDocumento.setText(usuarioActual.getNumeroDocumento());
+    }
+    
+     public void cargarProductos() {
+        DefaultTableModel product = (DefaultTableModel) TablaProductos.getModel();
+        product.setRowCount(0);
+        InventarioController inventario = new InventarioController();
+        inventario.cargarProductos(product);
+
+    }
+    
+     private void mostrarCalendario() {
+     JDateChooser datechooser = new JDateChooser();
+     dateChooser.setDateFormatString("dd/MM/yyyy");
+     
+     int opcion = JOptionPane.showConfirmDialog(
+         this,
+         datechooser,
+         "Seleccione una fecha",
+         JOptionPane.OK_CANCEL_OPTION,
+         JOptionPane.PLAIN_MESSAGE
+     
+     
+     );
+     
+     if(opcion == JOptionPane.OK_OPTION){
+         Date fechaseleccionada = datechooser.getDate();
+         if(fechaseleccionada !=null){
+             SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+             txtFecha.setText(formato.format(fechaseleccionada));
+         }else{
+            JOptionPane.showMessageDialog(this, "No seleccionaste nisnguna fecha");
+         }
+             
+     }
+        
+    } 
+    
+    private void mostrarCarrito() {
+    List<CarritoTemp> carrito = carritoDAO.listarcarrito();
+    DefaultTableModel modelo = new DefaultTableModel(
+        new Object[]{"Nombre", "Descripción", "Marca", "Categoría", "Precio", "Cantidad"}, 0
+    );
+
+    for (CarritoTemp c : carrito) {
+        modelo.addRow(new Object[]{
+            c.getNombreProducto(),
+            c.getDescripcionProducto(),
+            c.getMarcaProducto(),
+            c.getCategoriaProducto(),
+            c.getPrecioProducto(),
+            c.getCantidad()
+        });
+    }
+
+    TablaProductos.setModel(modelo);
+}
+     
+    
+    
+    /*public void setImagenEnLabel(JLabel label, String rutaImagen) {
+    ImageIcon icon = new ImageIcon(rutaImagen);
+    Image img = icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+    label.setIcon(new ImageIcon(img));
+}*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,226 +133,453 @@ public class RealizarCompra extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        PanelPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaProductos1 = new javax.swing.JTable();
-        VerProductos = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        TablaProductos = new javax.swing.JTable();
+        btnQuitar = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        btnVerCarrito = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        Nombre = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        comboTipo = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        txtNumero = new javax.swing.JTextField();
-        jSeparator2 = new javax.swing.JSeparator();
+        textNombre = new javax.swing.JTextField();
+        textApellidos = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        comboMetodo = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        fechaChooser = new com.toedter.calendar.JDateChooser();
+        txtTipoDocumento = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
-        jButton7 = new javax.swing.JButton();
+        txtNumeroDocumento = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtFecha = new javax.swing.JTextField();
+        btnFecha = new javax.swing.JButton();
+        btnRealizarCompra = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        btnDescargarFactura = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        btnCargarProductos = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        ComboMetodoPago = new javax.swing.JComboBox<>();
+        spinnerCantidad = new javax.swing.JSpinner();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        PanelPrincipal.setBackground(new java.awt.Color(247, 250, 252));
+        PanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cooltext482257288908357.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 43, 350, 80));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/llave-inglesa.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(63, 18, 128, -1));
-
-        tablaProductos1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaProductos.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Descripcion", "Marca", "Categoria", "Precio", "Disponible"
             }
-        ));
-        jScrollPane1.setViewportView(tablaProductos1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 670, -1));
-
-        VerProductos.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        VerProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
-        VerProductos.setText("Productos disponibles");
-        VerProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerProductosActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jPanel1.add(VerProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 550, 187, -1));
+        TablaProductos.setName(""); // NOI18N
+        jScrollPane1.setViewportView(TablaProductos);
 
-        jButton2.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
-        jButton2.setText("Agregar al carrito ");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(557, 117, 667, 509));
+
+        btnQuitar.setBackground(new java.awt.Color(192, 221, 245));
+        btnQuitar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnQuitarMouseClicked(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 630, 187, -1));
 
-        jButton3.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/up-arrow.png"))); // NOI18N
-        jButton3.setText("Realizar compra");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 700, 187, -1));
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel2.setText("Quitar del carrito");
 
-        jButton4.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
-        jButton4.setText("Salir");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 760, 100, 50));
-
-        jButton5.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
-        jButton5.setText("Ver carrito de compras");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, -1, -1));
-
-        jButton6.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
-        jButton6.setText("Quitar del carrito");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, 187, -1));
-
-        jLabel3.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Ingrese su nombre");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 196, 170, -1));
-
-        Nombre.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        Nombre.setBorder(null);
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 220, 138, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 150, 15));
-
-        jLabel4.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel4.setText("Tipo de documento");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 200, -1, -1));
-
-        comboTipo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cedula de Ciudadania", "Pasaporte", "Cedula de Extranjeria" }));
-        comboTipo.setBorder(null);
-        jPanel1.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Numero de documento");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 285, 190, -1));
-
-        txtNumero.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        txtNumero.setBorder(null);
-        jPanel1.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(53, 310, 138, -1));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 150, 10));
-
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Metodo de pago");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, 180, -1));
-
-        comboMetodo.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
-        comboMetodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Efectivo", "Tarjeta de Credito", " " }));
-        comboMetodo.setBorder(null);
-        jPanel1.add(comboMetodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, 147, -1));
-
-        jLabel7.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel7.setText("Fecha");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, 55, -1));
-        jPanel1.add(fechaChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 136, -1));
-
-        jLabel8.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("Dirrecion de envio");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
-
-        jTextField1.setBorder(null);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 170, -1));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 170, 10));
-
-        jButton7.setText("Descargar factura");
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1491, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+        javax.swing.GroupLayout btnQuitarLayout = new javax.swing.GroupLayout(btnQuitar);
+        btnQuitar.setLayout(btnQuitarLayout);
+        btnQuitarLayout.setHorizontalGroup(
+            btnQuitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnQuitarLayout.createSequentialGroup()
+                .addContainerGap(91, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 821, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+        btnQuitarLayout.setVerticalGroup(
+            btnQuitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnQuitarLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel2)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
+
+        PanelPrincipal.add(btnQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 640, -1, -1));
+
+        btnVerCarrito.setBackground(new java.awt.Color(192, 221, 245));
+        btnVerCarrito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVerCarritoMouseClicked(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel1.setText("Ver carrito");
+
+        javax.swing.GroupLayout btnVerCarritoLayout = new javax.swing.GroupLayout(btnVerCarrito);
+        btnVerCarrito.setLayout(btnVerCarritoLayout);
+        btnVerCarritoLayout.setHorizontalGroup(
+            btnVerCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnVerCarritoLayout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33))
+        );
+        btnVerCarritoLayout.setVerticalGroup(
+            btnVerCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnVerCarritoLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(17, 17, 17))
+        );
+
+        PanelPrincipal.add(btnVerCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 640, 130, 51));
+
+        btnAgregar.setBackground(new java.awt.Color(192, 221, 245));
+        btnAgregar.setForeground(new java.awt.Color(0, 120, 215));
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel3.setText("Agregar al carrito");
+
+        javax.swing.GroupLayout btnAgregarLayout = new javax.swing.GroupLayout(btnAgregar);
+        btnAgregar.setLayout(btnAgregarLayout);
+        btnAgregarLayout.setHorizontalGroup(
+            btnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAgregarLayout.createSequentialGroup()
+                .addContainerGap(38, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(24, 24, 24))
+        );
+        btnAgregarLayout.setVerticalGroup(
+            btnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnAgregarLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel3)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        PanelPrincipal.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 640, 160, 51));
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
+        jLabel4.setText("TECHWHEELS");
+        PanelPrincipal.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(46, 60, 78));
+        jLabel5.setText("Apellidos");
+        PanelPrincipal.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, -1, -1));
+
+        textNombre.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        textNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
+        PanelPrincipal.add(textNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 220, 30));
+
+        textApellidos.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        textApellidos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
+        PanelPrincipal.add(textApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 180, 220, 30));
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(46, 60, 78));
+        jLabel6.setText("Nombre");
+        PanelPrincipal.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(46, 60, 78));
+        jLabel7.setText("Tipo de Documento");
+        PanelPrincipal.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+
+        txtTipoDocumento.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtTipoDocumento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
+        PanelPrincipal.add(txtTipoDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 190, 30));
+
+        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(46, 60, 78));
+        jLabel8.setText("Numero de Documento");
+        PanelPrincipal.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, -1, -1));
+
+        txtNumeroDocumento.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtNumeroDocumento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
+        PanelPrincipal.add(txtNumeroDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 220, 30));
+
+        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(46, 60, 78));
+        jLabel9.setText("Direccion de Envio");
+        PanelPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+        PanelPrincipal.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 480, 40));
+
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(46, 60, 78));
+        jLabel10.setText("Metodo de pago");
+        PanelPrincipal.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(46, 60, 78));
+        jLabel11.setText("Fecha");
+        PanelPrincipal.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, -1, -1));
+        PanelPrincipal.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 360, 150, 30));
+
+        btnFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFechaActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(btnFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 360, 50, 30));
+
+        btnRealizarCompra.setBackground(new java.awt.Color(0, 120, 215));
+        btnRealizarCompra.setForeground(new java.awt.Color(0, 120, 215));
+        btnRealizarCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRealizarCompraMouseClicked(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Realizar compra");
+
+        javax.swing.GroupLayout btnRealizarCompraLayout = new javax.swing.GroupLayout(btnRealizarCompra);
+        btnRealizarCompra.setLayout(btnRealizarCompraLayout);
+        btnRealizarCompraLayout.setHorizontalGroup(
+            btnRealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnRealizarCompraLayout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addGap(58, 58, 58))
+        );
+        btnRealizarCompraLayout.setVerticalGroup(
+            btnRealizarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnRealizarCompraLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addGap(14, 14, 14))
+        );
+
+        PanelPrincipal.add(btnRealizarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 230, 50));
+
+        btnDescargarFactura.setBackground(new java.awt.Color(255, 255, 255));
+        btnDescargarFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
+
+        jLabel13.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel13.setText("Descargar factura");
+
+        javax.swing.GroupLayout btnDescargarFacturaLayout = new javax.swing.GroupLayout(btnDescargarFactura);
+        btnDescargarFactura.setLayout(btnDescargarFacturaLayout);
+        btnDescargarFacturaLayout.setHorizontalGroup(
+            btnDescargarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnDescargarFacturaLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(jLabel13)
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+        btnDescargarFacturaLayout.setVerticalGroup(
+            btnDescargarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDescargarFacturaLayout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jLabel13)
+                .addGap(14, 14, 14))
+        );
+
+        PanelPrincipal.add(btnDescargarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 530, 220, 50));
+
+        btnCargarProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCargarProductosMouseClicked(evt);
+            }
+        });
+
+        jLabel14.setText("Cargar Productos");
+
+        javax.swing.GroupLayout btnCargarProductosLayout = new javax.swing.GroupLayout(btnCargarProductos);
+        btnCargarProductos.setLayout(btnCargarProductosLayout);
+        btnCargarProductosLayout.setHorizontalGroup(
+            btnCargarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCargarProductosLayout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+        );
+        btnCargarProductosLayout.setVerticalGroup(
+            btnCargarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCargarProductosLayout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addContainerGap())
+        );
+
+        PanelPrincipal.add(btnCargarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 80, 130, 30));
+
+        ComboMetodoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona", "Efectivo", "Contra Entrega", "Tarjeta" }));
+        ComboMetodoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboMetodoPagoActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(ComboMetodoPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 190, 30));
+        PanelPrincipal.add(spinnerCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 660, 90, 30));
+
+        jLabel15.setText("Cantidad");
+        PanelPrincipal.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 640, -1, -1));
+
+        getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1251, 726));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void VerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerProductosActionPerformed
-   
-   
-    }//GEN-LAST:event_VerProductosActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void ComboMetodoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboMetodoPagoActionPerformed
         // TODO add your handling code here:
-        new Cliente().setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_ComboMetodoPagoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCargarProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarProductosMouseClicked
+        cargarProductos();
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnCargarProductosMouseClicked
+
+    private void btnFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFechaActionPerformed
+       mostrarCalendario();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnFechaActionPerformed
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+   int fila =  TablaProductos.getSelectedRow();
+   if (fila != -1) {
+        String nombre = TablaProductos.getValueAt(fila, 0).toString();
+        String descripcion = TablaProductos.getValueAt(fila, 1).toString();
+        String marca = TablaProductos.getValueAt(fila, 2).toString();
+        String categoria = TablaProductos.getValueAt(fila, 3).toString();
+        double precio = Double.parseDouble(TablaProductos.getValueAt(fila, 4).toString());
+        int cantidad = (int)spinnerCantidad.getValue();
+        
+        
+
+        CarritoTemp item = new CarritoTemp(nombre, descripcion, marca, categoria, precio, cantidad);
+        carritoDAO.agregarProductoCarrito(item);
+
+        JOptionPane.showMessageDialog(this, "Producto agregado al carrito");
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione un producto");
+    }
    
-    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+   
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregarMouseClicked
+
+    private void btnQuitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarMouseClicked
+    int fila = TablaProductos.getSelectedRow();
+    if (fila != -1) {
+    String nombre =TablaProductos.getValueAt(fila, 0).toString();
+    carritoDAO.eliminarProductoCarrito(nombre);
+    JOptionPane.showMessageDialog(this, "Producto eliminado del carrito");
+    mostrarCarrito(); // Vuelve a cargar
+    }
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnQuitarMouseClicked
+
+    private void btnVerCarritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerCarritoMouseClicked
+        mostrarCarrito();
+                
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnVerCarritoMouseClicked
+
+    private void btnRealizarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRealizarCompraMouseClicked
+
+    CompraDAO compraDAO = new CompraDAO();
+    List<CarritoTemp> carrito = carritoDAO.listarcarrito();
+    if (carrito.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El carrito está vacío. Agrega productos antes de realizar la compra.");
+        return;
+    }
+    
+    String nombre = textNombre.getText();
+    String apellido = textApellidos.getText();
+    String tipoDoc = txtTipoDocumento.getText();
+    String numeroDoc = txtNumeroDocumento.getText();
+    String metodoPago = (String)ComboMetodoPago.getSelectedItem();
+    String fecha = txtFecha.getText();
+    String direccion = txtDireccion.getText();
+    
+    double subtotal = 0;
+    for (CarritoTemp p : carrito) {
+        subtotal += p.getPrecioProducto() * p.getCantidad();
+    }
+    
+    double total = 0.0;
+    for (int i = 0; i < TablaProductos.getRowCount(); i++) {
+        double precio = Double.parseDouble(TablaProductos.getValueAt(i, 4).toString());
+        int cantidad = Integer.parseInt(TablaProductos.getValueAt(i, 5).toString());
+        total += precio * cantidad;
+    }
+    
+      if ("Tarjeta".equalsIgnoreCase(metodoPago)) {
+        String numeroTarjeta = JOptionPane.showInputDialog(this, "Ingrese el número de tarjeta:");
+        if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pago cancelado.");
+            return;
+        }
+        JOptionPane.showMessageDialog(this, "Pago realizado exitosamente con tarjeta terminada en " +
+                numeroTarjeta.substring(Math.max(0, numeroTarjeta.length() - 4)) + ".");
+    }
       
+    Compra compra = new Compra(nombre, apellido, tipoDoc, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
+    compraDAO.guardarCompra(compra);
+    carritoDAO.vaciarCarrito();
+    JOptionPane.showMessageDialog(this, "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());
+     
 
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-      
-
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       
-    }//GEN-LAST:event_jButton6ActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnRealizarCompraMouseClicked
 
     /**
      * @param args the command line arguments
@@ -290,18 +620,23 @@ public class RealizarCompra extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Nombre;
-    private javax.swing.JButton VerProductos;
-    private javax.swing.JComboBox<String> comboMetodo;
-    private javax.swing.JComboBox<String> comboTipo;
-    private com.toedter.calendar.JDateChooser fechaChooser;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> ComboMetodoPago;
+    private javax.swing.JPanel PanelPrincipal;
+    private javax.swing.JTable TablaProductos;
+    private javax.swing.JPanel btnAgregar;
+    private javax.swing.JPanel btnCargarProductos;
+    private javax.swing.JPanel btnDescargarFactura;
+    private javax.swing.JButton btnFecha;
+    private javax.swing.JPanel btnQuitar;
+    private javax.swing.JPanel btnRealizarCompra;
+    private javax.swing.JPanel btnVerCarrito;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -309,13 +644,14 @@ public class RealizarCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tablaProductos1;
-    private javax.swing.JTextField txtNumero;
+    private javax.swing.JSpinner spinnerCantidad;
+    private javax.swing.JTextField textApellidos;
+    private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtFecha;
+    private javax.swing.JTextField txtNumeroDocumento;
+    private javax.swing.JTextField txtTipoDocumento;
     // End of variables declaration//GEN-END:variables
 }

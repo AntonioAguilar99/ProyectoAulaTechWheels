@@ -33,7 +33,7 @@ public class UsuarioDAO {
         Gson gson = new Gson();
         Usuario[] users = gson.fromJson(reader, Usuario[].class);
         if (users != null) {
-            lista = new ArrayList<>(Arrays.asList(users)); // ✅ lista editable
+            lista = new ArrayList<>(Arrays.asList(users)); 
         }
     } catch (IOException e) {
         System.out.println("⚠ No se encontró el archivo: " + archivoUsers);

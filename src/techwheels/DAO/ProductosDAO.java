@@ -11,7 +11,7 @@ public class ProductosDAO {
     private final String archivoProductos = new File("src/DATA/Productos.json").getAbsolutePath();
     private final Gson gson = new Gson();
 
-    // ✅ Cargar productos del JSON
+    
     private List<GestionProductos> cargarProductos() {
         List<GestionProductos> lista = new ArrayList<>();
         try {

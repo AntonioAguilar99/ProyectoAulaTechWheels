@@ -116,12 +116,12 @@ private final ProductosDAO dao = new ProductosDAO();
 
         Administrador = new javax.swing.JTabbedPane();
         Usuarios = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnMostrarUsuarios = new javax.swing.JButton();
+        btnEliminarUsuario = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaUsuarios = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+        btnRefrescar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         Registro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -222,20 +222,20 @@ private final ProductosDAO dao = new ProductosDAO();
 
         Usuarios.setBackground(new java.awt.Color(190, 210, 200));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
-        jButton1.setText("Mostrar Usuarios");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnMostrarUsuarios.setFont(new java.awt.Font("Segoe UI Symbol", 0, 12)); // NOI18N
+        btnMostrarUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
+        btnMostrarUsuarios.setText("Mostrar Usuarios");
+        btnMostrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnMostrarUsuariosActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
-        jButton2.setText("Eliminar Usuario");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
+        btnEliminarUsuario.setText("Eliminar Usuario");
+        btnEliminarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnEliminarUsuarioActionPerformed(evt);
             }
         });
 
@@ -252,24 +252,23 @@ private final ProductosDAO dao = new ProductosDAO();
         ));
         jScrollPane1.setViewportView(tablaUsuarios);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
-        jButton3.setText("Salir\n");
-        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
+        btnSalir.setText("Salir\n");
+        btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton3MouseClicked(evt);
+                btnSalirMouseClicked(evt);
             }
         });
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/refresh.png"))); // NOI18N
-        jButton11.setText("Refrescar");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/refresh.png"))); // NOI18N
+        btnRefrescar.setText("Refrescar");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btnRefrescarActionPerformed(evt);
             }
         });
 
         jLabel11.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Visualice facil y rapido los usuarios registrados en el programa");
 
         javax.swing.GroupLayout UsuariosLayout = new javax.swing.GroupLayout(Usuarios);
@@ -283,13 +282,13 @@ private final ProductosDAO dao = new ProductosDAO();
                         .addGroup(UsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(UsuariosLayout.createSequentialGroup()
-                                .addComponent(jButton3)
+                                .addComponent(btnSalir)
                                 .addGap(106, 106, 106)
-                                .addComponent(jButton1)
+                                .addComponent(btnMostrarUsuarios)
                                 .addGap(161, 161, 161)
-                                .addComponent(jButton11)
+                                .addComponent(btnRefrescar)
                                 .addGap(201, 201, 201)
-                                .addComponent(jButton2))))
+                                .addComponent(btnEliminarUsuario))))
                     .addGroup(UsuariosLayout.createSequentialGroup()
                         .addGap(114, 114, 114)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1136, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -304,10 +303,10 @@ private final ProductosDAO dao = new ProductosDAO();
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75)
                 .addGroup(UsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton11)
-                    .addComponent(jButton2))
+                    .addComponent(btnSalir)
+                    .addComponent(btnMostrarUsuarios)
+                    .addComponent(btnRefrescar)
+                    .addComponent(btnEliminarUsuario))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
 
@@ -317,7 +316,6 @@ private final ProductosDAO dao = new ProductosDAO();
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Registre a los Usuarios Facil y Rapido");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1240,32 +1238,32 @@ private final ProductosDAO dao = new ProductosDAO();
 
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   jButton1.addActionListener(e -> {
+    private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
+    btnMostrarUsuarios.addActionListener(e -> {
     // Asegúrate de usar la misma instancia
     modelo.setRowCount(0); // Limpia la tabla
     controller.cargarUsuarios(modelo);
 });
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   jButton2.addActionListener(e -> {
+    private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
+   btnEliminarUsuario.addActionListener(e -> {
     int fila = tablaUsuarios.getSelectedRow();
     controller.eliminarUsuario((DefaultTableModel) tablaUsuarios.getModel(), fila);
 });
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
         // TODO add your handling code here:
-        jButton11.addActionListener(e -> {
+        btnRefrescar.addActionListener(e -> {
     controller.refrescarTabla((DefaultTableModel) tablaUsuarios.getModel());
 });
 
 
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_btnRefrescarActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
@@ -1369,10 +1367,10 @@ private final ProductosDAO dao = new ProductosDAO();
         // TODO add your handling code here:
     }//GEN-LAST:event_TelefonoTxtActionPerformed
 
-    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
         new InicioSesion().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton3MouseClicked
+    }//GEN-LAST:event_btnSalirMouseClicked
 
     private void txtNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroActionPerformed
         // TODO add your handling code here:
@@ -1480,15 +1478,17 @@ private final ProductosDAO dao = new ProductosDAO();
     private javax.swing.JPanel Registro;
     private javax.swing.JTextField TelefonoTxt;
     private javax.swing.JPanel Usuarios;
+    private javax.swing.JButton btnEliminarUsuario;
+    private javax.swing.JButton btnMostrarUsuarios;
+    private javax.swing.JButton btnRefrescar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox chkMostrar;
     private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JComboBox<String> comboMetodo;
     private javax.swing.JComboBox<String> comboTipo;
     private com.toedter.calendar.JDateChooser dateChooser;
     private com.toedter.calendar.JDateChooser fechaChooser;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
@@ -1496,8 +1496,6 @@ private final ProductosDAO dao = new ProductosDAO();
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

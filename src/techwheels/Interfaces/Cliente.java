@@ -16,6 +16,7 @@ public class Cliente extends javax.swing.JFrame {
     /**
      * Creates new form Cliente
      */
+    private Usuario usuarioLogueado;
     
     public Cliente(){
         initComponents();
@@ -23,6 +24,7 @@ public class Cliente extends javax.swing.JFrame {
     public Cliente(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
+          this.usuarioLogueado = usuario;
     }
 
     /**
@@ -220,8 +222,8 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_RealizarCompraBtnTxtMouseExited
 
     private void RealizarCompraBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseClicked
-       new RealizarCompra().setVisible(true);
-          this.dispose(); 
+       new RealizarCompra(usuarioLogueado).setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_RealizarCompraBtnTxtMouseClicked
 
     private void CancelarCompraBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseClicked

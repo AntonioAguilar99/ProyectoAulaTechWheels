@@ -2,74 +2,41 @@
 
 package techwheels.Clases;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.*;
+import java.util.List;
 
-@Entity
-@Table(name = "compra")
-public class Compra implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+public class Compra{
+
+    
     private Long id;
-
-    // Datos del cliente
-    @Column(name = "nombre_cliente")
     private String nombreCliente;
-
-    @Column(name = "tipo_documento")
+    private String apellidoCliente;
     private String tipoDocumento;
-
-    @Column(name = "numero_documento")
     private String numeroDocumento;
-
-    @Column(name = "metodo_pago")
     private String metodoPago;
-
-    // Información del producto comprado
-    @Column(name = "nombre_producto")
-    private String nombreProducto;
-
-    @Column(name = "descripcion_producto")
-    private String descripcionProducto;
-
-    @Column(name = "precio_producto")
-    private double precioProducto;
-
-    @Column(name = "cantidad")
-    private int cantidad;
-
-    // Nuevos campos
-    @Column(name = "fecha_compra")
-    private LocalDateTime fechaCompra;
-
-    @Column(name = "subtotal")
+    private List<CarritoTemp> productos;
+    private String direccion;
+    private String fecha;
     private double subtotal;
-
-    @Column(name = "total")
     private double total;
-
-    // Constructor vacío
+    
     public Compra() {
     }
 
     // Constructor con parámetros (incluyendo los nuevos campos)
-    public Compra(String nombreCliente, String tipoDocumento, String numeroDocumento,
-                  String metodoPago, String nombreProducto, String descripcionProducto,
-                  double precioProducto, int cantidad, LocalDateTime fechaCompra) {
+    public Compra(String nombreCliente,String apellidoCliente,  String tipoDocumento, String numeroDocumento,
+                  String metodoPago, List<CarritoTemp> productos, String direccion,  String fecha, double subtotal, double total) {
         this.nombreCliente = nombreCliente;
+        this.apellidoCliente = apellidoCliente;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.metodoPago = metodoPago;
-        this.nombreProducto = nombreProducto;
-        this.descripcionProducto = descripcionProducto;
-        this.precioProducto = precioProducto;
-        this.cantidad = cantidad;
-        this.fechaCompra = fechaCompra;
-
+        this.productos = productos;
+        this.fecha = fecha;
         // Calcular subtotal y total al construir
-        this.subtotal = precioProducto * cantidad;
+        this.subtotal = calcularSubtotal();
         this.total = this.subtotal; // Aquí puedes agregar lógica para impuestos o descuentos
     }
 
@@ -114,45 +81,29 @@ public class Compra implements Serializable{
     public void setMetodoPago(String metodoPago) {
         this.metodoPago = metodoPago;
     }
+    
+     public List<CarritoTemp> getProductos(){
+         return productos; 
+     }
+     
+    public void setProductos(List<CarritoTemp> productos) {
+        this.productos = productos; 
+    }
+    
+     public String getDireccion() {
+        return direccion  ;
+    }
+     
+    public void setDireccion(String direccion) {
+        this.direccion = direccion; 
+    } 
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public String getFechaCompra() {
+        return fecha;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
-    }
-
-    public String getDescripcionProducto() {
-        return descripcionProducto;
-    }
-
-    public void setDescripcionProducto(String descripcionProducto) {
-        this.descripcionProducto = descripcionProducto;
-    }
-
-    public double getPrecioProducto() {
-        return precioProducto;
-    }
-
-    public void setPrecioProducto(double precioProducto) {
-        this.precioProducto = precioProducto;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public LocalDateTime getFechaCompra() {
-        return fechaCompra;
-    }
-
-    public void setFechaCompra(LocalDateTime fechaCompra) {
-        this.fechaCompra = fechaCompra;
+    public void setFechaCompra(String fecha) {
+        this.fecha = fecha;
     }
 
     public double getSubtotal() {
@@ -170,12 +121,14 @@ public class Compra implements Serializable{
     public void setTotal(double total) {
         this.total = total;
     }
-
-
-
-    // Método privado para recalcular subtotal y total
-    private void actualizarMontos() {
-        this.subtotal = this.precioProducto * this.cantidad;
-        this.total = this.subtotal; // Aquí añade impuestos o descuentos si quieres
+   
+     private double calcularSubtotal() {
+        double subtotal = 0;
+        if (productos != null) {
+            for (CarritoTemp p : productos) {
+                subtotal += p.getPrecioProducto() * p.getCantidad();
+            }
+        }
+        return subtotal;
     }
 }
