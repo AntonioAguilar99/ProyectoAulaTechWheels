@@ -57,6 +57,14 @@ public class Compra{
     public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
+    
+     public String getApellidoCliente() {
+        return apellidoCliente;
+    }
+     
+    public void setApellidoCliente(String apellidoCliente) {
+        this.apellidoCliente = apellidoCliente;
+    }
 
     public String getTipoDocumento() {
         return tipoDocumento;

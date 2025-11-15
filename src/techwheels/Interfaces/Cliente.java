@@ -20,11 +20,13 @@ public class Cliente extends javax.swing.JFrame {
     
     public Cliente(){
         initComponents();
+        setLocationRelativeTo(this);
     }
     public Cliente(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
           this.usuarioLogueado = usuario;
+        
     }
 
     /**
@@ -38,33 +40,33 @@ public class Cliente extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        RealizarCompraBtn = new javax.swing.JPanel();
+        RealizarCompraBtn = new PanelRound(20);
         RealizarCompraBtnTxt = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        CancelarCompraBtn = new javax.swing.JPanel();
+        CancelarCompraBtn = new PanelRound(20);
         CancelarCompraBtnTxt = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        HistorialDeComprasBtn = new javax.swing.JPanel();
+        HistorialDeComprasBtn = new PanelRound(20);
         HistorialDeComprasBtnTxt = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        ExitBtn = new javax.swing.JPanel();
+        ExitBtn = new PanelRound(20);
         ExitBtnTxt = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(217, 225, 234));
         jPanel1.setMinimumSize(new java.awt.Dimension(800, 500));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
         jLabel1.setText("BIENVENIDO CLIENTE");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 320, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 400, -1));
 
-        RealizarCompraBtn.setBackground(new java.awt.Color(0, 0, 0));
+        RealizarCompraBtn.setBackground(new java.awt.Color(30, 46, 62));
 
+        RealizarCompraBtnTxt.setBackground(new java.awt.Color(30, 46, 62));
         RealizarCompraBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         RealizarCompraBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
         RealizarCompraBtnTxt.setText("   Realizar Compra");
@@ -96,7 +98,7 @@ public class Cliente extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 70, -1));
 
-        CancelarCompraBtn.setBackground(new java.awt.Color(0, 0, 0));
+        CancelarCompraBtn.setBackground(new java.awt.Color(30, 46, 62));
 
         CancelarCompraBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         CancelarCompraBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,7 +131,7 @@ public class Cliente extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, -1));
 
-        HistorialDeComprasBtn.setBackground(new java.awt.Color(0, 0, 0));
+        HistorialDeComprasBtn.setBackground(new java.awt.Color(30, 46, 62));
 
         HistorialDeComprasBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         HistorialDeComprasBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,11 +168,11 @@ public class Cliente extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/history.png"))); // NOI18N
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, -1, -1));
 
-        ExitBtn.setBackground(new java.awt.Color(0, 0, 0));
+        ExitBtn.setBackground(new java.awt.Color(30, 46, 62));
 
         ExitBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         ExitBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
-        ExitBtnTxt.setText("           SALIR");
+        ExitBtnTxt.setText("        SALIR");
         ExitBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ExitBtnTxtMouseClicked(evt);
@@ -187,7 +189,10 @@ public class Cliente extends javax.swing.JFrame {
         ExitBtn.setLayout(ExitBtnLayout);
         ExitBtnLayout.setHorizontalGroup(
             ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ExitBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addGroup(ExitBtnLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ExitBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addGap(23, 23, 23))
         );
         ExitBtnLayout.setVerticalGroup(
             ExitBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,11 +219,11 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RealizarCompraBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseEntered
-       RealizarCompraBtn.setBackground(new Color(51, 51, 51));
+       RealizarCompraBtn.setBackground(new Color(50, 75, 105));
     }//GEN-LAST:event_RealizarCompraBtnTxtMouseEntered
 
     private void RealizarCompraBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseExited
-       RealizarCompraBtn.setBackground(new Color(0, 0, 0));
+       RealizarCompraBtn.setBackground(new Color(30, 46, 62));
     }//GEN-LAST:event_RealizarCompraBtnTxtMouseExited
 
     private void RealizarCompraBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseClicked
@@ -232,11 +237,11 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarCompraBtnTxtMouseClicked
 
     private void CancelarCompraBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseEntered
-        CancelarCompraBtn.setBackground(new Color(51, 51, 51));
+        CancelarCompraBtn.setBackground(new Color(50, 75, 105));
     }//GEN-LAST:event_CancelarCompraBtnTxtMouseEntered
 
     private void CancelarCompraBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseExited
-        CancelarCompraBtn.setBackground(new Color(0, 0, 0));
+        CancelarCompraBtn.setBackground(new Color(30, 46, 62));
     }//GEN-LAST:event_CancelarCompraBtnTxtMouseExited
 
     private void HistorialDeComprasBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseClicked
@@ -245,11 +250,11 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseClicked
 
     private void HistorialDeComprasBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseEntered
-        HistorialDeComprasBtn.setBackground(new Color(51, 51, 51));
+        HistorialDeComprasBtn.setBackground(new Color(50, 75, 105));
     }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseEntered
 
     private void HistorialDeComprasBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseExited
-        HistorialDeComprasBtn.setBackground(new Color(0, 0, 0));
+        HistorialDeComprasBtn.setBackground(new Color(30, 46, 62));
     }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseExited
 
     private void ExitBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnTxtMouseClicked
@@ -258,11 +263,11 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitBtnTxtMouseClicked
 
     private void ExitBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnTxtMouseEntered
-        ExitBtn.setBackground(new Color(51, 51, 51));
+        ExitBtn.setBackground(new Color(50, 75, 105));
     }//GEN-LAST:event_ExitBtnTxtMouseEntered
 
     private void ExitBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitBtnTxtMouseExited
-        ExitBtn.setBackground(new Color(0, 0, 0));
+        ExitBtn.setBackground(new Color(30, 46, 62));
     }//GEN-LAST:event_ExitBtnTxtMouseExited
 
     /**

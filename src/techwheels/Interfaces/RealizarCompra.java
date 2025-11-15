@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import techwheels.Clases.CarritoTemp;
 import techwheels.Clases.Compra;
+import techwheels.Clases.Enumeraciones.GenerarFactura;
 import techwheels.Clases.Usuario;
 import techwheels.DAO.CarritoDAO;
 import techwheels.DAO.CompraDAO;
@@ -33,7 +34,8 @@ public class RealizarCompra extends javax.swing.JFrame {
      * Creates new form VerArticulos
      */
     private Usuario usuarioActual;
-    private JDateChooser dateChooser;
+    private Compra compraActual;
+   
     private CarritoDAO carritoDAO = new CarritoDAO();
             
 
@@ -71,7 +73,7 @@ public class RealizarCompra extends javax.swing.JFrame {
     
      private void mostrarCalendario() {
      JDateChooser datechooser = new JDateChooser();
-     dateChooser.setDateFormatString("dd/MM/yyyy");
+     datechooser.setDateFormatString("dd/MM/yyyy");
      
      int opcion = JOptionPane.showConfirmDialog(
          this,
@@ -136,12 +138,15 @@ public class RealizarCompra extends javax.swing.JFrame {
         PanelPrincipal = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaProductos = new javax.swing.JTable();
-        btnQuitar = new javax.swing.JPanel();
+        btnQuitar = new PanelRound(20);
         jLabel2 = new javax.swing.JLabel();
-        btnVerCarrito = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        btnVerCarrito = new PanelRound(20);
         jLabel1 = new javax.swing.JLabel();
-        btnAgregar = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        btnAgregar = new PanelRound(20);
         jLabel3 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         textNombre = new javax.swing.JTextField();
@@ -157,15 +162,16 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtFecha = new javax.swing.JTextField();
         btnFecha = new javax.swing.JButton();
-        btnRealizarCompra = new javax.swing.JPanel();
+        btnRealizarCompra = new PanelRound(20);
         jLabel12 = new javax.swing.JLabel();
-        btnDescargarFactura = new javax.swing.JPanel();
+        btnDescargarFactura = new PanelRound(20);
         jLabel13 = new javax.swing.JLabel();
         btnCargarProductos = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         ComboMetodoPago = new javax.swing.JComboBox<>();
         spinnerCantidad = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -173,6 +179,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         PanelPrincipal.setBackground(new java.awt.Color(247, 250, 252));
         PanelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        TablaProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
         TablaProductos.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         TablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,7 +230,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         TablaProductos.setName(""); // NOI18N
         jScrollPane1.setViewportView(TablaProductos);
 
-        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(557, 117, 667, 509));
+        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(557, 117, 680, 509));
 
         btnQuitar.setBackground(new java.awt.Color(192, 221, 245));
         btnQuitar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -235,21 +242,31 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel2.setText("Quitar del carrito");
 
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
+
         javax.swing.GroupLayout btnQuitarLayout = new javax.swing.GroupLayout(btnQuitar);
         btnQuitar.setLayout(btnQuitarLayout);
         btnQuitarLayout.setHorizontalGroup(
             btnQuitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnQuitarLayout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         btnQuitarLayout.setVerticalGroup(
             btnQuitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnQuitarLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel2)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGroup(btnQuitarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(btnQuitarLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnQuitarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PanelPrincipal.add(btnQuitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 640, -1, -1));
@@ -264,24 +281,30 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel1.setText("Ver carrito");
 
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
+
         javax.swing.GroupLayout btnVerCarritoLayout = new javax.swing.GroupLayout(btnVerCarrito);
         btnVerCarrito.setLayout(btnVerCarritoLayout);
         btnVerCarritoLayout.setHorizontalGroup(
             btnVerCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnVerCarritoLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(7, Short.MAX_VALUE)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33))
+                .addGap(15, 15, 15))
         );
         btnVerCarritoLayout.setVerticalGroup(
             btnVerCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnVerCarritoLayout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(17, 17, 17))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(btnVerCarritoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel18))
+                .addGap(15, 15, 15))
         );
 
-        PanelPrincipal.add(btnVerCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 640, 130, 51));
+        PanelPrincipal.add(btnVerCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 640, 130, -1));
 
         btnAgregar.setBackground(new java.awt.Color(192, 221, 245));
         btnAgregar.setForeground(new java.awt.Color(0, 120, 215));
@@ -294,24 +317,33 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel3.setText("Agregar al carrito");
 
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
+
         javax.swing.GroupLayout btnAgregarLayout = new javax.swing.GroupLayout(btnAgregar);
         btnAgregar.setLayout(btnAgregarLayout);
         btnAgregarLayout.setHorizontalGroup(
             btnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAgregarLayout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(24, 24, 24))
+                .addGap(15, 15, 15))
         );
         btnAgregarLayout.setVerticalGroup(
             btnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnAgregarLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel3)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addGroup(btnAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAgregarLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnAgregarLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(14, 14, 14))))
         );
 
-        PanelPrincipal.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 640, 160, 51));
+        PanelPrincipal.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(687, 640, 170, 51));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 48)); // NOI18N
         jLabel4.setText("TECHWHEELS");
@@ -357,6 +389,8 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(46, 60, 78));
         jLabel9.setText("Direccion de Envio");
         PanelPrincipal.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+
+        txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
         PanelPrincipal.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 480, 40));
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 20)); // NOI18N
@@ -368,8 +402,11 @@ public class RealizarCompra extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(46, 60, 78));
         jLabel11.setText("Fecha");
         PanelPrincipal.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, -1, -1));
+
+        txtFecha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
         PanelPrincipal.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 360, 150, 30));
 
+        btnFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
         btnFecha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFechaActionPerformed(evt);
@@ -408,8 +445,12 @@ public class RealizarCompra extends javax.swing.JFrame {
 
         PanelPrincipal.add(btnRealizarCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 530, 230, 50));
 
-        btnDescargarFactura.setBackground(new java.awt.Color(255, 255, 255));
-        btnDescargarFactura.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
+        btnDescargarFactura.setBackground(new java.awt.Color(232, 234, 236));
+        btnDescargarFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDescargarFacturaMouseClicked(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel13.setText("Descargar factura");
@@ -418,15 +459,15 @@ public class RealizarCompra extends javax.swing.JFrame {
         btnDescargarFactura.setLayout(btnDescargarFacturaLayout);
         btnDescargarFacturaLayout.setHorizontalGroup(
             btnDescargarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnDescargarFacturaLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDescargarFacturaLayout.createSequentialGroup()
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addComponent(jLabel13)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
         btnDescargarFacturaLayout.setVerticalGroup(
             btnDescargarFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDescargarFacturaLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addGap(14, 14, 14))
         );
@@ -461,6 +502,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         PanelPrincipal.add(btnCargarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 80, 130, 30));
 
         ComboMetodoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona", "Efectivo", "Contra Entrega", "Tarjeta" }));
+        ComboMetodoPago.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
         ComboMetodoPago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboMetodoPagoActionPerformed(evt);
@@ -471,6 +513,14 @@ public class RealizarCompra extends javax.swing.JFrame {
 
         jLabel15.setText("Cantidad");
         PanelPrincipal.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 640, -1, -1));
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 20, -1, -1));
 
         getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1251, 726));
 
@@ -574,12 +624,32 @@ public class RealizarCompra extends javax.swing.JFrame {
       
     Compra compra = new Compra(nombre, apellido, tipoDoc, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
     compraDAO.guardarCompra(compra);
+    compraActual = compra;
+
+
     carritoDAO.vaciarCarrito();
     JOptionPane.showMessageDialog(this, "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());
      
 
 // TODO add your handling code here:
     }//GEN-LAST:event_btnRealizarCompraMouseClicked
+
+    private void btnDescargarFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDescargarFacturaMouseClicked
+         if (compraActual == null) {
+        JOptionPane.showMessageDialog(this, "No hay una compra reciente para generar la factura.");
+        return;
+    }
+    
+    GenerarFactura.generarFacturaPDF(compraActual);
+    JOptionPane.showMessageDialog(this, "Factura generada correctamente.");
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnDescargarFacturaMouseClicked
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        new Cliente().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -629,6 +699,7 @@ public class RealizarCompra extends javax.swing.JFrame {
     private javax.swing.JButton btnFecha;
     private javax.swing.JPanel btnQuitar;
     private javax.swing.JPanel btnRealizarCompra;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JPanel btnVerCarrito;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -637,6 +708,9 @@ public class RealizarCompra extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

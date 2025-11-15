@@ -47,7 +47,7 @@ public class Registro extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         Background = new javax.swing.JPanel();
-        javax.swing.JPanel RoundPanel = new javax.swing.JPanel();
+        javax.swing.JPanel RoundPanel = new PanelRound(20);
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -72,9 +72,9 @@ public class Registro extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         ContraseñaTxt = new javax.swing.JPasswordField();
         jSeparator5 = new javax.swing.JSeparator();
-        VolverBtn = new javax.swing.JPanel();
+        VolverBtn = new PanelRound(20);
         VolverBtnTxt = new javax.swing.JLabel();
-        RegistrarBtn = new javax.swing.JPanel();
+        RegistrarBtn = new PanelRound(20);
         RegistrarBtnTxt = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
@@ -96,7 +96,7 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/agregar-usuario.png"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel3.setText("Nombre");
 
         NombreTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
@@ -107,54 +107,64 @@ public class Registro extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel4.setText("Apellidos");
 
         ApellidoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         ApellidoTxt.setBorder(null);
 
-        jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel5.setText("Correo Electronico");
 
         CorreoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         CorreoTxt.setBorder(null);
+        CorreoTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CorreoTxtActionPerformed(evt);
+            }
+        });
 
-        jLabel10.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel10.setText("Telefono");
 
         TelefonoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         TelefonoTxt.setBorder(null);
 
-        jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel6.setText("Tipo de Documento");
 
         ComboDocumento.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         ComboDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Tarjeta de identidad", "Cedula de Ciudadania", " " }));
         ComboDocumento.setBorder(null);
 
-        jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel7.setText("Numero de Documento");
 
         NumeroDocumentoTxt.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         NumeroDocumentoTxt.setBorder(null);
 
-        jLabel9.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel9.setText("Rol");
 
         ComboRol.setFont(new java.awt.Font("Roboto Medium", 0, 12)); // NOI18N
         ComboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cliente", "Administrador" }));
         ComboRol.setBorder(null);
 
-        jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         jLabel8.setText("Contraseña");
 
         ContraseñaTxt.setBorder(null);
+        ContraseñaTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContraseñaTxtActionPerformed(evt);
+            }
+        });
 
         VolverBtn.setBackground(new java.awt.Color(0, 0, 0));
 
         VolverBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
         VolverBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
-        VolverBtnTxt.setText("     VOLVER");
+        VolverBtnTxt.setText("  VOLVER");
         VolverBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 VolverBtnTxtMouseClicked(evt);
@@ -171,15 +181,17 @@ public class Registro extends javax.swing.JFrame {
         VolverBtn.setLayout(VolverBtnLayout);
         VolverBtnLayout.setHorizontalGroup(
             VolverBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VolverBtnLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(VolverBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(VolverBtnLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(VolverBtnTxt)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         VolverBtnLayout.setVerticalGroup(
             VolverBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VolverBtnLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(VolverBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(VolverBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         RegistrarBtn.setBackground(new java.awt.Color(0, 0, 0));
@@ -203,10 +215,10 @@ public class Registro extends javax.swing.JFrame {
         RegistrarBtn.setLayout(RegistrarBtnLayout);
         RegistrarBtnLayout.setHorizontalGroup(
             RegistrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistrarBtnLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistrarBtnLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(RegistrarBtnTxt)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
         RegistrarBtnLayout.setVerticalGroup(
             RegistrarBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,45 +232,52 @@ public class Registro extends javax.swing.JFrame {
         RoundPanelLayout.setHorizontalGroup(
             RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RoundPanelLayout.createSequentialGroup()
-                .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RoundPanelLayout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(VolverBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(RegistrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, RoundPanelLayout.createSequentialGroup()
+                .addGap(151, 151, 151)
+                .addComponent(VolverBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addComponent(RegistrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(156, 156, 156))
+            .addGroup(RoundPanelLayout.createSequentialGroup()
+                .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RoundPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TelefonoTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jLabel10)
-                            .addComponent(CorreoTxt)
-                            .addComponent(jLabel5)
-                            .addComponent(ApellidoTxt)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
+                        .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(RoundPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel2))
-                            .addComponent(NombreTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                            .addComponent(jSeparator1)
-                            .addComponent(jSeparator2)
-                            .addComponent(jSeparator3)
-                            .addComponent(jSeparator6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6)
-                            .addComponent(ComboDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(NumeroDocumentoTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jSeparator4)
-                            .addComponent(jLabel9)
-                            .addComponent(ComboRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(ContraseñaTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                            .addComponent(jSeparator5))))
-                .addGap(88, 88, 88))
+                            .addGroup(RoundPanelLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TelefonoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(RoundPanelLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(ApellidoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(CorreoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RoundPanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(ContraseñaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(NumeroDocumentoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(ComboRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         RoundPanelLayout.setVerticalGroup(
             RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,14 +320,14 @@ public class Registro extends javax.swing.JFrame {
                     .addComponent(CorreoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(RoundPanelLayout.createSequentialGroup()
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TelefonoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ContraseñaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -319,10 +338,10 @@ public class Registro extends javax.swing.JFrame {
                 .addGroup(RoundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(VolverBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(RegistrarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
-        Background.add(RoundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 630, 500));
+        Background.add(RoundPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 630, 530));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -471,6 +490,14 @@ public class Registro extends javax.swing.JFrame {
     private void NombreTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NombreTxtActionPerformed
+
+    private void ContraseñaTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContraseñaTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ContraseñaTxtActionPerformed
+
+    private void CorreoTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CorreoTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CorreoTxtActionPerformed
 
     /**
      * @param args the command line arguments

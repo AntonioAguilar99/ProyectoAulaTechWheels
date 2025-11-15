@@ -18,49 +18,24 @@ import javax.swing.JPanel;
  */
 public class PanelRound extends JPanel {
 
-    private Color backgroundColor;
-    private int cornerRadius = 15;
-
-    public PanelRound(LayoutManager layout, int radius) {
-        super(layout);
-        cornerRadius = radius;
-    }
-
-    public PanelRound(LayoutManager layout, int radius, Color bgColor) {
-        super(layout);
-        cornerRadius = radius;
-        backgroundColor = bgColor;
-    }
+   private int cornerRadius;
 
     public PanelRound(int radius) {
-        super();
-        cornerRadius = radius;
-
-    }
-
-    public PanelRound(int radius, Color bgColor) {
-        super();
-        cornerRadius = radius;
-        backgroundColor = bgColor;
+        this.cornerRadius = radius;
+        setOpaque(false); // Importante para que se vea el fondo redondeado
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {//Dibujar panel con bordes redondeados
         super.paintComponent(g);
         Dimension arcs = new Dimension(cornerRadius, cornerRadius);
-        int width = getWidth();
-        int height = getHeight();
-        Graphics2D graphics = (Graphics2D) g;
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        //Draws the rounded panel with borders.
-        if (backgroundColor != null) {
-            graphics.setColor(backgroundColor);
-        } else {
-            graphics.setColor(getBackground());
-        }
-        graphics.fillRoundRect(0, 0, width - 1, height - 1, arcs.width, arcs.height); //paint background
-        graphics.setColor(getForeground());
-//            graphics.drawRoundRect(0, 0, width-1, height-1, arcs.width, arcs.height); //paint border
-//             
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Fondo blanco o el color de fondo del panel
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), arcs.width, arcs.height);
+
+        g2.dispose();
     }
 }
