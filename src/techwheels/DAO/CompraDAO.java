@@ -4,6 +4,7 @@
  */
 package techwheels.DAO;
 
+import Controller.Sesion;
 import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileReader;
@@ -13,6 +14,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import techwheels.Clases.Compra;
 
 /**
@@ -44,7 +46,7 @@ public class CompraDAO {
        
         public void guardarCompra(Compra compra) {
         List<Compra> compras = cargarCompras();
-        compra.setId((long) (compras.size() + 1));
+        compra.setId(UUID.randomUUID().toString());
         compras.add(compra);
 
         try (FileWriter writer = new FileWriter(archivoCompras)) {
@@ -54,5 +56,51 @@ public class CompraDAO {
         }
     }
         
+    public List<Compra> cargarComprasDeUsuario() {
+        List<Compra> todas = listarCompras();
+        List<Compra> filtradas = new ArrayList<>();
+
+        if (Sesion.usuarioActual == null) {
+            System.out.println("⚠ No hay usuario en sesión.");
+            return filtradas;
+        }
+
+        // Filtrar compras por número de documento del usuario
+        for (Compra c : todas) {
+            if (c.getNumeroDocumento().equalsIgnoreCase(Sesion.usuarioActual.getNumeroDocumento())) {
+                filtradas.add(c);
+            }
+        }
+
+        return filtradas;
+    }
+    
+    public Compra buscarCompraPorId(String id) {
+        List<Compra> compras = listarCompras();
+
+        for (Compra c : compras) {
+            if (c.getId().equals(id)) {
+                return c;
+            }
+        }
+        return null; // No encontrada
+    }
+        
+       public boolean cancelarCompra(String idCompra) {
+        List<Compra> compras = cargarCompras();
+
+        boolean eliminada = compras.removeIf(c -> c.getId().equals(idCompra));
+
+        if (eliminada) {
+            try (FileWriter writer = new FileWriter(archivoCompras)) {
+                gson.toJson(compras, writer);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        return eliminada;
+    }
     
 }

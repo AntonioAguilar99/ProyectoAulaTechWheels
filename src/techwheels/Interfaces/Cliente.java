@@ -43,9 +43,6 @@ public class Cliente extends javax.swing.JFrame {
         RealizarCompraBtn = new PanelRound(20);
         RealizarCompraBtnTxt = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        CancelarCompraBtn = new PanelRound(20);
-        CancelarCompraBtnTxt = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         HistorialDeComprasBtn = new PanelRound(20);
         HistorialDeComprasBtnTxt = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -86,50 +83,21 @@ public class Cliente extends javax.swing.JFrame {
         RealizarCompraBtn.setLayout(RealizarCompraBtnLayout);
         RealizarCompraBtnLayout.setHorizontalGroup(
             RealizarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RealizarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RealizarCompraBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(RealizarCompraBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         RealizarCompraBtnLayout.setVerticalGroup(
             RealizarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(RealizarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RealizarCompraBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(RealizarCompraBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(RealizarCompraBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 140, 50));
+        jPanel1.add(RealizarCompraBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 140, 50));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/shopping-cart.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 70, -1));
-
-        CancelarCompraBtn.setBackground(new java.awt.Color(30, 46, 62));
-
-        CancelarCompraBtnTxt.setFont(new java.awt.Font("Roboto Medium", 0, 16)); // NOI18N
-        CancelarCompraBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
-        CancelarCompraBtnTxt.setText("  Cancelar Compra");
-        CancelarCompraBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CancelarCompraBtnTxtMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                CancelarCompraBtnTxtMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                CancelarCompraBtnTxtMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout CancelarCompraBtnLayout = new javax.swing.GroupLayout(CancelarCompraBtn);
-        CancelarCompraBtn.setLayout(CancelarCompraBtnLayout);
-        CancelarCompraBtnLayout.setHorizontalGroup(
-            CancelarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CancelarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-        );
-        CancelarCompraBtnLayout.setVerticalGroup(
-            CancelarCompraBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(CancelarCompraBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(CancelarCompraBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 180, 140, 50));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/cancelled.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 140, 70, -1));
 
         HistorialDeComprasBtn.setBackground(new java.awt.Color(30, 46, 62));
 
@@ -152,21 +120,22 @@ public class Cliente extends javax.swing.JFrame {
         HistorialDeComprasBtn.setLayout(HistorialDeComprasBtnLayout);
         HistorialDeComprasBtnLayout.setHorizontalGroup(
             HistorialDeComprasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistorialDeComprasBtnLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(HistorialDeComprasBtnLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         HistorialDeComprasBtnLayout.setVerticalGroup(
             HistorialDeComprasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistorialDeComprasBtnLayout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(HistorialDeComprasBtnLayout.createSequentialGroup()
+                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jPanel1.add(HistorialDeComprasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 180, 170, 50));
+        jPanel1.add(HistorialDeComprasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 170, 50));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/history.png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, -1, -1));
 
         ExitBtn.setBackground(new java.awt.Color(30, 46, 62));
 
@@ -231,21 +200,8 @@ public class Cliente extends javax.swing.JFrame {
        this.dispose();
     }//GEN-LAST:event_RealizarCompraBtnTxtMouseClicked
 
-    private void CancelarCompraBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseClicked
-       new CancelarCompra().setVisible(true);
-          this.dispose();
-    }//GEN-LAST:event_CancelarCompraBtnTxtMouseClicked
-
-    private void CancelarCompraBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseEntered
-        CancelarCompraBtn.setBackground(new Color(50, 75, 105));
-    }//GEN-LAST:event_CancelarCompraBtnTxtMouseEntered
-
-    private void CancelarCompraBtnTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarCompraBtnTxtMouseExited
-        CancelarCompraBtn.setBackground(new Color(30, 46, 62));
-    }//GEN-LAST:event_CancelarCompraBtnTxtMouseExited
-
     private void HistorialDeComprasBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseClicked
-        new HistorialCompra().setVisible(true);
+        new HistorialCompras().setVisible(true);
          this.dispose();
     }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseClicked
 
@@ -306,8 +262,6 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel CancelarCompraBtn;
-    private javax.swing.JLabel CancelarCompraBtnTxt;
     private javax.swing.JPanel ExitBtn;
     private javax.swing.JLabel ExitBtnTxt;
     private javax.swing.JPanel HistorialDeComprasBtn;
@@ -315,7 +269,6 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JPanel RealizarCompraBtn;
     private javax.swing.JLabel RealizarCompraBtnTxt;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -31,6 +31,8 @@ public class UserController {
         for (Usuario usuarios: user) {
             if (usuarios.getCorreo().equalsIgnoreCase(correo) &&
                 usuarios.getContraseña().equals(contraseña)) {
+                
+                Sesion.usuarioActual = usuarios;
                 return usuarios; // login exitoso
             }
         }

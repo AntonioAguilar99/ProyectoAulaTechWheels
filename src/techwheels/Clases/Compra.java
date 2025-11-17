@@ -3,6 +3,7 @@
 package techwheels.Clases;
 
 import java.util.List;
+import java.util.UUID;
 
 
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class Compra{
 
     
-    private Long id;
+    private String id;
     private String nombreCliente;
     private String apellidoCliente;
     private String tipoDocumento;
@@ -28,6 +29,8 @@ public class Compra{
     // Constructor con parámetros (incluyendo los nuevos campos)
     public Compra(String nombreCliente,String apellidoCliente,  String tipoDocumento, String numeroDocumento,
                   String metodoPago, List<CarritoTemp> productos, String direccion,  String fecha, double subtotal, double total) {
+        
+        this.id = UUID.randomUUID().toString();
         this.nombreCliente = nombreCliente;
         this.apellidoCliente = apellidoCliente;
         this.tipoDocumento = tipoDocumento;
@@ -42,11 +45,11 @@ public class Compra{
 
     // Getters y setters
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

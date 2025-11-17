@@ -26,15 +26,12 @@ import techwheels.Clases.GestionProductos;
  */
 public class GenerarFactura {
     
-     public static void generarFacturaPDF(Compra compra) {
+     public static void generarFacturaPDF(Compra factura) {
         try {
             // --- LEER ARCHIVO JSON ---
-            String contenido = new String(Files.readAllBytes(Paths.get("src/DATA/Compras.json")));
+            String contenido = System.getProperty("java.io.tmpdir") + "factura.pdf";
 
-            Gson gson = new Gson();
-            Compra[] compras = gson.fromJson(contenido, Compra[].class);
-            Compra factura = compras[0]; // Primera factura del JSON
-
+           
             // --- CREAR DOCUMENTO PDF ---
             Document documento = new Document();
             String nombreArchivo = System.getProperty("user.home") + "/Downloads/factura.pdf";
@@ -86,20 +83,27 @@ public class GenerarFactura {
 
             documento.close();
             try {
-                File archivo = new File(nombreArchivo);
-                if (archivo.exists()) {
-                    Desktop.getDesktop().open(archivo);
-                } else {
-                    System.out.println("El archivo PDF no fue encontrado: " + nombreArchivo);
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+               Thread.sleep(300); // pequeño delay para evitar bloqueo del archivo
 
-            System.out.println("PDF generado correctamente: " + nombreArchivo);
+                 File archivo = new File(nombreArchivo);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                 if (archivo.exists()) {
+                     if (Desktop.isDesktopSupported()) {
+                         Desktop.getDesktop().open(archivo);
+                     } else {
+                         System.out.println("Desktop no soportado por este sistema.");
+                     }
+                 } else {
+                     System.out.println("El archivo PDF no fue encontrado: " + nombreArchivo);
+                 }
+             } catch (Exception ex) {
+                 ex.printStackTrace();
+             }
+
+             System.out.println("PDF generado correctamente: " + nombreArchivo);
+
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
     }
 }
