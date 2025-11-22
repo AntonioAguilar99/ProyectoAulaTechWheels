@@ -6,11 +6,13 @@ package techwheels.DAO;
 
 import Controller.Sesion;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -102,5 +104,18 @@ public class CompraDAO {
 
         return eliminada;
     }
-    
+    public List<Compra> cargarCompras1() {
+    try (Reader reader = new FileReader(archivoCompras)) {
+
+        Type listType = new TypeToken<List<Compra>>() {}.getType();
+        List<Compra> compras = gson.fromJson(reader, listType);
+
+        return compras != null ? compras : new ArrayList<>();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return new ArrayList<>();
+    }
+}
+
 }

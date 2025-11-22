@@ -49,6 +49,7 @@ public class Cliente extends javax.swing.JFrame {
         ExitBtn = new PanelRound(20);
         ExitBtnTxt = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,16 +121,15 @@ public class Cliente extends javax.swing.JFrame {
         HistorialDeComprasBtn.setLayout(HistorialDeComprasBtnLayout);
         HistorialDeComprasBtnLayout.setHorizontalGroup(
             HistorialDeComprasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HistorialDeComprasBtnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistorialDeComprasBtnLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         HistorialDeComprasBtnLayout.setVerticalGroup(
             HistorialDeComprasBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HistorialDeComprasBtnLayout.createSequentialGroup()
-                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistorialDeComprasBtnLayout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(HistorialDeComprasBtnTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel1.add(HistorialDeComprasBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 170, 50));
@@ -172,6 +172,18 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, -1, -1));
+
+        jButton1.setBackground(new java.awt.Color(30, 46, 62));
+        jButton1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/agregar-usuario.png"))); // NOI18N
+        jButton1.setText("Perfil");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 120, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,6 +238,12 @@ public class Cliente extends javax.swing.JFrame {
         ExitBtn.setBackground(new Color(30, 46, 62));
     }//GEN-LAST:event_ExitBtnTxtMouseExited
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         new PerilUsuario().setVisible(true);
+         this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -268,6 +286,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel HistorialDeComprasBtnTxt;
     private javax.swing.JPanel RealizarCompraBtn;
     private javax.swing.JLabel RealizarCompraBtnTxt;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

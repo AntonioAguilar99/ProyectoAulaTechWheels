@@ -53,4 +53,14 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Error al guardar los usuarios: " + e.getMessage());
         }
     }
+       public Usuario buscarPorDocumento(String numeroDocumento) {
+    List<Usuario> usuarios = cargarUsuarios();
+    for (Usuario u : usuarios) {
+        if (u.getNumeroDocumento().equals(numeroDocumento)) {
+            return u;
+        }
+    }
+    return null; // No encontrado
+}
+
 }
