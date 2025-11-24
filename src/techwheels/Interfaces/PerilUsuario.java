@@ -57,7 +57,6 @@ public class PerilUsuario extends javax.swing.JFrame {
         jPanel4.setForeground(new java.awt.Color(51, 51, 51));
 
         jButton1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("Actualizar Datos");
 
         jButton3.setBackground(new java.awt.Color(200, 200, 200));
@@ -193,7 +192,7 @@ public class PerilUsuario extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(jLabel10))))
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("", jPanel2);
@@ -208,7 +207,7 @@ public class PerilUsuario extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("", jPanel3);
@@ -224,7 +223,7 @@ public class PerilUsuario extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 485, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("", jPanel5);
@@ -252,7 +251,7 @@ public class PerilUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTabbedPane1)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(863, Short.MAX_VALUE))
+                .addContainerGap(1045, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

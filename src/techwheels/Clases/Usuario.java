@@ -2,13 +2,9 @@
 
 package techwheels.Clases;
 
-import java.io.Serializable;
+
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+
 import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
 
 
@@ -19,7 +15,7 @@ import techwheels.Clases.Enumeraciones.RolUsuarioEnum;
  * @author Antonio Aguilar
  */
 
-  public class Usuario implements Serializable{
+  public class Usuario{
     private String codigo;
     private String nombres;
     private String apellidos;

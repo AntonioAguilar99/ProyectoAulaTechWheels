@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.util.*;
 import javax.swing.JOptionPane;
+import techwheels.Clases.CarritoTemp;
 import techwheels.Clases.GestionProductos;
 
 public class ProductosDAO {
@@ -79,4 +80,44 @@ public class ProductosDAO {
         }
         guardarProductos(productos);
     }
+    
+    public boolean descontarInventario(List<CarritoTemp> carrito) {
+
+        List<GestionProductos> productos = listarProductos();
+        boolean cambios = false;
+
+        for (CarritoTemp item : carrito) {
+
+            String idBuscar = item.getId();   // ← ahora es long
+            int cantidadVendida = item.getCantidad();
+
+            for (GestionProductos p : productos) {
+
+                if (p.getId() != null && p.getId().equals(idBuscar)) {
+                   
+
+                    int stockActual = p.getCantidad();
+
+                    if (stockActual < cantidadVendida) {
+                        JOptionPane.showMessageDialog(null,
+                                "No hay suficiente inventario del producto: " + p.getNombre());
+                        return false; // detener compra
+                    }
+
+                    // RESTAR INVENTARIO
+                    p.setCantidad(stockActual - cantidadVendida);
+                    cambios = true;
+                }
+            }
+        }
+
+        // Guardar cambios solo si se descontó algo
+        if (cambios) {
+            guardarProductos(productos);
+        }
+
+        return true;
+    }
+    
+       
 }

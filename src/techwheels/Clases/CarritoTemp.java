@@ -1,12 +1,14 @@
 package techwheels.Clases;
 
+import java.util.UUID;
+
 
 
 
 
 
 public class CarritoTemp  {
-    private Long id;
+    private String id;
     private String nombreProducto;
     private String descripcionProducto;
     private String marcaProducto;
@@ -22,7 +24,7 @@ public class CarritoTemp  {
 
     public CarritoTemp(String nombreProducto, String descripcionProducto, String marcaProducto,String categoriaProducto, double precioProducto, int cantidad) {
        
-    
+       
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.marcaProducto = marcaProducto;
@@ -35,11 +37,11 @@ public class CarritoTemp  {
 
     // Getters y Setters
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getNombreProducto() {

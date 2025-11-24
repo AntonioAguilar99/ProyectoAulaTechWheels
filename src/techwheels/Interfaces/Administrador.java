@@ -27,10 +27,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableRowSorter;
 import techwheels.Clases.CarritoTemp;
 import techwheels.Clases.Compra;
 import techwheels.Clases.Enumeraciones.GenerarFactura;
@@ -48,84 +50,150 @@ import techwheels.DAO.UsuarioDAO;
  * @author anton
  */
 public class Administrador extends javax.swing.JFrame {
-  private String numeroDocumentoOriginal;
+    private String numeroDocumentoOriginal;
     private UsuarioDAO usuarioDAO = new UsuarioDAO();
-    private UserController controller;
+    private UserController controller = new UserController();
     private DefaultTableModel modelo;
-private final ProductosDAO dao = new ProductosDAO();
-private Usuario usuarioActual;
+    private final ProductosDAO dao = new ProductosDAO();
+    private Usuario usuarioActual;
     private Compra compraActual;
-   
+    private TableRowSorter<DefaultTableModel> sorter;
+    private DefaultTableModel modeloHistorial;
+
     private CarritoDAO carritoDAO = new CarritoDAO();
+
     /**
      * Creates new form Administrador
      */
 
     public Administrador() {
         initComponents();
-        configurarTabla1();
-         cargarTablaCompras();
-          controller = new UserController();
         modelo = (DefaultTableModel) tablaUsuarios.getModel();
+        modeloHistorial = (DefaultTableModel) tablaHistorial.getModel();
+        sorter = new TableRowSorter<>(modelo);
+        tablaUsuarios.setRowSorter(sorter);
+        cargarUsers();
         configurarTabla();
+        configurarTabla1();
+        cargarTablaCompras();
     
+        
+
         tablaProductos.getSelectionModel().addListSelectionListener(e -> {
-    int fila = tablaProductos.getSelectedRow();
-    if (fila >= 0) {
-        txtNombre.setText(tablaProductos.getValueAt(fila, 2).toString());
-        txtEntregadoPor.setText(tablaProductos.getValueAt(fila, 3).toString());
-        txtRecibidoPor.setText(tablaProductos.getValueAt(fila, 4).toString());
-        txtDescripcion.setText(tablaProductos.getValueAt(fila, 5).toString());
-        txtMarca.setText(tablaProductos.getValueAt(fila, 6).toString());
-         txtCategoria.setText(tablaProductos.getValueAt(fila, 7).toString());
-        txtCantidad.setText(tablaProductos.getValueAt(fila, 8).toString());
-        txtPrecio.setText(tablaProductos.getValueAt(fila, 9).toString());
-    }
-});
+            int fila = tablaProductos.getSelectedRow();
+            if (fila >= 0) {
+                txtNombre.setText(tablaProductos.getValueAt(fila, 2).toString());
+                txtEntregadoPor.setText(tablaProductos.getValueAt(fila, 3).toString());
+                txtRecibidoPor.setText(tablaProductos.getValueAt(fila, 4).toString());
+                txtDescripcion.setText(tablaProductos.getValueAt(fila, 5).toString());
+                txtMarca.setText(tablaProductos.getValueAt(fila, 6).toString());
+                txtCategoria.setText(tablaProductos.getValueAt(fila, 7).toString());
+                txtCantidad.setText(tablaProductos.getValueAt(fila, 8).toString());
+                txtPrecio.setText(tablaProductos.getValueAt(fila, 9).toString());
+            }
+        });
 
     }
 
     public Administrador(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
-          this.usuarioActual = usuario;
-  
+        this.usuarioActual = usuario;
+        configurarTabla1();
+        cargarTablaCompras();
+    
 
-        
     }
-
+    
+    //METODO PARA CARGAR USUARIOS
     public void cargarUsers() {
-        DefaultTableModel user = (DefaultTableModel) tablaUsuarios.getModel();
-        user.setRowCount(0);
-        UserController controler = new UserController();
-        controler.cargarUsuarios(user);
+        DefaultTableModel userModel = (DefaultTableModel) tablaUsuarios.getModel();
+        userModel.setRowCount(0);
+        controller.cargarUsuarios(userModel);
 
     }
-        // ✅ Configurar tabla para que tenga scroll y columnas correctas
-  private void configurarTabla() {
-    String[] columnas = {"ID", "Fecha", "Nombre del producto", "Entregado por", "Recibido por", "Descripción", "Marca", "Categoria", "Cantidad", "Precio"};
-    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-    tablaProductos.setModel(modelo);
-    tablaProductos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // para usar scrollbars
+    
+    private void filtrarUsuario() {
+        if (sorter == null) {
+            // Inicializar sorter si es nulo
+            DefaultTableModel modelo = (DefaultTableModel) tablaUsuarios.getModel();
+            sorter = new TableRowSorter<>(modelo);
+            tablaUsuarios.setRowSorter(sorter);
+        }
 
-    // Ajustar ancho de cada columna
-    int[] anchos = {50, 125, 200, 150, 150, 450, 100, 100, 100, 100};
-    for (int i = 0; i < tablaProductos.getColumnCount(); i++) {
-        tablaProductos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        String doc = txtBuscarDocumento.getText().trim();
+
+        if (doc.isEmpty()) {
+            sorter.setRowFilter(null); // quitar filtro
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + doc, 4));
+            // 4 es el índice de columna Documento (ajusta si es otro)
+        }
     }
 
-    // Ajustar altura de filas
-    tablaProductos.setRowHeight(30); // más grande, por defecto es 16 o 20
-}
+    private void eliminarUsuario() {
+        int fila = tablaUsuarios.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un usuario para eliminar");
+            return;
+        }
+        // Obtener el documento desde la tabla
+        String documento = tablaUsuarios.getValueAt(fila, 4).toString().trim();
+
+        int confirm = JOptionPane.showConfirmDialog(
+                this,
+                "¿Estás seguro de eliminar este usuario?",
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+        // Llamar a CONTROLLER
+        boolean eliminado = controller.eliminarUsuario(documento);
+
+        if (eliminado) {
+            JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente");
+
+            // Recargar tabla
+            DefaultTableModel model = (DefaultTableModel) tablaUsuarios.getModel();
+            
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo eliminar el usuario.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+    
+    // ✅ Configurar tabla para que tenga scroll y columnas correctas
+    private void configurarTabla() {
+        String[] columnas = {"ID", "Fecha", "Nombre del producto", "Entregado por", "Recibido por", "Descripción", "Marca", "Categoria", "Cantidad", "Precio"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        tablaProductos.setModel(modelo);
+        tablaProductos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // para usar scrollbars
+
+        // Ajustar ancho de cada columna
+        int[] anchos = {50, 125, 200, 150, 150, 450, 100, 100, 100, 100};
+        for (int i = 0; i < tablaProductos.getColumnCount(); i++) {
+            tablaProductos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+        }
+
+        // Ajustar altura de filas
+        tablaProductos.setRowHeight(30); // más grande, por defecto es 16 o 20
+    }
 
 
     private void mostrarProductos() {
     List<GestionProductos> productos = dao.listarProductos();
-    DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
-    modelo.setRowCount(0); // Limpiar tabla antes de mostrar
+    DefaultTableModel modeloProductos = (DefaultTableModel) tablaProductos.getModel();
+    modeloProductos.setRowCount(0); // Limpiar tabla antes de mostrar
 
     for (GestionProductos p : productos) {
-        modelo.addRow(new Object[]{
+        modeloProductos.addRow(new Object[]{
             p.getId(),
             p.getFecha(),
             p.getNombre(),
@@ -195,31 +263,33 @@ private Usuario usuarioActual;
 
     TablaProductos.setModel(modelo);
 }
+    
+    
 //Desde aqui hasta abajo todo es sobre la interfaz historial y cancelacion de compras 
 private void configurarTabla1() {
 
     String[] columnas = {
         "ID", "Cliente", "Documento", "Método Pago", "Fecha",
-        "Total", "Productos", "Acciones"
+        "Total","Estado", "Productos", "Acciones"
     };
 
-    modelo = new DefaultTableModel(columnas, 0) {
+    modeloHistorial = new DefaultTableModel(columnas, 0) {
         @Override
         public boolean isCellEditable(int row, int col) {
-            return col == 6 || col == 7; // Solo botones
+            return col == 7 || col == 8; // Solo botones
         }
     };
 
-    tabla.setModel(modelo);
-    tabla.setRowHeight(30);
+    tablaHistorial.setModel(modeloHistorial);
+    tablaHistorial.setRowHeight(30);
 
-    JTableHeader header = tabla.getTableHeader();
+    JTableHeader header = tablaHistorial.getTableHeader();
     header.setBackground(new Color(0, 90, 170));
     header.setForeground(Color.WHITE);
     header.setFont(new Font("Segoe UI", Font.BOLD, 14));
 
     // filas alternadas
-    tabla.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+    tablaHistorial.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
         @Override
         public Component getTableCellRendererComponent(
                 JTable table, Object value, boolean isSelected,
@@ -238,11 +308,11 @@ private void configurarTabla1() {
         }
     });
 
-    tabla.getColumn("Productos").setCellRenderer(new ButtonRenderer());
-    tabla.getColumn("Productos").setCellEditor(new ButtonEditor(new JTextField(), "Ver"));
+    tablaHistorial.getColumn("Productos").setCellRenderer(new ButtonRenderer());
+    tablaHistorial.getColumn("Productos").setCellEditor(new ButtonEditor(new JTextField(), "Ver"));
 
-    tabla.getColumn("Acciones").setCellRenderer(new ButtonRenderer());
-    tabla.getColumn("Acciones").setCellEditor(new ButtonEditorAcciones(new JTextField()));
+    tablaHistorial.getColumn("Acciones").setCellRenderer(new ButtonRenderer());
+    tablaHistorial.getColumn("Acciones").setCellEditor(new ButtonEditorAcciones(new JTextField()));
 }
 
 private void cargarTablaCompras() {
@@ -252,16 +322,17 @@ private void cargarTablaCompras() {
     // Cargar TODAS las compras, no solo las del usuario
     List<Compra> compras = dao.cargarCompras1();
 
-    modelo.setRowCount(0);
+    modeloHistorial.setRowCount(0);
 
     for (Compra c : compras) {
-        modelo.addRow(new Object[]{
+        modeloHistorial.addRow(new Object[]{
             c.getId(),
             c.getNombreCliente() + " " + c.getApellidoCliente(),
             c.getTipoDocumento() + " " + c.getNumeroDocumento(),
             c.getMetodoPago(),
             c.getFechaCompra(),
             c.getTotal(),
+            c.getEstado(),
             "Ver",
             "PDF / Cancelar"
         });
@@ -357,7 +428,7 @@ class ButtonEditor extends DefaultCellEditor {
     @Override
     public Object getCellEditorValue() {
         if (clicked) {
-            String idCompra = tabla.getValueAt(row, 0).toString();
+            String idCompra = tablaHistorial.getValueAt(row, 0).toString();
             mostrarProductos(idCompra);
         }
         clicked = false;
@@ -413,7 +484,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
     @Override
     public Object getCellEditorValue() {
 
-        String id = tabla.getValueAt(row, 0).toString();
+        String id = tablaHistorial.getValueAt(row, 0).toString();
         CompraDAO dao = new CompraDAO();
 
         // ------------ PDF ----------------
@@ -451,7 +522,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
         CompraDAO dao = new CompraDAO();
         List<Compra> compras = dao.cargarCompras1();
 
-        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tablaHistorial.getModel();
         modelo.setRowCount(0); // limpia la tabla
 
         for (Compra c : compras) {
@@ -490,6 +561,8 @@ class ButtonEditorAcciones extends DefaultCellEditor {
         btnSalir = new javax.swing.JButton();
         btnRefrescar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
+        txtBuscarDocumento = new javax.swing.JTextField();
+        btnBuscarUser = new javax.swing.JButton();
         Registro = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -547,9 +620,9 @@ class ButtonEditorAcciones extends DefaultCellEditor {
         CancelarCompra = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
+        tablaHistorial = new javax.swing.JTable();
         btnBuscarCedula = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
         HistorialCompras = new javax.swing.JPanel();
         BuscarUsuarioCedula = new javax.swing.JButton();
         ModificarPerfilUsuario = new javax.swing.JButton();
@@ -578,7 +651,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
         jScrollPane4 = new javax.swing.JScrollPane();
         tablaProductos = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnGuardarProducto = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -631,22 +704,46 @@ class ButtonEditorAcciones extends DefaultCellEditor {
 
         tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "T. Documento", "Num. Documento", "Correo", "Telefono", "Contraseña", "Rol"
+                "Codigo", "Nombre", "Apellido", "T. Documento", "Num. Documento", "Correo", "Telefono", "Contraseña", "Rol"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tablaUsuarios);
+        if (tablaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tablaUsuarios.getColumnModel().getColumn(0).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(1).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(2).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(3).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(4).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(5).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(6).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(7).setResizable(false);
+            tablaUsuarios.getColumnModel().getColumn(8).setResizable(false);
+        }
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/exit.png"))); // NOI18N
         btnSalir.setText("Salir\n");
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnSalirMouseClicked(evt);
+            }
+        });
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -658,9 +755,15 @@ class ButtonEditorAcciones extends DefaultCellEditor {
             }
         });
 
-        jLabel11.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 30)); // NOI18N
         jLabel11.setText("Visualice facil y rapido los usuarios registrados en el programa");
+
+        btnBuscarUser.setText("Buscar");
+        btnBuscarUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout UsuariosLayout = new javax.swing.GroupLayout(Usuarios);
         Usuarios.setLayout(UsuariosLayout);
@@ -669,36 +772,45 @@ class ButtonEditorAcciones extends DefaultCellEditor {
             .addGroup(UsuariosLayout.createSequentialGroup()
                 .addGroup(UsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(UsuariosLayout.createSequentialGroup()
-                        .addGap(76, 76, 76)
+                        .addGap(114, 114, 114)
                         .addGroup(UsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 1091, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(UsuariosLayout.createSequentialGroup()
                                 .addComponent(btnSalir)
-                                .addGap(106, 106, 106)
+                                .addGap(87, 87, 87)
                                 .addComponent(btnMostrarUsuarios)
-                                .addGap(161, 161, 161)
+                                .addGap(90, 90, 90)
                                 .addComponent(btnRefrescar)
-                                .addGap(201, 201, 201)
+                                .addGap(45, 45, 45)
                                 .addComponent(btnEliminarUsuario))))
                     .addGroup(UsuariosLayout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(113, 113, 113)
+                        .addComponent(btnBuscarUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtBuscarDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(327, Short.MAX_VALUE))
         );
         UsuariosLayout.setVerticalGroup(
             UsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UsuariosLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel11)
-                .addGap(59, 59, 59)
+                .addGap(49, 49, 49)
+                .addGroup(UsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(UsuariosLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(txtBuscarDocumento, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addComponent(btnBuscarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGap(18, 18, 18)
                 .addGroup(UsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnMostrarUsuarios)
+                    .addComponent(btnEliminarUsuario)
                     .addComponent(btnRefrescar)
-                    .addComponent(btnEliminarUsuario))
-                .addContainerGap(155, Short.MAX_VALUE))
+                    .addComponent(btnMostrarUsuarios)
+                    .addComponent(btnSalir))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         Administrador.addTab("Usuarios", Usuarios);
@@ -707,7 +819,6 @@ class ButtonEditorAcciones extends DefaultCellEditor {
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Registre a los Usuarios Facil y Rapido");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1207,23 +1318,10 @@ class ButtonEditorAcciones extends DefaultCellEditor {
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("BUSQUEDA DE HISTORIALES Y CANCELACION DE COMPRAS ");
 
-        tabla.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        tabla.setForeground(new java.awt.Color(0, 0, 0));
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "ID"
-            }
-        ));
-        jScrollPane2.setViewportView(tabla);
+        tablaHistorial.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jScrollPane2.setViewportView(tablaHistorial);
 
         btnBuscarCedula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
         btnBuscarCedula.setText("Buscar por Cedula");
@@ -1233,11 +1331,11 @@ class ButtonEditorAcciones extends DefaultCellEditor {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/refresh.png"))); // NOI18N
-        jButton1.setText("Refrescar Tabla");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCargar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/refresh.png"))); // NOI18N
+        btnCargar.setText("Refrescar Tabla");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCargarActionPerformed(evt);
             }
         });
 
@@ -1251,7 +1349,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
                         .addGap(477, 477, 477)
                         .addComponent(btnBuscarCedula)
                         .addGap(156, 156, 156)
-                        .addComponent(jButton1))
+                        .addComponent(btnCargar))
                     .addGroup(CancelarCompraLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addComponent(jLabel10))
@@ -1270,7 +1368,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
                 .addGap(48, 48, 48)
                 .addGroup(CancelarCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscarCedula)
-                    .addComponent(jButton1))
+                    .addComponent(btnCargar))
                 .addGap(153, 153, 153))
         );
 
@@ -1301,7 +1399,6 @@ class ButtonEditorAcciones extends DefaultCellEditor {
         });
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("MODIFIQUE LA INFORMACION DE LOS USUARIOS FACIL Y RAPIDO");
 
         jPanel3.setBackground(new java.awt.Color(247, 250, 252));
@@ -1375,12 +1472,11 @@ class ButtonEditorAcciones extends DefaultCellEditor {
                 .addGap(73, 73, 73)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(NC)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(N, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                     .addComponent(A)
                     .addComponent(CE))
@@ -1502,15 +1598,23 @@ class ButtonEditorAcciones extends DefaultCellEditor {
 
         tablaProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Fecha", "Nombre", "Entregado por", "Recibido por", "Descripcion", "Marca", "Categoria", "Cantidad", "Precio"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, true, false, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(tablaProductos);
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/visibility.png"))); // NOI18N
@@ -1521,11 +1625,11 @@ class ButtonEditorAcciones extends DefaultCellEditor {
             }
         });
 
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/up-arrow.png"))); // NOI18N
-        jButton7.setText("Subir");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/techwheels/Imagenes/up-arrow.png"))); // NOI18N
+        btnGuardarProducto.setText("Subir");
+        btnGuardarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnGuardarProductoActionPerformed(evt);
             }
         });
 
@@ -1726,7 +1830,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
                         .addGap(97, 97, 97)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(143, 143, 143)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGuardarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton8)
                         .addGap(52, 52, 52))
@@ -1751,7 +1855,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addGroup(GestionProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton7)
+                            .addComponent(btnGuardarProducto)
                             .addComponent(jButton6)
                             .addComponent(jButton8))
                         .addGap(42, 42, 42)
@@ -1888,33 +1992,22 @@ class ButtonEditorAcciones extends DefaultCellEditor {
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void btnMostrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarUsuariosActionPerformed
-    btnMostrarUsuarios.addActionListener(e -> {
-    // Asegúrate de usar la misma instancia
-    modelo.setRowCount(0); // Limpia la tabla
-    controller.cargarUsuarios(modelo);
-});
-
+   
+        cargarUsers();
 
     }//GEN-LAST:event_btnMostrarUsuariosActionPerformed
 
     private void btnEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarUsuarioActionPerformed
-   btnEliminarUsuario.addActionListener(e -> {
-    int fila = tablaUsuarios.getSelectedRow();
-    controller.eliminarUsuario((DefaultTableModel) tablaUsuarios.getModel(), fila);
-});
-
+        eliminarUsuario();
     }//GEN-LAST:event_btnEliminarUsuarioActionPerformed
 
     private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
-        // TODO add your handling code here:
-        btnRefrescar.addActionListener(e -> {
-    controller.refrescarTabla((DefaultTableModel) tablaUsuarios.getModel());
-});
-
+        sorter.setRowFilter(null); // ← limpia el filtro
+        controller.refrescarTabla((DefaultTableModel) tablaUsuarios.getModel());
 
     }//GEN-LAST:event_btnRefrescarActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btnGuardarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProductoActionPerformed
         // TODO add your handling code here:
   try {
     String id = UUID.randomUUID().toString();
@@ -1997,7 +2090,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
 }
 
 
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_btnGuardarProductoActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
    mostrarProductos();
@@ -2169,116 +2262,108 @@ if (fila >= 0) {
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
- CompraDAO compraDAO = new CompraDAO();
-    List<CarritoTemp> carrito = carritoDAO.listarcarrito();
-    if (carrito.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "El carrito está vacío. Agrega productos antes de realizar la compra.");
-        return;
-    }
-    
-
-String nombre = textNombre.getText();
-String apellido = textApellidos.getText();
-String tipoD = (String) ComboTD.getSelectedItem();
-String numeroDoc = txtNumero.getText();
-String metodoPago = (String) ComboMetodoPago.getSelectedItem();
-String fecha = txtFecha.getText();
-String direccion = txtDireccion.getText();
-
-//  Validaciones  
-if (nombre.isEmpty() || apellido.isEmpty() || numeroDoc.isEmpty() || fecha.isEmpty() || direccion.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Por favor complete todos los campos obligatorios.");
-    return;
-}
-
-// Validación: Nombre solo letras
-if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
-    JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
-    return;
-}
-
-// Validación: Apellido solo letras
-if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
-    JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
-    return;
-}
-
-// Validación: Documento solo números
-if (!numeroDoc.matches("\\d+")) {
-    JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
-    return;
-}
-
-
-        
-    double subtotal = 0;
-    for (CarritoTemp p : carrito) {
-        subtotal += p.getPrecioProducto() * p.getCantidad();
-    }
-    
-    double total = 0.0;
-    for (int i = 0; i < TablaProductos.getRowCount(); i++) {
-        double precio = Double.parseDouble(TablaProductos.getValueAt(i, 4).toString());
-        int cantidad = Integer.parseInt(TablaProductos.getValueAt(i, 5).toString());
-        total += precio * cantidad;
-    }
-    
-      if ("Tarjeta".equalsIgnoreCase(metodoPago)) {
-        String numeroTarjeta = JOptionPane.showInputDialog(this, "Ingrese el número de tarjeta:");
-        if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Pago cancelado.");
+        CompraDAO compraDAO = new CompraDAO();
+        List<CarritoTemp> carrito = carritoDAO.listarcarrito();
+        if (carrito.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El carrito está vacío. Agrega productos antes de realizar la compra.");
             return;
         }
-        JOptionPane.showMessageDialog(this, "Pago realizado exitosamente con tarjeta terminada en " +
-                numeroTarjeta.substring(Math.max(0, numeroTarjeta.length() - 4)) + ".");
-      
-    }
-      
-    Compra compra = new Compra(nombre, apellido, tipoD, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
-    compraDAO.guardarCompra(compra);
-    compraActual = compra;
 
+        String nombre = textNombre.getText();
+        String apellido = textApellidos.getText();
+        String tipoD = (String) ComboTD.getSelectedItem();
+        String numeroDoc = txtNumero.getText();
+        String metodoPago = (String) ComboMetodoPago.getSelectedItem();
+        String fecha = txtFecha.getText();
+        String direccion = txtDireccion.getText();
 
-    carritoDAO.vaciarCarrito();
-    JOptionPane.showMessageDialog(this, "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());
-    limpiarCampos2();
+//  Validaciones  
+        if (nombre.isEmpty() || apellido.isEmpty() || numeroDoc.isEmpty() || fecha.isEmpty() || direccion.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos obligatorios.");
+            return;
+        }
+
+// Validación: Nombre solo letras
+        if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
+            return;
+        }
+
+// Validación: Apellido solo letras
+        if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+            JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
+            return;
+        }
+
+// Validación: Documento solo números
+        if (!numeroDoc.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
+            return;
+        }
+
+        double subtotal = 0;
+        for (CarritoTemp p : carrito) {
+            subtotal += p.getPrecioProducto() * p.getCantidad();
+        }
+
+        double total = 0.0;
+        for (int i = 0; i < TablaProductos.getRowCount(); i++) {
+            double precio = Double.parseDouble(TablaProductos.getValueAt(i, 4).toString());
+            int cantidad = Integer.parseInt(TablaProductos.getValueAt(i, 5).toString());
+            total += precio * cantidad;
+        }
+
+        if ("Tarjeta".equalsIgnoreCase(metodoPago)) {
+            String numeroTarjeta = JOptionPane.showInputDialog(this, "Ingrese el número de tarjeta:");
+            if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Pago cancelado.");
+                return;
+            }
+            JOptionPane.showMessageDialog(this, "Pago realizado exitosamente con tarjeta terminada en "
+                    + numeroTarjeta.substring(Math.max(0, numeroTarjeta.length() - 4)) + ".");
+
+        }
+
+        Compra compra = new Compra(nombre, apellido, tipoD, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
+        compraDAO.guardarCompra(compra);
+        compraActual = compra;
+
+        carritoDAO.vaciarCarrito();
+        JOptionPane.showMessageDialog(this, "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());
+        limpiarCampos2();
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void BuscarUsuarioCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarUsuarioCedulaActionPerformed
-                                                    
-    // Ventana emergente para ingresar número de documento
-    String numeroDoc = JOptionPane.showInputDialog(this, "Ingrese el número de documento del usuario:");
-    
-    if (numeroDoc == null || numeroDoc.trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No se ingresó ningún número de documento.");
-        return;
-    }
 
-    // Buscar usuario
-    Usuario usuario = usuarioDAO.buscarPorDocumento(numeroDoc.trim());
-    
-    if (usuario != null) {
-        // Guardar la cédula original
-        numeroDocumentoOriginal = usuario.getNumeroDocumento();
-        
-        // Llenar campos de texto
-        N.setText(usuario.getNombres());
-        A.setText(usuario.getApellidos());
-        CE.setText(usuario.getCorreo());
-        NC.setText(usuario.getTelefono());
-        ND.setText(usuario.getNumeroDocumento());
-        C.setText(usuario.getContraseña());
+        // Ventana emergente para ingresar número de documento
+        String numeroDoc = JOptionPane.showInputDialog(this, "Ingrese el número de documento del usuario:");
 
-        // Llenar combos
-        TD.setSelectedItem(usuario.getTipoDocumento());
-        TU.setSelectedItem(usuario.getRol().name()); // Convertimos enum a String
-    } else {
-        JOptionPane.showMessageDialog(this, "Usuario no encontrado");
-    }
+        if (numeroDoc == null || numeroDoc.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se ingresó ningún número de documento.");
+            return;
+        }
 
+        // Buscar usuario
+        Usuario usuario = usuarioDAO.buscarPorDocumento(numeroDoc.trim());
 
+        if (usuario != null) {
+            // Guardar la cédula original
+            numeroDocumentoOriginal = usuario.getNumeroDocumento();
 
+            // Llenar campos de texto
+            N.setText(usuario.getNombres());
+            A.setText(usuario.getApellidos());
+            CE.setText(usuario.getCorreo());
+            NC.setText(usuario.getTelefono());
+            ND.setText(usuario.getNumeroDocumento());
+            C.setText(usuario.getContraseña());
 
+            // Llenar combos
+            TD.setSelectedItem(usuario.getTipoDocumento());
+            TU.setSelectedItem(usuario.getRol().name()); // Convertimos enum a String
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario no encontrado");
+        }
 
 
     }//GEN-LAST:event_BuscarUsuarioCedulaActionPerformed
@@ -2364,7 +2449,7 @@ if (!numeroDoc.matches("\\d+")) {
     CompraDAO dao = new CompraDAO();
     List<Compra> compras = dao.cargarCompras1(); // todas las compras
 
-    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+    DefaultTableModel modelo = (DefaultTableModel) tablaHistorial.getModel();
     modelo.setRowCount(0); // limpia la tabla
 
     boolean encontrado = false;
@@ -2447,27 +2532,9 @@ mostrarCarrito();
         JOptionPane.showMessageDialog(this, "Factura generada correctamente.");
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-       CompraDAO dao = new CompraDAO();
-    List<Compra> compras = dao.cargarCompras1();
-
-    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-    modelo.setRowCount(0); // limpia la tabla
-
-    for (Compra c : compras) {
-        modelo.addRow(new Object[]{
-            c.getId(),
-            c.getNombreCliente() + " " + c.getApellidoCliente(),
-            c.getNumeroDocumento(),
-            c.getMetodoPago(),
-            c.getFechaCompra(),
-            c.getTotal(),
-            "Ver",
-            "PDF / Cancelar"
-        });
-    }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+       cargarTablaCompras();
+    }//GEN-LAST:event_btnCargarActionPerformed
 
     private void NActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NActionPerformed
         // TODO add your handling code here:
@@ -2486,6 +2553,15 @@ mostrarCarrito();
            C.setEchoChar('*');
         }
     }//GEN-LAST:event_MActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        new InicioSesion().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnBuscarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUserActionPerformed
+        filtrarUsuario();
+    }//GEN-LAST:event_btnBuscarUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2551,13 +2627,15 @@ mostrarCarrito();
     private javax.swing.JTextField TelefonoTxt;
     private javax.swing.JPanel Usuarios;
     private javax.swing.JButton btnBuscarCedula;
+    private javax.swing.JButton btnBuscarUser;
+    private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnEliminarUsuario;
     private javax.swing.JButton btnFecha;
+    private javax.swing.JButton btnGuardarProducto;
     private javax.swing.JButton btnMostrarUsuarios;
     private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox chkMostrar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
@@ -2567,7 +2645,6 @@ mostrarCarrito();
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
@@ -2631,11 +2708,12 @@ mostrarCarrito();
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPasswordField setContrasena;
     private javax.swing.JSpinner spinnerCantidad;
-    private javax.swing.JTable tabla;
+    private javax.swing.JTable tablaHistorial;
     private javax.swing.JTable tablaProductos;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField textApellidos;
     private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField txtBuscarDocumento;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCorreo;
@@ -2662,39 +2740,8 @@ mostrarCarrito();
         ComboRol.setSelectedIndex(-1);             // Deselecciona cualquier opción
     }
 
-    /*private void cargarUsuarios() {
-       EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConfiguracionBd");
-    EntityManager em = emf.createEntityManager();
-
-    try {
-        List<Usuario> listaUsuarios = em.createQuery("SELECT u FROM Usuarios u", Usuario.class).getResultList();
-
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(new Object[] {
-            "Código", "Nombres", "Apellidos", "Tipo Doc", "N° Documento", "Correo", "Teléfono", "Rol"
-        });
-
-        for (Usuario u : listaUsuarios) {
-            modelo.addRow(new Object[] {
-                u.getCodigo(),
-                u.getNombres(),
-                u.getApellidos(),
-                u.getTipoDocumento(),
-                u.getNumeroDocumento(),
-                u.getCorreo(),
-                u.getTelefono(),
-                u.getRol().toString()
-            });
-        }
-
-        tablaUsuarios.setModel(modelo);
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al cargar los usuarios: " + e.getMessage());
-    } finally {
-        em.close();
-        emf.close();
-    }
-    }*/
+    
+       
     private GestionProductos productoSeleccionado = null;
 
     private void limpiarCampos2() {

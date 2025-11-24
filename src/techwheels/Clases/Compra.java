@@ -2,6 +2,7 @@
 
 package techwheels.Clases;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ public class Compra{
     private String fecha;
     private double subtotal;
     private double total;
+    private String estado;
     
     public Compra() {
     }
@@ -30,7 +32,9 @@ public class Compra{
     public Compra(String nombreCliente,String apellidoCliente,  String tipoDocumento, String numeroDocumento,
                   String metodoPago, List<CarritoTemp> productos, String direccion,  String fecha, double subtotal, double total) {
         
-        this.id = UUID.randomUUID().toString();
+        this.id =  "COMPRA-" 
+         + LocalDate.now().toString().replace("-", "") + "-"
+         + UUID.randomUUID().toString().substring(0, 10).toUpperCase();
         this.nombreCliente = nombreCliente;
         this.apellidoCliente = apellidoCliente;
         this.tipoDocumento = tipoDocumento;
@@ -41,6 +45,7 @@ public class Compra{
         // Calcular subtotal y total al construir
         this.subtotal = calcularSubtotal();
         this.total = this.subtotal; // Aquí puedes agregar lógica para impuestos o descuentos
+        this.estado = "ACTIVA"; 
     }
 
     // Getters y setters
@@ -141,5 +146,13 @@ public class Compra{
             }
         }
         return subtotal;
+    }
+     
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

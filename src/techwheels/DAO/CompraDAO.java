@@ -29,18 +29,17 @@ public class CompraDAO {
      private List<Compra> compra;
      
        private List<Compra> cargarCompras() {
-      List<Compra> lista = new ArrayList<>();
       try (Reader reader = new FileReader(archivoCompras)) {
-        Gson gson = new Gson();
-        Compra[] compras = gson.fromJson(reader, Compra[].class);
-        if (compras != null) {
-            lista = new ArrayList<>(Arrays.asList(compras)); 
-        }
-    } catch (IOException e) {
-        System.out.println("⚠ No se encontró el archivo: " + archivoCompras);
+
+        Type listType = new TypeToken<List<Compra>>(){}.getType();
+        List<Compra> compras = gson.fromJson(reader, listType);
+
+        return compras != null ? compras : new ArrayList<>();
+
+    } catch (Exception e) {
         e.printStackTrace();
+        return new ArrayList<>();
     }
-    return lista;
 }
        public List<Compra> listarCompras() {
         return cargarCompras();
@@ -88,7 +87,7 @@ public class CompraDAO {
         return null; // No encontrada
     }
         
-       public boolean cancelarCompra(String idCompra) {
+       /*public boolean cancelarCompra(String idCompra) {
         List<Compra> compras = cargarCompras();
 
         boolean eliminada = compras.removeIf(c -> c.getId().equals(idCompra));
@@ -103,19 +102,66 @@ public class CompraDAO {
         }
 
         return eliminada;
+    }*/
+    
+    //Cambia el estado de la compra de "ACTIVA" a "CANCELADA"
+    public boolean cancelarCompra(String idCompra) {
+        List<Compra> compras = cargarCompras();
+
+        for (Compra c : compras) {
+            if (c.getId().equals(idCompra)) {
+                c.setEstado("CANCELADA");  // 🔥 cambia estado en vez de eliminar
+                break;
+            }
+        }
+
+        try (FileWriter writer = new FileWriter(archivoCompras)) {
+            gson.toJson(compras, writer);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
     public List<Compra> cargarCompras1() {
-    try (Reader reader = new FileReader(archivoCompras)) {
+        try (Reader reader = new FileReader(archivoCompras)) {
 
-        Type listType = new TypeToken<List<Compra>>() {}.getType();
-        List<Compra> compras = gson.fromJson(reader, listType);
+            Type listType = new TypeToken<List<Compra>>() {
+            }.getType();
+            List<Compra> compras = gson.fromJson(reader, listType);
 
-        return compras != null ? compras : new ArrayList<>();
+            return compras != null ? compras : new ArrayList<>();
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        return new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
-}
+    
+    //  Lista compras canceladas para admnistrador
+    public List<Compra> listarCanceladas() {
+        List<Compra> todas = listarCompras();
+        List<Compra> canceladas = new ArrayList<>();
+
+        for (Compra c : todas) {
+            if ("CANCELADA".equalsIgnoreCase(c.getEstado())) {
+                canceladas.add(c);
+            }
+        }
+        return canceladas;
+    }
+    
+    
+    public List<Compra> listarCanceladasUsuario() {
+        List<Compra> usuario = cargarComprasDeUsuario();
+        List<Compra> canceladas = new ArrayList<>();
+
+        for (Compra c : usuario) {
+            if ("CANCELADA".equalsIgnoreCase(c.getEstado())) {
+                canceladas.add(c);
+            }
+        }
+        return canceladas;
+    }
 
 }

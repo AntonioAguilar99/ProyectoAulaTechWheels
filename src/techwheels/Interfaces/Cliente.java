@@ -4,6 +4,7 @@
  */
 package techwheels.Interfaces;
 
+import Controller.Sesion;
 import java.awt.Color;
 import techwheels.Clases.Usuario;
 
@@ -25,7 +26,7 @@ public class Cliente extends javax.swing.JFrame {
     public Cliente(Usuario usuario) {
         initComponents();
         setLocationRelativeTo(this);
-          this.usuarioLogueado = usuario;
+        this.usuarioLogueado = Sesion.usuarioActual; 
         
     }
 
@@ -208,12 +209,12 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_RealizarCompraBtnTxtMouseExited
 
     private void RealizarCompraBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RealizarCompraBtnTxtMouseClicked
-       new RealizarCompra(usuarioLogueado).setVisible(true);
+       new RealizarCompra(Sesion.usuarioActual).setVisible(true);
        this.dispose();
     }//GEN-LAST:event_RealizarCompraBtnTxtMouseClicked
 
     private void HistorialDeComprasBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HistorialDeComprasBtnTxtMouseClicked
-        new HistorialCompras().setVisible(true);
+        new HistorialCompras(Sesion.usuarioActual).setVisible(true);
          this.dispose();
     }//GEN-LAST:event_HistorialDeComprasBtnTxtMouseClicked
 

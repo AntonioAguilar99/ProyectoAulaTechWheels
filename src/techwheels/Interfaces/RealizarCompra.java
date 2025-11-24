@@ -20,6 +20,7 @@ import techwheels.Clases.Enumeraciones.GenerarFactura;
 import techwheels.Clases.Usuario;
 import techwheels.DAO.CarritoDAO;
 import techwheels.DAO.CompraDAO;
+import techwheels.DAO.ProductosDAO;
 
 
 
@@ -37,14 +38,11 @@ public class RealizarCompra extends javax.swing.JFrame {
     private Compra compraActual;
    
     private CarritoDAO carritoDAO = new CarritoDAO();
-            
-
+           
     
     public RealizarCompra() {
         initComponents();
-        setLocationRelativeTo(this);
-       
-               
+        setLocationRelativeTo(this);   
     }
     
      public RealizarCompra(Usuario usuario) {
@@ -113,6 +111,8 @@ public class RealizarCompra extends javax.swing.JFrame {
             c.getPrecioProducto(),
             c.getCantidad()
         });
+        
+        
     }
 
     TablaProductos.setModel(modelo);
@@ -544,13 +544,19 @@ public class RealizarCompra extends javax.swing.JFrame {
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
    int fila =  TablaProductos.getSelectedRow();
    if (fila != -1) {
+       
+        int cantidad = (int) spinnerCantidad.getValue();
+        
+        if (cantidad <= 0) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una cantidad mayor a 0.");
+            return;
+        }
         String nombre = TablaProductos.getValueAt(fila, 0).toString();
         String descripcion = TablaProductos.getValueAt(fila, 1).toString();
         String marca = TablaProductos.getValueAt(fila, 2).toString();
         String categoria = TablaProductos.getValueAt(fila, 3).toString();
         double precio = Double.parseDouble(TablaProductos.getValueAt(fila, 4).toString());
-        int cantidad = (int)spinnerCantidad.getValue();
-        
+       
         
 
         CarritoTemp item = new CarritoTemp(nombre, descripcion, marca, categoria, precio, cantidad);
@@ -597,7 +603,44 @@ public class RealizarCompra extends javax.swing.JFrame {
     String tipoDoc = txtTipoDocumento.getText();
     String numeroDoc = txtNumeroDocumento.getText();
     String metodoPago = (String)ComboMetodoPago.getSelectedItem();
+    // Validación de método de pago seleccionado 
+      if (metodoPago.equals("Selecciona")) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un método de pago.");
+            return;
+        }
+
+// Validación según método de pago
+        switch (metodoPago) {
+            case "Tarjeta":
+                String numeroTarjeta = JOptionPane.showInputDialog(this, "Ingrese el número de tarjeta:");
+
+                if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Debe ingresar un número de tarjeta.");
+                    return;
+                }
+
+                if (!numeroTarjeta.matches("\\d{16}")) {
+                    JOptionPane.showMessageDialog(this, "La tarjeta debe tener 16 dígitos numéricos.");
+                    return;
+                }
+
+                JOptionPane.showMessageDialog(this,
+                        "Pago realizado exitosamente con tarjeta terminada en " + numeroTarjeta.substring(12));
+                break;
+
+            case "Contra Entrega":
+                if (txtDireccion.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Debe ingresar una dirección para contra entrega.");
+                    return;
+                }
+                break;
+
+            case "Efectivo":
+                // No requiere validaciones extra
+                break;
+        }
     String fecha = txtFecha.getText();
+    
     String direccion = txtDireccion.getText();
     
     double subtotal = 0;
@@ -622,10 +665,20 @@ public class RealizarCompra extends javax.swing.JFrame {
                 numeroTarjeta.substring(Math.max(0, numeroTarjeta.length() - 4)) + ".");
     }
       
+     
+  
     Compra compra = new Compra(nombre, apellido, tipoDoc, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
     compraDAO.guardarCompra(compra);
     compraActual = compra;
+    
+    // 4. DESCONTAR INVENTARIO ANTES DE CREAR LA COMPRA
+    ProductosDAO productosDAO = new ProductosDAO();
+    boolean inventarioOK = productosDAO.descontarInventario(carrito);
 
+    if (!inventarioOK) {
+        return; // No seguir si no hay stock suficiente
+    }
+ 
 
     carritoDAO.vaciarCarrito();
     JOptionPane.showMessageDialog(this, "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());

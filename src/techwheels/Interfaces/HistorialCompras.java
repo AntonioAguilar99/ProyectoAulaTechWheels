@@ -38,24 +38,35 @@ public class HistorialCompras extends javax.swing.JFrame {
      * Creates new form HistorialCompras
      */
     private DefaultTableModel modelo;
+    private Usuario usuario;
     
     public HistorialCompras() {
         initComponents();
-         configurarTabla();
-         cargarTablaCompras();
+        setLocationRelativeTo(this);
+        configurarTabla();
+        cargarTablaCompras();
     }
+    
+    public HistorialCompras(Usuario u) {
+        initComponents();
+        setLocationRelativeTo(this);
+        this.usuario = u;
+        configurarTabla();
+        cargarTablaCompras();
+    }
+
     
     private void configurarTabla() {
 
     String[] columnas = {
         "ID", "Cliente", "Documento", "Método Pago", "Fecha",
-        "Total", "Productos", "Acciones"
+        "Total","Estado", "Productos", "Acciones"
     };
 
     modelo = new DefaultTableModel(columnas, 0) {
         @Override
         public boolean isCellEditable(int row, int col) {
-            return col == 6 || col == 7; // Solo botones
+            return col == 7 || col == 8; // Solo botones
         }
     };
 
@@ -121,6 +132,7 @@ public class HistorialCompras extends javax.swing.JFrame {
                 c.getMetodoPago(),
                 c.getFechaCompra(),
                 c.getTotal(),
+                c.getEstado(),
                 "Ver",
                 "PDF / Cancelar"
             });
@@ -293,13 +305,20 @@ public class HistorialCompras extends javax.swing.JFrame {
 
             // ------------ CANCELAR ----------------
             if (cancelClicked) {
+                Compra compra = dao.buscarCompraPorId(id);
+
+                if (compra.getEstado().equalsIgnoreCase("CANCELADA")) {
+                    JOptionPane.showMessageDialog(null, "Esta compra ya está cancelada.");
+                    return "PDF / Cancelar";
+                }
+
                 int confirm = JOptionPane.showConfirmDialog(
                         null,
                         "¿Seguro que deseas cancelar esta compra?",
                         "Confirmar",
                         JOptionPane.YES_NO_OPTION
                 );
-
+                
                 if (confirm == JOptionPane.YES_OPTION) {
                     dao.cancelarCompra(id);
                     cargarTablaCompras();
@@ -383,7 +402,7 @@ public class HistorialCompras extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalirActionPerformed
-         new Cliente().setVisible(true);
+         new Cliente(Sesion.usuarioActual).setVisible(true);
          this.dispose();
 // TODO add your handling code here:
     }//GEN-LAST:event_BtnSalirActionPerformed
