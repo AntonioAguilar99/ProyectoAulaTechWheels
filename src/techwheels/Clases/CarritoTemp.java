@@ -24,7 +24,7 @@ public class CarritoTemp  {
 
     public CarritoTemp(String nombreProducto, String descripcionProducto, String marcaProducto,String categoriaProducto, double precioProducto, int cantidad) {
        
-       
+        this.id = null;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
         this.marcaProducto = marcaProducto;

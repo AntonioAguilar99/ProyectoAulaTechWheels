@@ -478,6 +478,10 @@ class ButtonEditorAcciones extends DefaultCellEditor {
         this.row = row;
         pdfClicked = false;
         cancelClicked = false;
+        
+         // --- Aquí controlamos la visibilidad del botón cancelar ---
+            String estado = tablaHistorial.getValueAt(row, 6).toString(); // suponiendo que la columna 3 es "Estado"
+            btnCancelar.setVisible(!estado.equalsIgnoreCase("CANCELADA"));
         return panel;
     }
 
@@ -2217,13 +2221,17 @@ if (fila >= 0) {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
    int fila =  TablaProductos.getSelectedRow();
    if (fila != -1) {
-        String nombre = TablaProductos.getValueAt(fila, 0).toString();
-        String descripcion = TablaProductos.getValueAt(fila, 1).toString();
-        String marca = TablaProductos.getValueAt(fila, 2).toString();
-        String categoria = TablaProductos.getValueAt(fila, 3).toString();
-        double precio = Double.parseDouble(TablaProductos.getValueAt(fila, 4).toString());
-        int cantidad = (int)spinnerCantidad.getValue();
-        
+       
+       // Convertir la fila visible a fila del modelo
+       
+       String nombre = TablaProductos.getValueAt(fila, 0).toString();
+       String descripcion = TablaProductos.getValueAt(fila, 1).toString();
+       String marca = TablaProductos.getValueAt(fila, 2).toString();
+       String categoria = TablaProductos.getValueAt(fila, 3).toString();
+       double precio = Double.parseDouble(TablaProductos.getValueAt(fila, 4).toString());
+       
+       int cantidad = (int) spinnerCantidad.getValue();
+
         
 
         CarritoTemp item = new CarritoTemp(nombre, descripcion, marca, categoria, precio, cantidad);
@@ -2323,7 +2331,7 @@ if (fila >= 0) {
                     + numeroTarjeta.substring(Math.max(0, numeroTarjeta.length() - 4)) + ".");
 
         }
-
+       
         Compra compra = new Compra(nombre, apellido, tipoD, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
         compraDAO.guardarCompra(compra);
         compraActual = compra;

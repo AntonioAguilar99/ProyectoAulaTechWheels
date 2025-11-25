@@ -13,7 +13,9 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import techwheels.Clases.CarritoTemp;
 import techwheels.Clases.Compra;
 import techwheels.Clases.Enumeraciones.GenerarFactura;
@@ -21,6 +23,7 @@ import techwheels.Clases.Usuario;
 import techwheels.DAO.CarritoDAO;
 import techwheels.DAO.CompraDAO;
 import techwheels.DAO.ProductosDAO;
+
 
 
 
@@ -37,20 +40,28 @@ public class RealizarCompra extends javax.swing.JFrame {
     private Usuario usuarioActual;
     private Compra compraActual;
    
+    private TableRowSorter<DefaultTableModel> sorter;
+   private InventarioController inventarioController = new InventarioController();
     private CarritoDAO carritoDAO = new CarritoDAO();
            
     
     public RealizarCompra() {
+        this.inventarioController = new InventarioController(); 
         initComponents();
         setLocationRelativeTo(this);   
+      
     }
     
      public RealizarCompra(Usuario usuario) {
+        this.inventarioController = new InventarioController(); 
         initComponents();
         setLocationRelativeTo(this);
         this.usuarioActual = usuario;
         cargarDatosUsuario();
-       
+         DefaultTableModel modelo = (DefaultTableModel) TablaProductos.getModel();
+         sorter = new TableRowSorter<>(modelo);
+         TablaProductos.setRowSorter(sorter);
+
         
     }
      
@@ -66,9 +77,32 @@ public class RealizarCompra extends javax.swing.JFrame {
         product.setRowCount(0);
         InventarioController inventario = new InventarioController();
         inventario.cargarProductos(product);
+        
+        // ← OCULTAR COLUMNA DEL ID
+        TablaProductos.getColumnModel().getColumn(0).setMinWidth(0);
+        TablaProductos.getColumnModel().getColumn(0).setMaxWidth(0);
+        TablaProductos.getColumnModel().getColumn(0).setWidth(0);
 
     }
-    
+      private void filtrarUsuario() {
+        if (sorter == null) {
+            // Inicializar sorter si es nulo
+            DefaultTableModel modelo = (DefaultTableModel) TablaProductos.getModel();
+            sorter = new TableRowSorter<>(modelo);
+            TablaProductos.setRowSorter(sorter);
+        }
+
+        String categoria = txtCategoria.getText().trim();
+
+        if (categoria.isEmpty()) {
+            sorter.setRowFilter(null); // quitar filtro
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + categoria, 3));
+            // 4 es el índice de columna Documento (ajusta si es otro)
+        }
+    }
+
+
      private void mostrarCalendario() {
      JDateChooser datechooser = new JDateChooser();
      datechooser.setDateFormatString("dd/MM/yyyy");
@@ -172,6 +206,9 @@ public class RealizarCompra extends javax.swing.JFrame {
         spinnerCantidad = new javax.swing.JSpinner();
         jLabel15 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        txtCategoria = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnRefrescar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -230,7 +267,7 @@ public class RealizarCompra extends javax.swing.JFrame {
         TablaProductos.setName(""); // NOI18N
         jScrollPane1.setViewportView(TablaProductos);
 
-        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(557, 117, 680, 509));
+        PanelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, 680, 460));
 
         btnQuitar.setBackground(new java.awt.Color(192, 221, 245));
         btnQuitar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -474,6 +511,8 @@ public class RealizarCompra extends javax.swing.JFrame {
 
         PanelPrincipal.add(btnDescargarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 530, 220, 50));
 
+        btnCargarProductos.setBackground(new java.awt.Color(255, 255, 255));
+        btnCargarProductos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(228, 226, 226)));
         btnCargarProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCargarProductosMouseClicked(evt);
@@ -486,20 +525,20 @@ public class RealizarCompra extends javax.swing.JFrame {
         btnCargarProductos.setLayout(btnCargarProductosLayout);
         btnCargarProductosLayout.setHorizontalGroup(
             btnCargarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCargarProductosLayout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+            .addGroup(btnCargarProductosLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         btnCargarProductosLayout.setVerticalGroup(
             btnCargarProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnCargarProductosLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel14)
                 .addContainerGap())
         );
 
-        PanelPrincipal.add(btnCargarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 80, 130, 30));
+        PanelPrincipal.add(btnCargarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 120, 130, 30));
 
         ComboMetodoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona", "Efectivo", "Contra Entrega", "Tarjeta" }));
         ComboMetodoPago.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 223, 223)));
@@ -521,6 +560,23 @@ public class RealizarCompra extends javax.swing.JFrame {
             }
         });
         PanelPrincipal.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 20, -1, -1));
+        PanelPrincipal.add(txtCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, 440, 30));
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 120, -1, 30));
+
+        btnRefrescar.setText("Refrescar Tabla");
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
+        PanelPrincipal.add(btnRefrescar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 20, -1, -1));
 
         getContentPane().add(PanelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1251, 726));
 
@@ -542,31 +598,32 @@ public class RealizarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFechaActionPerformed
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
-   int fila =  TablaProductos.getSelectedRow();
-   if (fila != -1) {
-       
-        int cantidad = (int) spinnerCantidad.getValue();
-        
-        if (cantidad <= 0) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una cantidad mayor a 0.");
-            return;
+        int fila = TablaProductos.getSelectedRow();
+        if (fila != -1) {
+
+            int cantidad = (int) spinnerCantidad.getValue();
+
+            if (cantidad <= 0) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una cantidad mayor a 0.");
+                return;
+            }
+// Convertir
+
+           
+            String nombre = TablaProductos.getValueAt(fila, 0).toString();
+            String descripcion = TablaProductos.getValueAt(fila, 1).toString();
+            String marca = TablaProductos.getValueAt(fila, 2).toString();
+            String categoria = TablaProductos.getValueAt(fila, 3).toString();
+            double precio = Double.parseDouble(TablaProductos.getValueAt(fila, 4).toString());
+            
+            CarritoTemp item = new CarritoTemp(nombre, descripcion, marca, categoria, precio, cantidad);
+            carritoDAO.agregarProductoCarrito(item);
+
+            JOptionPane.showMessageDialog(this, "Producto agregado al carrito");
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un producto");
         }
-        String nombre = TablaProductos.getValueAt(fila, 0).toString();
-        String descripcion = TablaProductos.getValueAt(fila, 1).toString();
-        String marca = TablaProductos.getValueAt(fila, 2).toString();
-        String categoria = TablaProductos.getValueAt(fila, 3).toString();
-        double precio = Double.parseDouble(TablaProductos.getValueAt(fila, 4).toString());
-       
-        
 
-        CarritoTemp item = new CarritoTemp(nombre, descripcion, marca, categoria, precio, cantidad);
-        carritoDAO.agregarProductoCarrito(item);
-
-        JOptionPane.showMessageDialog(this, "Producto agregado al carrito");
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione un producto");
-    }
-   
 
    
         // TODO add your handling code here:
@@ -664,22 +721,12 @@ public class RealizarCompra extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Pago realizado exitosamente con tarjeta terminada en " +
                 numeroTarjeta.substring(Math.max(0, numeroTarjeta.length() - 4)) + ".");
     }
-      
-     
-  
+   
     Compra compra = new Compra(nombre, apellido, tipoDoc, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
     compraDAO.guardarCompra(compra);
     compraActual = compra;
     
-    // 4. DESCONTAR INVENTARIO ANTES DE CREAR LA COMPRA
-    ProductosDAO productosDAO = new ProductosDAO();
-    boolean inventarioOK = productosDAO.descontarInventario(carrito);
-
-    if (!inventarioOK) {
-        return; // No seguir si no hay stock suficiente
-    }
- 
-
+    
     carritoDAO.vaciarCarrito();
     JOptionPane.showMessageDialog(this, "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());
      
@@ -703,6 +750,15 @@ public class RealizarCompra extends javax.swing.JFrame {
         new Cliente().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+       filtrarUsuario();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+       sorter.setRowFilter(null); // ← limpia el filtro
+     inventarioController.refrescarTabla((DefaultTableModel) TablaProductos.getModel());
+    }//GEN-LAST:event_btnRefrescarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -747,11 +803,13 @@ public class RealizarCompra extends javax.swing.JFrame {
     private javax.swing.JPanel PanelPrincipal;
     private javax.swing.JTable TablaProductos;
     private javax.swing.JPanel btnAgregar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JPanel btnCargarProductos;
     private javax.swing.JPanel btnDescargarFactura;
     private javax.swing.JButton btnFecha;
     private javax.swing.JPanel btnQuitar;
     private javax.swing.JPanel btnRealizarCompra;
+    private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel btnVerCarrito;
     private javax.swing.JLabel jLabel1;
@@ -776,6 +834,7 @@ public class RealizarCompra extends javax.swing.JFrame {
     private javax.swing.JSpinner spinnerCantidad;
     private javax.swing.JTextField textApellidos;
     private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNumeroDocumento;

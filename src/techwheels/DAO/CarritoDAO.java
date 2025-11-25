@@ -22,7 +22,10 @@ import techwheels.Clases.CarritoTemp;
  * @author ASUS
  */
 public class CarritoDAO {
+    
+     // Ruta del archivo JSON donde se guardarán los productos del carrito
       private final String archivoCarrito = new File("src/DATA/Carrito.json").getAbsolutePath();
+     // Librería Gson para convertir objetos a JSON y viceversa
      private final Gson gson = new Gson();//Libreria
      private List<CarritoTemp> carrito;
      
@@ -32,10 +35,10 @@ public class CarritoDAO {
         try {
             File file = new File(archivoCarrito);
             
-            if (!file.exists()) {
-                file.getParentFile().mkdirs();
-                file.createNewFile();
-                guardarCarrito(new ArrayList<>());
+            if (!file.exists()) {// Si el archivo no existe, se crea la carpeta y el archivo vacío
+                file.getParentFile().mkdirs(); // Crea la carpeta si no existe
+                file.createNewFile();  // Crea el archivo
+                guardarCarrito(new ArrayList<>());// Inicializa con un carrito vacío
             }
 
             try (Reader reader = new FileReader(file)) {
@@ -81,6 +84,7 @@ public class CarritoDAO {
     
       public  void eliminarProductoCarrito(String nombreProducto) {
         List<CarritoTemp> carrito = cargarCarrito();
+        // Elimina cualquier producto que coincida con el nombre
         carrito.removeIf(p -> p.getNombreProducto().equalsIgnoreCase(nombreProducto));
         guardarCarrito(carrito);
     }

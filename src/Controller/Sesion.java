@@ -11,5 +11,8 @@ import techwheels.Clases.Usuario;
  * @author ASUS
  */
 public class Sesion {
+      // Variable estática que almacena el usuario que ha iniciado sesión
      public static Usuario usuarioActual;
+     
+     //La clase Sesion funciona como un almacén global del usuario que está logueado.
 }

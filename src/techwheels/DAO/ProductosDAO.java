@@ -88,13 +88,20 @@ public class ProductosDAO {
 
         for (CarritoTemp item : carrito) {
 
-            String idBuscar = item.getId();   // ← ahora es long
+            String nombre = item.getNombreProducto();
+            String marca = item.getMarcaProducto();
+            String categoria = item.getCategoriaProducto();
             int cantidadVendida = item.getCantidad();
+
+            boolean encontrado = false;
 
             for (GestionProductos p : productos) {
 
-                if (p.getId() != null && p.getId().equals(idBuscar)) {
-                   
+                if (p.getNombre().equals(nombre)
+                        && p.getMarca().equals(marca)
+                        && p.getCategoria().equals(categoria)) {
+
+                    encontrado = true;
 
                     int stockActual = p.getCantidad();
 
@@ -107,7 +114,14 @@ public class ProductosDAO {
                     // RESTAR INVENTARIO
                     p.setCantidad(stockActual - cantidadVendida);
                     cambios = true;
+                    break; // salir del loop interno
                 }
+            }
+
+            if (!encontrado) {
+                JOptionPane.showMessageDialog(null,
+                        "El producto no se encuentra en el inventario: " + nombre);
+                return false; // detener compra
             }
         }
 
@@ -118,6 +132,5 @@ public class ProductosDAO {
 
         return true;
     }
-    
-       
+
 }

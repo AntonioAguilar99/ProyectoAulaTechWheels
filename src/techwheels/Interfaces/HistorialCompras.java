@@ -282,9 +282,14 @@ public class HistorialCompras extends javax.swing.JFrame {
             this.row = row;
             pdfClicked = false;
             cancelClicked = false;
+            
+            // --- Aquí controlamos la visibilidad del botón cancelar ---
+            String estado = tabla.getValueAt(row, 6).toString(); // suponiendo que la columna 3 es "Estado"
+            btnCancelar.setVisible(!estado.equalsIgnoreCase("CANCELADA"));
+
             return panel;
         }
-        
+
         
         @Override
         public Object getCellEditorValue() {

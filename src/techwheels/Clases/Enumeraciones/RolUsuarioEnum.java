@@ -8,6 +8,9 @@ package techwheels.Clases.Enumeraciones;
  *
  * @author anton
  */
+
+//Un enum es un tipo especial que define un conjunto limitado de valores posibles.
+//Aquí define que un usuario solo puede ser ADMINISTRADOR o CLIENTE, evitando errores como escribir mal el rol en algún momento.
 public enum RolUsuarioEnum {
     ADMINISTRADOR,
     CLIENTE

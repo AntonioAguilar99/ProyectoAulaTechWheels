@@ -106,15 +106,22 @@ public class CompraDAO {
     
     //Cambia el estado de la compra de "ACTIVA" a "CANCELADA"
     public boolean cancelarCompra(String idCompra) {
+
+        // Se carga el archivo JSON y se convierte en una LISTA de objetos Compra.
+        // → La estructura de datos principal es: List<Compra>
         List<Compra> compras = cargarCompras();
 
         for (Compra c : compras) {
             if (c.getId().equals(idCompra)) {
-                c.setEstado("CANCELADA");  // 🔥 cambia estado en vez de eliminar
+                // En lugar de eliminar la compra, solo se modifica su estado.
+                // Esto es posible porque List<Compra> es una estructura dinámica y editable.
+                c.setEstado("CANCELADA");  // cambia estado en vez de eliminar
                 break;
             }
         }
 
+        // Se guarda la LISTA nuevamente en el archivo JSON.
+        // Gson convierte la lista a un arreglo JSON.
         try (FileWriter writer = new FileWriter(archivoCompras)) {
             gson.toJson(compras, writer);
             return true;
@@ -125,11 +132,16 @@ public class CompraDAO {
     }
     public List<Compra> cargarCompras1() {
         try (Reader reader = new FileReader(archivoCompras)) {
-
+            // Se especifica el tipo List<Compra> para que Gson convierta el JSON correctamente.
+            // JSON (arreglo) → List<Compra>
             Type listType = new TypeToken<List<Compra>>() {
             }.getType();
+            
+             // Se deserializa el archivo JSON y se convierte en una LISTA.
+             // Esta lista es la estructura de datos que usa el programa internamente.
             List<Compra> compras = gson.fromJson(reader, listType);
 
+             // Si el archivo está vacío o tiene null, se devuelve una lista vacía.
             return compras != null ? compras : new ArrayList<>();
 
         } catch (Exception e) {
@@ -137,7 +149,7 @@ public class CompraDAO {
             return new ArrayList<>();
         }
     }
-    
+
     //  Lista compras canceladas para admnistrador
     public List<Compra> listarCanceladas() {
         List<Compra> todas = listarCompras();

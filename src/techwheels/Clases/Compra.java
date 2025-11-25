@@ -33,8 +33,9 @@ public class Compra{
                   String metodoPago, List<CarritoTemp> productos, String direccion,  String fecha, double subtotal, double total) {
         
         this.id =  "COMPRA-" 
-         + LocalDate.now().toString().replace("-", "") + "-"
-         + UUID.randomUUID().toString().substring(0, 10).toUpperCase();
+         + LocalDate.now().toString().replace("-", "") + "-"//// Obtiene la fecha actual (año-mes-día), / Elimina los guiones, dejando "YYYYMMDD"
+         + UUID.randomUUID().toString().substring(0, 10).toUpperCase();// // Genera un identificador único aleatorio,  Convierte el UUID a texto, // Toma solo los primeros 10 caracteres, // Convierte las letras a mayúsculas
+        
         this.nombreCliente = nombreCliente;
         this.apellidoCliente = apellidoCliente;
         this.tipoDocumento = tipoDocumento;
