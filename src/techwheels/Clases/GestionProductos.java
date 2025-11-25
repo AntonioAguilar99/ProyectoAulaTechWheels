@@ -14,10 +14,12 @@ public class GestionProductos {
     private int cantidad;
     private String categoria;
     private double precio;
+      private int vendido;
     private boolean disponible;
+   
 
     public GestionProductos(String id, String nombre, String entregadoPor, String recibidoPor,
-                            String descripcion, String marca, int cantidad, String categoria, double precio) {
+                            String descripcion, String marca, int cantidad, String categoria, double precio, int vendido) {
         this.id = id;
         this.nombre = nombre;
         this.entregadoPor = entregadoPor;
@@ -27,7 +29,9 @@ public class GestionProductos {
         this.cantidad = cantidad;
         this.categoria = categoria;
         this.precio = precio;
+        this.vendido = vendido = 0;
         this.disponible = cantidad > 0;
+       
 
         // Fecha actual en formato legible
         this.fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -45,7 +49,7 @@ public class GestionProductos {
     public String getCategoria() { return categoria; }
     public double getPrecio() { return precio; }
     public boolean isDisponible() { return disponible; }
-
+    public int getVendido() { return vendido; }
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
         this.disponible = cantidad > 0;
@@ -53,5 +57,9 @@ public class GestionProductos {
 
     public void setId(String toString) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setVendido(int vendido) { // 🔥 NUEVO SET
+        this.vendido = vendido;
     }
 }

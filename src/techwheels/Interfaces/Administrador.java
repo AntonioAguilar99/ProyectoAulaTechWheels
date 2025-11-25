@@ -90,6 +90,7 @@ public class Administrador extends javax.swing.JFrame {
                 txtCategoria.setText(tablaProductos.getValueAt(fila, 7).toString());
                 txtCantidad.setText(tablaProductos.getValueAt(fila, 8).toString());
                 txtPrecio.setText(tablaProductos.getValueAt(fila, 9).toString());
+                
             }
         });
 
@@ -171,13 +172,13 @@ public class Administrador extends javax.swing.JFrame {
     
     // ✅ Configurar tabla para que tenga scroll y columnas correctas
     private void configurarTabla() {
-        String[] columnas = {"ID", "Fecha", "Nombre del producto", "Entregado por", "Recibido por", "Descripción", "Marca", "Categoria", "Cantidad", "Precio"};
+        String[] columnas = {"ID", "Fecha", "Nombre del producto", "Entregado por", "Recibido por", "Descripción", "Marca", "Categoria", "Cantidad", "Precio","Vendido"};
         DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
         tablaProductos.setModel(modelo);
         tablaProductos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // para usar scrollbars
 
         // Ajustar ancho de cada columna
-        int[] anchos = {50, 125, 200, 150, 150, 450, 100, 100, 100, 100};
+        int[] anchos = {50, 125, 200, 150, 150, 450, 100, 100, 100, 100,100};
         for (int i = 0; i < tablaProductos.getColumnCount(); i++) {
             tablaProductos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -203,7 +204,8 @@ public class Administrador extends javax.swing.JFrame {
             p.getMarca(),
             p.getCategoria(),
             p.getCantidad(),
-            p.getPrecio()
+            p.getPrecio(),
+            p.getVendido()
         });
     }
 }
@@ -2079,7 +2081,7 @@ class ButtonEditorAcciones extends DefaultCellEditor {
 
     // ✅ Si todo está correcto, crear y guardar el producto
     GestionProductos nuevo = new GestionProductos(id, nombre, entregado, recibido,
-            descripcion, marca, cantidad, categoria, precio);
+            descripcion, marca, cantidad, categoria, precio, 0);
 
     dao.agregarProducto(nuevo);
     mostrarProductos();
@@ -2170,7 +2172,7 @@ if (fila >= 0) {
         // ✅ Si todo está correcto, actualizar el producto
         GestionProductos actualizado = new GestionProductos(
             id, nombre, entregado, recibido,
-            descripcion, marca, cantidad, categoria, precio
+            descripcion, marca, cantidad, categoria, precio, 0
         );
 
         dao.actualizarProducto(actualizado);
@@ -2270,75 +2272,94 @@ if (fila >= 0) {
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        CompraDAO compraDAO = new CompraDAO();
-        List<CarritoTemp> carrito = carritoDAO.listarcarrito();
-        if (carrito.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "El carrito está vacío. Agrega productos antes de realizar la compra.");
-            return;
-        }
-
-        String nombre = textNombre.getText();
-        String apellido = textApellidos.getText();
-        String tipoD = (String) ComboTD.getSelectedItem();
-        String numeroDoc = txtNumero.getText();
-        String metodoPago = (String) ComboMetodoPago.getSelectedItem();
-        String fecha = txtFecha.getText();
-        String direccion = txtDireccion.getText();
-
-//  Validaciones  
-        if (nombre.isEmpty() || apellido.isEmpty() || numeroDoc.isEmpty() || fecha.isEmpty() || direccion.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos obligatorios.");
-            return;
-        }
-
-// Validación: Nombre solo letras
-        if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
-            JOptionPane.showMessageDialog(null, "El nombre solo debe contener letras.");
-            return;
-        }
-
-// Validación: Apellido solo letras
-        if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
-            JOptionPane.showMessageDialog(null, "El apellido solo debe contener letras.");
-            return;
-        }
-
-// Validación: Documento solo números
-        if (!numeroDoc.matches("\\d+")) {
-            JOptionPane.showMessageDialog(null, "El número de documento solo debe contener números.");
-            return;
-        }
-
-        double subtotal = 0;
-        for (CarritoTemp p : carrito) {
-            subtotal += p.getPrecioProducto() * p.getCantidad();
-        }
-
-        double total = 0.0;
-        for (int i = 0; i < TablaProductos.getRowCount(); i++) {
-            double precio = Double.parseDouble(TablaProductos.getValueAt(i, 4).toString());
-            int cantidad = Integer.parseInt(TablaProductos.getValueAt(i, 5).toString());
-            total += precio * cantidad;
-        }
-
-        if ("Tarjeta".equalsIgnoreCase(metodoPago)) {
-            String numeroTarjeta = JOptionPane.showInputDialog(this, "Ingrese el número de tarjeta:");
-            if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Pago cancelado.");
-                return;
-            }
-            JOptionPane.showMessageDialog(this, "Pago realizado exitosamente con tarjeta terminada en "
-                    + numeroTarjeta.substring(Math.max(0, numeroTarjeta.length() - 4)) + ".");
-
-        }
        
-        Compra compra = new Compra(nombre, apellido, tipoD, numeroDoc, metodoPago, carrito, direccion, fecha, subtotal, total);
-        compraDAO.guardarCompra(compra);
-        compraActual = compra;
+    CompraDAO compraDAO = new CompraDAO();
+    ProductosDAO inventarioDAO = new  ProductosDAO ();
+    List<CarritoTemp> carrito = carritoDAO.listarcarrito();
 
-        carritoDAO.vaciarCarrito();
-        JOptionPane.showMessageDialog(this, "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());
-        limpiarCampos2();
+    // Validar carrito vacío
+    if (carrito.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "El carrito está vacío.");
+        return;
+    }
+
+    // Datos del usuario
+    String nombre = textNombre.getText().trim();
+    String apellido = textApellidos.getText().trim();
+    String tipoD = (String) ComboTD.getSelectedItem();
+    String numeroDoc = txtNumero.getText().trim();
+    String metodoPago = (String) ComboMetodoPago.getSelectedItem();
+    String fecha = txtFecha.getText().trim();
+    String direccion = txtDireccion.getText().trim();
+
+    // Validación de campos vacíos
+    if (nombre.isEmpty() || apellido.isEmpty() || numeroDoc.isEmpty() ||
+        fecha.isEmpty() || direccion.isEmpty()) {
+
+        JOptionPane.showMessageDialog(this, "Por favor complete todos los campos obligatorios.");
+        return;
+    }
+
+    // Validación solo letras
+    if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+        JOptionPane.showMessageDialog(this, "El nombre solo debe contener letras.");
+        return;
+    }
+
+    if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+        JOptionPane.showMessageDialog(this, "El apellido solo debe contener letras.");
+        return;
+    }
+
+    // Validar números
+    if (!numeroDoc.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "El número de documento solo debe contener números.");
+        return;
+    }
+
+    // Calcular subtotales
+    double subtotal = 0;
+    for (CarritoTemp p : carrito) {
+        subtotal += p.getPrecioProducto() * p.getCantidad();
+    }
+
+    // Pago con tarjeta
+    if ("Tarjeta".equalsIgnoreCase(metodoPago)) {
+        String numeroTarjeta = JOptionPane.showInputDialog(this, "Ingrese el número de tarjeta:");
+
+        if (numeroTarjeta == null || numeroTarjeta.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Pago cancelado.");
+            return;
+        }
+    }
+
+    // 1️⃣ DESCONTAR INVENTARIO ANTES DE GUARDAR LA COMPRA
+    boolean stockOk = inventarioDAO.descontarInventario(carrito);
+
+    if (!stockOk) {
+        // Si no hay stock → cancelar compra
+        return;
+    }
+
+    // 2️⃣ CREAR OBJETO COMPRA
+    Compra compra = new Compra(
+            nombre, apellido, tipoD, numeroDoc,
+            metodoPago, carrito, direccion, fecha,
+            subtotal, subtotal
+    );
+
+    // 3️⃣ GUARDAR COMPRA
+    compraDAO.guardarCompra(compra);
+
+    // 4️⃣ VACIAR CARRITO
+    carritoDAO.vaciarCarrito();
+
+    // 5️⃣ MENSAJE FINAL
+    JOptionPane.showMessageDialog(this,
+            "Compra realizada con éxito.\nTotal pagado: $" + compra.getTotal());
+
+    // 6️⃣ LIMPIAR CAMPOS
+    limpiarCampos2();
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void BuscarUsuarioCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarUsuarioCedulaActionPerformed
@@ -2464,12 +2485,13 @@ if (fila >= 0) {
     for (Compra c : compras) {
         if (c.getNumeroDocumento() != null && c.getNumeroDocumento().equals(cedula)) {
             modelo.addRow(new Object[]{
-                c.getId(),
+              c.getId(),
                 c.getNombreCliente() + " " + c.getApellidoCliente(),
-                c.getNumeroDocumento(),
+                c.getTipoDocumento() + " " + c.getNumeroDocumento(),
                 c.getMetodoPago(),
                 c.getFechaCompra(),
                 c.getTotal(),
+                c.getEstado(),
                 "Ver",
                 "PDF / Cancelar"
             });

@@ -81,56 +81,60 @@ public class ProductosDAO {
         guardarProductos(productos);
     }
     
-    public boolean descontarInventario(List<CarritoTemp> carrito) {
+public boolean descontarInventario(List<CarritoTemp> carrito) {
 
-        List<GestionProductos> productos = listarProductos();
-        boolean cambios = false;
+    List<GestionProductos> productos = listarProductos();
+    boolean cambios = false;
 
-        for (CarritoTemp item : carrito) {
+    for (CarritoTemp item : carrito) {
 
-            String nombre = item.getNombreProducto();
-            String marca = item.getMarcaProducto();
-            String categoria = item.getCategoriaProducto();
-            int cantidadVendida = item.getCantidad();
+        String nombre = item.getNombreProducto();
+        String marca = item.getMarcaProducto();
+        String categoria = item.getCategoriaProducto();
+        int cantidadVendida = item.getCantidad();
 
-            boolean encontrado = false;
+        boolean encontrado = false;
 
-            for (GestionProductos p : productos) {
+        for (GestionProductos p : productos) {
 
-                if (p.getNombre().equals(nombre)
-                        && p.getMarca().equals(marca)
-                        && p.getCategoria().equals(categoria)) {
+            if (p.getNombre().equals(nombre)
+                    && p.getMarca().equals(marca)
+                    && p.getCategoria().equals(categoria)) {
 
-                    encontrado = true;
+                encontrado = true;
 
-                    int stockActual = p.getCantidad();
+                int stockActual = p.getCantidad();
+                int vendidosActual = p.getVendido();
 
-                    if (stockActual < cantidadVendida) {
-                        JOptionPane.showMessageDialog(null,
-                                "No hay suficiente inventario del producto: " + p.getNombre());
-                        return false; // detener compra
-                    }
-
-                    // RESTAR INVENTARIO
-                    p.setCantidad(stockActual - cantidadVendida);
-                    cambios = true;
-                    break; // salir del loop interno
+                if (stockActual < cantidadVendida) {
+                    JOptionPane.showMessageDialog(null,
+                            "No hay suficiente inventario del producto: " + p.getNombre());
+                    return false;
                 }
-            }
 
-            if (!encontrado) {
-                JOptionPane.showMessageDialog(null,
-                        "El producto no se encuentra en el inventario: " + nombre);
-                return false; // detener compra
+                // ❗ RESTAR INVENTARIO
+                p.setCantidad(stockActual - cantidadVendida);
+
+                // ❗ SUMAR A "VENDIDO"
+                p.setVendido(vendidosActual + cantidadVendida);
+
+                cambios = true;
+                break;
             }
         }
 
-        // Guardar cambios solo si se descontó algo
-        if (cambios) {
-            guardarProductos(productos);
+        if (!encontrado) {
+            JOptionPane.showMessageDialog(null,
+                    "El producto no se encuentra en el inventario: " + nombre);
+            return false;
         }
-
-        return true;
     }
+
+    if (cambios) {
+        guardarProductos(productos);
+    }
+
+    return true;
+}
 
 }

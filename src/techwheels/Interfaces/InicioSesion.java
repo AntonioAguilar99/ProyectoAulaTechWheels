@@ -253,7 +253,7 @@ public class InicioSesion extends javax.swing.JFrame {
 
         if (usuario != null) {
            if (usuario.getRol() == RolUsuarioEnum.ADMINISTRADOR) {
-               new Administrador(usuario).setVisible(true);
+               new Administrador().setVisible(true);
                this.dispose();
             } else {
               new Cliente(usuario).setVisible(true);
